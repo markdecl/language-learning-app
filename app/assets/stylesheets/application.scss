@@ -1,0 +1,26 @@
+@import "bootstrap/scss/bootstrap";
+
+html, body {
+  height: 100%;
+  background-color: #EBF2FA;
+}
+
+.navbar {
+  // background-color: #197278;
+}
+
+.main-container {
+  margin: 50px;
+}
+
+.my-decks-container {
+  min-height: 100%;
+  height: 100%;
+}
+
+.deck-row {
+  // padding: 10px;
+  border-radius: 10px;
+  height: 100px;
+  background-color: #FE5F55;
+}

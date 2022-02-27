@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  next_review: 2022-02-24 17:39:17
+  due_to_learn: 2022-02-24 17:39:17
+  learnt: false
+
+two:
+  next_review: 2022-02-24 17:39:17
+  due_to_learn: 2022-02-24 17:39:17
+  learnt: false

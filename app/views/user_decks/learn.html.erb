@@ -1,0 +1,47 @@
+
+<h1><%= @user_deck.language %></h1>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= link_to "Learn", user_flashcards_path %>
+<%# <br>
+<%# <br>
+<%# <%= link_to "Review", user_flashcards_path %>
+<%# <br>
+<%# <br>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= @user_deck_flashcards %>
+
+<%# <%= @flashcards %>
+<%# <br>
+<%# <br> %>
+
+<%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
+
+<% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>
+<% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
+<%= 'Front:' %>
+<%= top_flashcard.front %>
+<br>
+<%= 'Back:' %>
+<%= top_flashcard.back %>
+<br>
+<button>Incorrect</button>
+<%# Edit current user_flashcard with new due review and redirect back to this view %>
+
+<button>Correct</button>
+<%# Edit current user_flashcard with new due review and redirect back to this view %>
+
+
+<%# <% @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.each do |user_deck_flashcard| %>
+  <%# <%= user_deck_flashcard.learnt %>
+<%#   <%= user_deck_flashcard.due_to_learn %>
+<%#   <%= user_deck_flashcard.flashcard_id %>
+<%#   <%= @flashcards.ids %>
+<%#   <% @flashcards.where(id: user_deck_flashcard.flashcard_id).each do |flashcard| %>
+<%#     <%= flashcard.front %>
+<%#     <%= flashcard.back %>
+<%#   <% end %>
+<%# <% end %>
