@@ -16,6 +16,9 @@
     <div class="col">
       Learnt
     </div>
+    <div class="col">
+      Next Review
+    </div>
   </div>
   <% @user_deck_flashcards.each do | user_deck_flashcard | %>
     <div class="row">
@@ -31,6 +34,9 @@
       </div>
       <div class="col">
         <%= user_deck_flashcard.learnt %>
+      </div>
+      <div class="col">
+        <%= user_deck_flashcard.next_review %>
       </div>
       <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
     </div>
