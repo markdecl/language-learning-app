@@ -27,9 +27,12 @@ Flashcard.destroy_all
 
 puts "Creating flashcards..."
 
-among_other_things = { front: "among other things", back: "среди прочего" }
+flashcards = [
+  {front: "among other things", back: "среди прочего"},
+  {front: "no", back: "нет"}
+]
 
-[among_other_things].each do |attributes|
+flashcards.each do |attributes|
   flashcard = Flashcard.create!(attributes)
   puts "Created #{flashcard.front}"
 end
@@ -41,9 +44,12 @@ UserFlashcard.destroy_all
 
 puts "Creating user flashcards..."
 
-first_user_flashcard = { user_deck_id: 1, flashcard_id: 1, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false }
+user_flashcards = [
+  {user_deck_id: 1, flashcard_id: 1, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false},
+  {user_deck_id: 1, flashcard_id: 2, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+]
 
-[first_user_flashcard].each do |attributes|
+user_flashcards.each do |attributes|
   user_flashcard = UserFlashcard.create!(attributes)
   puts "Created #{user_flashcard}"
 end

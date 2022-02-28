@@ -8,7 +8,15 @@ Rails.application.routes.draw do
   # end
 
   resources :user_decks
+  get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
+
   resources :user_flashcards
+  resources :user_flashcards do
+    member do
+      patch :update_learn
+      # patch :update_learn, to: "user_decks#learn", as: :update_learn
+    end
+  end
 
   # get "/user_decks", to: "user_decks#index", as: :user_decks
   # get    "/user_decks/:id",      to: "user_decks#show",   as: :user_deck

@@ -49,7 +49,10 @@
                 <%= user_deck.language %>
               </div>
               <div class="col">
-                <%# <%= link_to "Learn", user_deck_path(user_deck.id) %>
+                <%= link_to "Show", user_deck_path(user_deck.id) %>
+              </div>
+              <div class="col">
+                <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
                 <button type="button" class="btn btn-warning">Learn</button>
               </div>
               <div class="col">

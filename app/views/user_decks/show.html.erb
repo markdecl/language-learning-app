@@ -1,0 +1,38 @@
+
+<%= link_to "Back to My Decks", user_decks_path %>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      id
+    </div>
+    <div class="col">
+      English
+    </div>
+    <div class="col">
+      <%= @user_deck.language %>
+    </div>
+    <div class="col">
+      Learnt
+    </div>
+  </div>
+  <% @user_deck_flashcards.each do | user_deck_flashcard | %>
+    <div class="row">
+      <%= user_deck_flashcard.id %>
+      <div class="col">
+        <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+      </div>
+      <div class="col">
+        <%= flashcard.front %>
+      </div>
+      <div class="col">
+        <%= flashcard.back %>
+      </div>
+      <div class="col">
+        <%= user_deck_flashcard.learnt %>
+      </div>
+      <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
+    </div>
+  <% end %>
+</div>
