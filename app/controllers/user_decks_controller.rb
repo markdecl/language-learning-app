@@ -20,7 +20,9 @@ class UserDecksController < ApplicationController
   def review
     @user_deck = UserDeck.find(params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
-    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
+    # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
+    # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt = ? AND next_review < ?", @user_deck.id, true, Time.now)
     @flashcards = Flashcard.all
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
   end

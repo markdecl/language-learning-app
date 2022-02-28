@@ -9,11 +9,13 @@ Rails.application.routes.draw do
 
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
+  get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
 
   resources :user_flashcards
   resources :user_flashcards do
     member do
       patch :update_learn
+      patch :update_review
       # patch :update_learn, to: "user_decks#learn", as: :update_learn
     end
   end

@@ -1,0 +1,58 @@
+
+<h1><%= @user_deck.language %></h1>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= link_to "Learn", user_flashcards_path %>
+<%# <br>
+<%# <br>
+<%# <%= link_to "Review", user_flashcards_path %>
+<%# <br>
+<%# <br>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= @user_deck_flashcards %>
+
+<%# <%= @flashcards %>
+<%# <br>
+<%# <br> %>
+
+<%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
+
+<%= link_to "Back to My Decks", user_decks_path %>
+<br>
+<br>
+
+<% if @user_deck_flashcards.any? %>
+<%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
+  <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
+  <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
+  <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
+  <%= 'Front:' %>
+  <%= top_flashcard.front %>
+  <br>
+  <%= 'Back:' %>
+  <%= top_flashcard.back %>
+  <br>
+  <button>Incorrect</button>
+  <%# Edit current user_flashcard with new due review and redirect back to this view %>
+
+  <button>Correct</button>
+  <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+  <%# Edit current user_flashcard with new due review and redirect back to this view %>
+<% else %>
+  <h2>All caught up!</h2>
+<% end %>
+
+
+<%# <% @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.each do |user_deck_flashcard| %>
+  <%# <%= user_deck_flashcard.learnt %>
+<%#   <%= user_deck_flashcard.due_to_learn %>
+<%#   <%= user_deck_flashcard.flashcard_id %>
+<%#   <%= @flashcards.ids %>
+<%#   <% @flashcards.where(id: user_deck_flashcard.flashcard_id).each do |flashcard| %>
+<%#     <%= flashcard.front %>
+<%#     <%= flashcard.back %>
+<%#   <% end %>
+<%# <% end %>
