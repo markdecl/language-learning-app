@@ -27,16 +27,44 @@ Flashcard.destroy_all
 
 puts "Creating flashcards..."
 
-flashcards = [
-  {front: "among other things", back: "среди прочего"},
-  {front: "no", back: "нет"}
-]
+# flashcards = [
+#   {front: "among other things", back: "среди прочего"},
+#   {front: "no", back: "нет"}
+# ]
 
-flashcards.each do |attributes|
-  flashcard = Flashcard.create!(attributes)
-  puts "Created #{flashcard.front}"
+# flashcards.each do |attributes|
+#   flashcard = Flashcard.create!(attributes)
+#   puts "Created #{flashcard.front}"
+# end
+
+require 'csv'
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'russian_flashcards.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'utf-8') # check that this encoding works with cyrillic
+csv.each do |row|
+  # puts row.to_hash
+  puts row
+
+  t = Flashcard.new
+  t.scaled_frequency = row['scaled_frequency']
+  t.frequency_rank = row['frequency_rank']
+  t.term_collocation_test = row['term_collocation_test']
+  t.question = row['question']
+  t.answer = row['answer']
+  t.term_with_accent = row['term_with_accent']
+  t.distinguishing_grammatical_info = row['distinguishing_grammatical_info']
+  t.conjugation_and_declension_info = row['conjugation_and_declension_info']
+  t.top_three_grammatical_collocations = row['top_three_grammatical_collocations']
+  t.definition_being_tested = row['definition_being_tested']
+  t.other_definitions = row['other_definitions']
+  t.source_sentence = row['source_sentence']
+  t.target_sentence = row['target_sentence']
+  t.sentence_source = row['sentence_source']
+  t.other_sentence_pairs = row['other_sentence_pairs']
+  t.other_sentence_pairs_both = row['other_sentence_pairs_both']
+  t.save
+  puts "#{t.question}, #{t.answer} saved"
 end
-
 
 
 puts "Cleaning database..."
@@ -44,14 +72,24 @@ UserFlashcard.destroy_all
 
 puts "Creating user flashcards..."
 
+# puts UserDeck.all
+# puts Flashcard.all
+
 user_flashcards = [
   {user_deck_id: 1, flashcard_id: 1, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false},
   {user_deck_id: 1, flashcard_id: 2, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
 ]
 
-user_flashcards.each do |attributes|
+(1..10).each do |flashcard_id|
+  attributes = {user_deck_id: 1, flashcard_id: flashcard_id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
   user_flashcard = UserFlashcard.create!(attributes)
   puts "Created #{user_flashcard}"
 end
+
+# user_flashcards.each do |attributes|
+#   user_flashcard = UserFlashcard.create!(attributes)
+#   puts "Created #{user_flashcard}"
+# end
+
 
 puts "Finished!"

@@ -27,10 +27,10 @@
         <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
       </div>
       <div class="col">
-        <%= flashcard.front %>
+        <%= flashcard.question %>
       </div>
       <div class="col">
-        <%= flashcard.back %>
+        <%= flashcard.answer %>
       </div>
       <div class="col">
         <%= user_deck_flashcard.learnt %>

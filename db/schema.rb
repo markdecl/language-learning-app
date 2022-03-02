@@ -10,13 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_180240) do
+ActiveRecord::Schema.define(version: 2022_03_01_234459) do
 
   create_table "flashcards", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "front"
     t.string "back"
+    t.integer "scaled_frequency"
+    t.integer "frequency_rank"
+    t.string "term_collocation_test"
+    t.string "question"
+    t.string "answer"
+    t.string "term_with_accent"
+    t.string "distinguishing_grammatical_info"
+    t.string "conjugation_and_declension_info"
+    t.string "top_three_grammatical_collocations"
+    t.string "definition_being_tested"
+    t.string "other_definitions"
+    t.string "source_sentence"
+    t.string "target_sentence"
+    t.string "sentence_source"
+    t.string "other_sentence_pairs"
+    t.string "other_sentence_pairs_both"
   end
 
   create_table "user_decks", force: :cascade do |t|

@@ -29,18 +29,26 @@
   <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
-  <%= 'Front:' %>
-  <%= top_flashcard.front %>
-  <br>
-  <%= 'Back:' %>
-  <%= top_flashcard.back %>
+
+  <div class="row">
+    <div class="col">
+      <%= 'Question:' %>
+      <%= top_flashcard.question %>
+      <br>
+    </div>
+    <div class="col">
+      <%= 'Answer:' %>
+      <%= top_flashcard.answer %>
+    </div>
+  </div>
+
   <br>
   <button>Incorrect</button>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
 
   <button>Correct</button>
+  <%# Edit current user_flashcard with new due review and redirect back to this view: %>
   <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
-  <%# Edit current user_flashcard with new due review and redirect back to this view %>
 <% else %>
   <h2>All caught up!</h2>
 <% end %>

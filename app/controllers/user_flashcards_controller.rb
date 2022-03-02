@@ -23,7 +23,7 @@ class UserFlashcardsController < ApplicationController
     # params[:next_review] = Time.now # add spaced repetition algorithm to this
 
     @user_flashcard.update(next_review: Time.now) # set as current date and time
-    # @user_flashcard.update(next_review: Time.now + (24*60*60)) # adds 1 day
+    # @user_flashcard.update(next_review: Time.now + (24*60*60)) # add 1 day
 
     # redirect_to @user_deck
     # user_deck = UserDeck.find(params[:user_deck_id])
@@ -33,7 +33,7 @@ class UserFlashcardsController < ApplicationController
   def update_review
     @user_flashcard = UserFlashcard.find(params[:id])
     next_review = @user_flashcard.next_review
-    @user_flashcard.update(next_review: next_review + (24*60*60)) # adds 1 day)
+    @user_flashcard.update(next_review: next_review + (24*60*60)) # add 1 day)
     # redirect_to user_flashcard_path(@user_flashcard)
     redirect_to user_deck_review_path(@user_flashcard.user_deck_id)
   end

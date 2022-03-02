@@ -28,11 +28,11 @@
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
-  <%= 'Front:' %>
-  <%= top_flashcard.front %>
+  <%= 'Question:' %>
+  <%= top_flashcard.question %>
   <br>
-  <%= 'Back:' %>
-  <%= top_flashcard.back %>
+  <%= 'Answer:' %>
+  <%= top_flashcard.answer %>
   <br>
   <button>Incorrect</button>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
