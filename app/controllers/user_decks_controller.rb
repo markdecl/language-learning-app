@@ -1,6 +1,7 @@
 class UserDecksController < ApplicationController
   def index
     @user_decks = UserDeck.all
+    @user_flashcards = UserFlashcard.all
   end
 
   # def number_to_review
@@ -31,14 +32,14 @@ class UserDecksController < ApplicationController
     @flashcards = Flashcard.all
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
   end
-  helper_method :review # dunno if this should be here
+  helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb
 
-  def show_answer
-    respond_to do |format|
-      format.html {}
-      format.js
-    end
-  end
+  # def show_answer
+  # respond_to do |format|
+  #     format.html {}
+  #     format.js
+  #   end
+  # end
 
   # def edit_review_time
   # end

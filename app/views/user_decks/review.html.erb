@@ -33,41 +33,62 @@
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
 
-  <div class="container">
-    <div class="row flashcard-row border bg-light">
-      <div class="col flashcard-col border bg-light">
-        <%= top_flashcard.question %>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-front">
+        <div class="row flashcard-row">
+          <%= top_flashcard.question %>
+        </div>
+        <div class="row flashcard-row">
+        </div>
+        <div class="row flashcard-row">
+          <%# I think this should be target_sentence instead when it's testing Eng->Ru %>
+          <%= sanitize top_flashcard.source_sentence %>
+        </div>
+        <div class="row flashcard-row">
+        </div>
       </div>
-      <div class="col flashcard-col border bg-light">
-        <%= top_flashcard.answer %>
+      <div class="flashcard-back">
+        <div class="row flashcard-row">
+          <%= top_flashcard.question %>
+        </div>
+        <div class="row flashcard-row">
+          <%= top_flashcard.answer %>
+        </div>
+        <div class="row flashcard-row">
+          <%= sanitize top_flashcard.source_sentence %>
+        </div>
+        <div class="row flashcard-row">
+          <%= sanitize top_flashcard.target_sentence %>
+        </div>
       </div>
-    </div>
-    <div class="row flashcard-row border bg-light">
-      <div class="col flashcard-col border bg-light">
-        <%= top_flashcard.source_sentence %>
-      </div>
-      <div class="col flashcard-col border bg-light">
-        <%= top_flashcard.target_sentence %>
+      <div class="row flashcard-row border bg-light">
       </div>
     </div>
   </div>
     <div class= "row answer-buttons-row justify-content-center">
       <div class="row g-2">
         <%# <div class="col offset-md-3"> %>
-          <%= link_to "Show answer", show_answer_path, remote: true %>
+          <button id="show-answer-button">
+            Show answer
+          </button>
+          <%= javascript_pack_tag 'flipFlashcard' %>
 
-          <div id="content">
-          </div>
+          <%#= link_to "Show answer", show_answer_path, remote: true %>
+
+          <%# <div id="content"> %>
+          <%# </div> %>
 
         <%# </div> %>
       </div>
       <div class="row">
         <%# <div class="col offset-md-3"> %>
-          <button>Incorrect</button>
+          <%# <button>Incorrect</button> %>
+          <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %>
           <%# Edit current user_flashcard with new due review and redirect back to this view %>
           <%# <button>Correct</button> %>
           <%# Edit current user_flashcard with new due review and redirect back to this view: %>
-          <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+          <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
           <%# <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
         <%# </div> %>
       </div>

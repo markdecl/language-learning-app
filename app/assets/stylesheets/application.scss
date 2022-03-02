@@ -6,8 +6,8 @@ $green: #197278;
 
 html, body {
   height: 100%;
-  padding-left: 100px;
-  padding-right: 100px;
+  // padding-left: 100px;
+  // padding-right: 100px;
   background-color: #EBF2FA;
   font-family: 'Cabin', sans-serif;
 }
@@ -29,24 +29,88 @@ html, body {
   border-radius: 10px;
   height: 150px;
   background-color: #FE5F55;
+  box-shadow: 2px 2px 4px 2px #888888;
 }
 
 .deck-row-top-buffer {
   margin-top: 10px;
 }
 
+
+// review.html.erb
+
 // .flashcard-row, .flashcard-col {
 //   border: 1px solid;
 // }
 
+.flashcard-container {
+  position: relative;
+  // width: 700px;
+  width: 100%;
+  // height: 433px;
+  height: 50%;
+}
+
+.flashcard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.75s ease;
+  transform-style: preserve-3d;
+}
+
+// .flashcard:hover {
+.flashcard.flipped {
+  transform: rotateX(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  /* This part controls the flip */
+  backface-visibility: hidden;
+
+  /* Size and card position */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  /* Appearance */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+}
+
+.flashcard-front {
+  background-color: #fff;
+  color: #333;
+}
+
+.flashcard-back {
+  transform: rotateX(180deg);
+
+  background-color: #fff;
+  color: #333;
+}
+
+.row { // I think this is overriding the Bootstrap row default styling
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 .answer-buttons-row {
   margin-top: 50px;
+  width: 100%;
 }
 
 .col-centered{
 float: none;
 margin: 0 auto;
 }
+
+
+// /layouts
 
 .navbar {
   // background-color: #197278;

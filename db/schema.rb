@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_01_234459) do
+ActiveRecord::Schema.define(version: 2022_03_02_152924) do
 
   create_table "flashcards", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2022_03_01_234459) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_deck_id"
     t.integer "flashcard_id"
+    t.datetime "previous_review"
+    t.boolean "lapsed"
     t.index ["flashcard_id"], name: "index_user_flashcards_on_flashcard_id"
     t.index ["user_deck_id"], name: "index_user_flashcards_on_user_deck_id"
   end

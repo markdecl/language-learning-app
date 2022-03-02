@@ -5,6 +5,11 @@
 <div class='container my-decks-container'>
 
   <% @user_decks.each do | user_deck | %>
+
+    <% user_deck_flashcards_count = @user_flashcards.where(user_deck_id: user_deck.id).count %>
+    <% user_deck_flashcards_learnt_count = @user_flashcards.where("user_deck_id = ? AND learnt = ?", user_deck.id, true).count %>
+    <% user_deck_flashcards_to_review_count = @user_flashcards.where("user_deck_id = ? AND learnt = ? AND next_review < ?", user_deck.id, true, Time.now).count %>
+
     <div class="row deck-row">
       <div class="col-sm-2 deck-img-col">
         <%# add deck image here: %>
@@ -17,7 +22,16 @@
           <%# </div> %>
         </div>
         <div class="row">
-          ***Progress bar***
+          <%# ***Progress bar*** %>
+          <%= user_deck_flashcards_learnt_count %>
+          /
+          <%= user_deck_flashcards_count %>
+          <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
+          <%# if user_deck_flashcards_learnt_count > 0 and user_deck_flashcards_count > 0 %>
+            <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
+          <%# else %>
+            <%# 0% %>
+          <%# end %>
         </div>
         <div class="row justify-content-end">
           <div class="col-sm-2">
@@ -33,6 +47,7 @@
             <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
             <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
             <%= button_to "Review", user_deck_review_path(user_deck.id), method: :get %>
+            <%= user_deck_flashcards_to_review_count %>
             <%# helper method to return count of review pile %>
             <%# <%= button_to "Review", user_deck_review_path(user_deck.id) %>
             <%# <button type="button" class="btn btn-danger">Review</button> %>

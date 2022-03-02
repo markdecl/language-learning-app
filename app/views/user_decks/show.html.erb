@@ -1,5 +1,8 @@
 
 <div class="container">
+
+  <h2>Cards in deck: <%= @user_deck_flashcards.count %></h2>
+
   <div class="row">
     <div class="col">
       <b>id</b>
@@ -12,6 +15,9 @@
     </div>
     <div class="col">
       <b>Learnt</b>
+    </div>
+    <div class="col">
+      <b>Previous Review</b>
     </div>
     <div class="col">
       <b>Next Review</b>
@@ -37,7 +43,27 @@
           <%= user_deck_flashcard.learnt %>
         </div>
         <div class="col">
+          <%= user_deck_flashcard.previous_review %>
+        </div>
+        <div class="col">
           <%= user_deck_flashcard.next_review %>
+
+          <% time_difference = user_deck_flashcard.next_review - Time.now %>
+          <%# <%= DateTime.Today.AddDays(1) %>
+          <%# <%= time_difference %>
+          <% if user_deck_flashcard.next_review.past? %>
+            Due
+          <% elsif time_difference < (24 * 60 * 60) %>
+            <% if time_difference < (60 * 60) %>
+              Less than an hour
+            <% else %>
+              <%= (time_difference / (60 * 60)).round %> hour(s)
+            <% end %>
+          <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
+            Tomorrow
+          <% else %>
+            <%= user_deck_flashcard.next_review %>
+          <% end %>
         </div>
         <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
       </div>

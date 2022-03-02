@@ -75,12 +75,12 @@ puts "Creating user flashcards..."
 # puts UserDeck.all
 # puts Flashcard.all
 
-user_flashcards = [
-  {user_deck_id: 1, flashcard_id: 1, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false},
-  {user_deck_id: 1, flashcard_id: 2, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
-]
+# user_flashcards = [
+#   {user_deck_id: 1, flashcard_id: 1, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false},
+#   {user_deck_id: 1, flashcard_id: 2, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+# ]
 
-(1..10).each do |flashcard_id|
+(1..Flashcard.all.count).each do |flashcard_id|
   attributes = {user_deck_id: 1, flashcard_id: flashcard_id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
   user_flashcard = UserFlashcard.create!(attributes)
   puts "Created #{user_flashcard}"
