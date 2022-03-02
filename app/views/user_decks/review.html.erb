@@ -20,9 +20,9 @@
 
 <%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
 
-<%= link_to "Back to My Decks", user_decks_path %>
-<br>
-<br>
+<%# <%= link_to "Back to My Decks", user_decks_path %>
+<%# <br> %>
+<%# <br> %>
 
 <% if @user_deck_flashcards.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
@@ -34,39 +34,42 @@
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
 
   <div class="container">
-    <div class="row flashcard-row">
-      <div class="col flashcard-col">
+    <div class="row flashcard-row border bg-light">
+      <div class="col flashcard-col border bg-light">
         <%= top_flashcard.question %>
       </div>
-      <div class="col flashcard-col">
+      <div class="col flashcard-col border bg-light">
         <%= top_flashcard.answer %>
       </div>
     </div>
-    <div class="row flashcard-row">
-      <div class="col flashcard-col">
+    <div class="row flashcard-row border bg-light">
+      <div class="col flashcard-col border bg-light">
         <%= top_flashcard.source_sentence %>
       </div>
-      <div class="col flashcard-col">
+      <div class="col flashcard-col border bg-light">
         <%= top_flashcard.target_sentence %>
       </div>
     </div>
   </div>
-    <div class="row">
-      <div class="col offset-md-3">
-        <%= link_to "Show answer", show_answer_path, remote: true %>
+    <div class= "row answer-buttons-row justify-content-center">
+      <div class="row g-2">
+        <%# <div class="col offset-md-3"> %>
+          <%= link_to "Show answer", show_answer_path, remote: true %>
 
-        <div id="content">
-        </div>
+          <div id="content">
+          </div>
 
+        <%# </div> %>
       </div>
-    </div>
-    <div class="row">
-      <div class="col offset-md-3">
-        <button>Incorrect</button>
-        <%# Edit current user_flashcard with new due review and redirect back to this view %>
-        <button>Correct</button>
-        <%# Edit current user_flashcard with new due review and redirect back to this view: %>
-        <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+      <div class="row">
+        <%# <div class="col offset-md-3"> %>
+          <button>Incorrect</button>
+          <%# Edit current user_flashcard with new due review and redirect back to this view %>
+          <%# <button>Correct</button> %>
+          <%# Edit current user_flashcard with new due review and redirect back to this view: %>
+          <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+          <%# <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+        <%# </div> %>
       </div>
     </div>
   <br>

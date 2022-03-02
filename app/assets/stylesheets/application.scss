@@ -1,14 +1,15 @@
 @import "bootstrap/scss/bootstrap";
 
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
+
+$green: #197278;
+
 html, body {
   height: 100%;
   padding-left: 100px;
   padding-right: 100px;
   background-color: #EBF2FA;
-}
-
-.navbar {
-  // background-color: #197278;
+  font-family: 'Cabin', sans-serif;
 }
 
 .main-container {
@@ -34,11 +35,21 @@ html, body {
   margin-top: 10px;
 }
 
-.flashcard-row, .flashcard-col {
-  border: 1px solid;
+// .flashcard-row, .flashcard-col {
+//   border: 1px solid;
+// }
+
+.answer-buttons-row {
+  margin-top: 50px;
 }
 
 .col-centered{
 float: none;
 margin: 0 auto;
+}
+
+.navbar {
+  // background-color: #197278;
+  color: $green;
+  background-color: #197278;
 }

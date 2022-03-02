@@ -20,10 +20,6 @@
 
 <%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
 
-<%= link_to "Back to My Decks", user_decks_path %>
-<br>
-<br>
-
 <% if @user_deck_flashcards.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>

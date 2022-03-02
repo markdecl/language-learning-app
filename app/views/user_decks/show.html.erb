@@ -1,44 +1,45 @@
 
-<%= link_to "Back to My Decks", user_decks_path %>
-<br>
-<br>
 <div class="container">
   <div class="row">
     <div class="col">
-      id
+      <b>id</b>
     </div>
     <div class="col">
-      English
+      <b>English</b>
     </div>
     <div class="col">
-      <%= @user_deck.language %>
+      <b><%= @user_deck.language %></b>
     </div>
     <div class="col">
-      Learnt
+      <b>Learnt</b>
     </div>
     <div class="col">
-      Next Review
+      <b>Next Review</b>
     </div>
   </div>
   <% @user_deck_flashcards.each do | user_deck_flashcard | %>
-    <div class="row">
-      <%= user_deck_flashcard.id %>
-      <div class="col">
-        <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+    <% if user_deck_flashcard.learnt %>
+      <div class="row border bg-light" style="background-color:green;">
+    <% else %>
+      <div class="row border bg-light">
+    <% end %>
+        <%= user_deck_flashcard.id %>
+        <div class="col">
+          <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+        </div>
+        <div class="col">
+          <%= flashcard.question %>
+        </div>
+        <div class="col">
+          <%= flashcard.answer %>
+        </div>
+        <div class="col">
+          <%= user_deck_flashcard.learnt %>
+        </div>
+        <div class="col">
+          <%= user_deck_flashcard.next_review %>
+        </div>
+        <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
       </div>
-      <div class="col">
-        <%= flashcard.question %>
-      </div>
-      <div class="col">
-        <%= flashcard.answer %>
-      </div>
-      <div class="col">
-        <%= user_deck_flashcard.learnt %>
-      </div>
-      <div class="col">
-        <%= user_deck_flashcard.next_review %>
-      </div>
-      <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
-    </div>
   <% end %>
 </div>
