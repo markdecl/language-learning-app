@@ -2,6 +2,8 @@
 
 html, body {
   height: 100%;
+  padding-left: 100px;
+  padding-right: 100px;
   background-color: #EBF2FA;
 }
 
@@ -10,10 +12,13 @@ html, body {
 }
 
 .main-container {
-  margin: 50px;
 }
 
 .my-decks-container {
+  // margin: 50px;
+  margin-top: 50px;
+  // margin-left: 100px;
+  // margin-right: 100px;
   min-height: 100%;
   height: 100%;
 }
@@ -21,6 +26,19 @@ html, body {
 .deck-row {
   // padding: 10px;
   border-radius: 10px;
-  height: 100px;
+  height: 150px;
   background-color: #FE5F55;
+}
+
+.deck-row-top-buffer {
+  margin-top: 10px;
+}
+
+.flashcard-row, .flashcard-col {
+  border: 1px solid;
+}
+
+.col-centered{
+float: none;
+margin: 0 auto;
 }

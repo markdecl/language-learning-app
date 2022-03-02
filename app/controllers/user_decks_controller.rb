@@ -3,6 +3,11 @@ class UserDecksController < ApplicationController
     @user_decks = UserDeck.all
   end
 
+  # def number_to_review
+
+  # end
+  # helper_method :number_to_review
+
   def show
     @user_deck = UserDeck.find(params[:id])
     @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id)
@@ -25,6 +30,14 @@ class UserDecksController < ApplicationController
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt = ? AND next_review < ?", @user_deck.id, true, Time.now)
     @flashcards = Flashcard.all
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
+  end
+  helper_method :review # dunno if this should be here
+
+  def show_answer
+    respond_to do |format|
+      format.html {}
+      format.js
+    end
   end
 
   # def edit_review_time

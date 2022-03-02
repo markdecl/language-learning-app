@@ -27,28 +27,49 @@
 <% if @user_deck_flashcards.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
   <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
+
+  <h3>Left to review: <%= @user_deck_flashcards.count %></h3>
+
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
 
-  <div class="row">
-    <div class="col">
-      <%= 'Question:' %>
-      <%= top_flashcard.question %>
-      <br>
+  <div class="container">
+    <div class="row flashcard-row">
+      <div class="col flashcard-col">
+        <%= top_flashcard.question %>
+      </div>
+      <div class="col flashcard-col">
+        <%= top_flashcard.answer %>
+      </div>
     </div>
-    <div class="col">
-      <%= 'Answer:' %>
-      <%= top_flashcard.answer %>
+    <div class="row flashcard-row">
+      <div class="col flashcard-col">
+        <%= top_flashcard.source_sentence %>
+      </div>
+      <div class="col flashcard-col">
+        <%= top_flashcard.target_sentence %>
+      </div>
     </div>
   </div>
+    <div class="row">
+      <div class="col offset-md-3">
+        <%= link_to "Show answer", show_answer_path, remote: true %>
 
+        <div id="content">
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col offset-md-3">
+        <button>Incorrect</button>
+        <%# Edit current user_flashcard with new due review and redirect back to this view %>
+        <button>Correct</button>
+        <%# Edit current user_flashcard with new due review and redirect back to this view: %>
+        <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+      </div>
+    </div>
   <br>
-  <button>Incorrect</button>
-  <%# Edit current user_flashcard with new due review and redirect back to this view %>
-
-  <button>Correct</button>
-  <%# Edit current user_flashcard with new due review and redirect back to this view: %>
-  <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
 <% else %>
   <h2>All caught up!</h2>
 <% end %>

@@ -43,5 +43,6 @@ class UserFlashcardsController < ApplicationController
   def user_flashcard_params
     params.require(:user_flashcard)
   end
+  # ^ what does this do?
 
 end

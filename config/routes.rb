@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
+  get 'show_answer', to: 'user_decks#show_answer'
 
   resources :user_flashcards
   resources :user_flashcards do
