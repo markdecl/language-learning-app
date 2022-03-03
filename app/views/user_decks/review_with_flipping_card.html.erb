@@ -1,0 +1,120 @@
+
+<h1><%= @user_deck.language %></h1>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= link_to "Learn", user_flashcards_path %>
+<%# <br>
+<%# <br>
+<%# <%= link_to "Review", user_flashcards_path %>
+<%# <br>
+<%# <br>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= @user_deck_flashcards %>
+
+<%# <%= @flashcards %>
+<%# <br>
+<%# <br> %>
+
+<%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
+
+<%# <%= link_to "Back to My Decks", user_decks_path %>
+<%# <br> %>
+<%# <br> %>
+
+<% if @user_deck_flashcards.any? %>
+<%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
+  <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
+
+  <h3>Left to review: <%= @user_deck_flashcards.count %></h3>
+
+  <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
+  <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
+
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-front">
+        <div class="row flashcard-row">
+          <%#= top_flashcard.question %>
+          <%= sanitize top_flashcard.term_with_accent %>
+        </div>
+        <div class="row flashcard-row">
+          <%= sanitize top_flashcard.definition_being_tested %>
+        </div>
+        <div class="row flashcard-row">
+          <%# I think this should be target_sentence instead when it's testing Eng->Ru %>
+          <%= sanitize top_flashcard.source_sentence %>
+        </div>
+        <div class="row flashcard-row">
+        </div>
+      </div>
+      <div class="flashcard-back">
+        <div class="row flashcard-row">
+          <%= top_flashcard.question %>
+        </div>
+        <div class="row flashcard-row">
+          <%= top_flashcard.answer %>
+        </div>
+        <div class="row flashcard-row">
+          <%= sanitize top_flashcard.source_sentence %>
+        </div>
+        <div class="row flashcard-row">
+          <%= sanitize top_flashcard.target_sentence %>
+        </div>
+      </div>
+      <div class="row flashcard-row border bg-light">
+      </div>
+    </div>
+  </div>
+    <div class= "row answer-buttons-row justify-content-center">
+      <div class="row g-2">
+        <%# <div class="col offset-md-3"> %>
+          <button id="show-answer-button">
+            Show answer
+          </button>
+          <i class="fa-solid fa-eye"></i>
+          <%= javascript_pack_tag 'flipFlashcard' %>
+
+          <%#= link_to "Show answer", show_answer_path, remote: true %>
+
+          <%# <div id="content"> %>
+          <%# </div> %>
+
+        <%# </div> %>
+      </div>
+      <div class="row">
+        <%# <div class="col offset-md-3"> %>
+          <%# <button>Incorrect</button> %>
+          <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <%# Edit current user_flashcard with new due review and redirect back to this view %>
+          <%# <button>Correct</button> %>
+          <%# Edit current user_flashcard with new due review and redirect back to this view: %>
+          <%# <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
+          <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
+          <%= javascript_pack_tag 'correctAnswer' %>
+          <%# <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+        <%# </div> %>
+      </div>
+    </div>
+  <br>
+<% else %>
+  <div id="all-caught-up">
+    <i class="fa-solid fa-hot-tub-person"></i>
+    <h2>All caught up!</h2>
+  </div>
+<% end %>
+
+
+<%# <% @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.each do |user_deck_flashcard| %>
+  <%# <%= user_deck_flashcard.learnt %>
+<%#   <%= user_deck_flashcard.due_to_learn %>
+<%#   <%= user_deck_flashcard.flashcard_id %>
+<%#   <%= @flashcards.ids %>
+<%#   <% @flashcards.where(id: user_deck_flashcard.flashcard_id).each do |flashcard| %>
+<%#     <%= flashcard.front %>
+<%#     <%= flashcard.back %>
+<%#   <% end %>
+<%# <% end %>

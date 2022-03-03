@@ -17,6 +17,9 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <%= yield %>
+    <div class="page-container">
+      <%= yield %>
+    </div>
+    <%= render "layouts/footer" %>
   </body>
 </html>

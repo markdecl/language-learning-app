@@ -1,18 +1,68 @@
 @import "bootstrap/scss/bootstrap";
+@import "font-awesome";
 
+// Import fonts
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch&family=Merriweather&family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
 
+// Set color scheme
 $green: #197278;
+$yellow: #F7B32B;
+$red: #FE5F55;
+$gray: #EBF2FA;
 
 html, body {
   height: 100%;
   // padding-left: 100px;
   // padding-right: 100px;
-  background-color: #EBF2FA;
+  background-color: $gray;
   font-family: 'Cabin', sans-serif;
 }
 
+// /layouts
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 70px;
+  box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+  background: $green;
+  color: $gray;
+  font-size: 30px;
+}
+nav .navbar-nav li a, .navbar-brand {
+  color: white !important;
+  }
+
+nav .navbar-nav li a:hover, .navbar-brand:hover {
+  color: $yellow !important;
+  }
+
+.navbar-brand {
+  font-size: 40px;
+  font-family: 'Cabin Sketch', cursive;
+  font-weight: 700;
+}
+
+.page-footer {
+  background: $green;
+  color: $gray;
+}
+
+//-------
+// index.html.erb
+
 .main-container {
+}
+
+.page-container {
+  // margin: 50px;
+  margin-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  min-height: 70%;
+  // height: 100%;
 }
 
 .my-decks-container {
@@ -29,14 +79,80 @@ html, body {
   border-radius: 10px;
   height: 150px;
   background-color: #FE5F55;
-  box-shadow: 2px 2px 4px 2px #888888;
+  // box-shadow: 2px 2px 4px 2px #888888;
+  box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
 }
 
 .deck-row-top-buffer {
   margin-top: 10px;
 }
 
+.deck-img-col {
+  // text-align: center;
+  // justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.user_deck_img {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+
+  // display: block;
+  // width: 60%;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+.deck-button {
+  // padding: 10px 10px;
+}
+
+.deck-button:hover {
+  box-shadow: 0 10px 10px -10px rgba(0,0,0,.2);
+}
+
+#show-button {
+  background-color: $green;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#learn-button {
+  background-color: $yellow;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#review-button {
+  background-color: $red;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#review-button.reviews_due {
+  background-color: red;
+}
+
+//-------
 // review.html.erb
 
 // .flashcard-row, .flashcard-col {
@@ -48,15 +164,25 @@ html, body {
   // width: 700px;
   width: 100%;
   // height: 433px;
-  height: 50%;
+  height: 30%;
 }
 
 .flashcard {
   position: absolute;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   transition: all 0.75s ease;
   transform-style: preserve-3d;
+  // border-radius: 10px; // not working for some reason
+}
+
+.flashcard-definition {
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.flashcard-example-sentences {
+
 }
 
 // .flashcard:hover {
@@ -109,11 +235,10 @@ float: none;
 margin: 0 auto;
 }
 
-
-// /layouts
-
-.navbar {
-  // background-color: #197278;
-  color: $green;
-  background-color: #197278;
+#all-caught-up {
+  // justify-content: center;
+  // align-items: center;
+  text-align: center;
+  position: relative;
+  // height: 100%;
 }

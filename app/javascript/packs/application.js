@@ -8,6 +8,9 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+import "@fortawesome/fontawesome-free/css/all"
+
+
 // require("flip_flashcard")
 
 

@@ -23,8 +23,8 @@ class UserFlashcardsController < ApplicationController
     # params[:next_review] = Time.now
 
     @user_flashcard.update(previous_review: Time.now) # set as current date and time
-    # @user_flashcard.update(next_review: Time.now + (24*60*60)) # set as current date and time plus 1 day
-    @user_flashcard.update(next_review: Time.now + (60)) # set as current date and time plus 1 minute
+    @user_flashcard.update(next_review: Time.now + (24*60*60)) # set as current date and time plus 1 day
+    # @user_flashcard.update(next_review: Time.now + (60)) # set as current date and time plus 1 minute
 
     # redirect_to @user_deck
     # user_deck = UserDeck.find(params[:user_deck_id])

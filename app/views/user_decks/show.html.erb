@@ -14,6 +14,9 @@
       <b><%= @user_deck.language %></b>
     </div>
     <div class="col">
+      <b>Due to Learn</b>
+    </div>
+    <div class="col">
       <b>Learnt</b>
     </div>
     <div class="col">
@@ -38,6 +41,9 @@
         </div>
         <div class="col">
           <%= flashcard.answer %>
+        </div>
+        <div class="col">
+          <%= user_deck_flashcard.due_to_learn %>
         </div>
         <div class="col">
           <%= user_deck_flashcard.learnt %>
