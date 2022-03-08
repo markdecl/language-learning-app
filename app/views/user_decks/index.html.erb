@@ -6,6 +6,7 @@
 
   <% @user_decks.each do | user_deck | %>
 
+    <% deck = @decks.find(user_deck.deck_id) %>
     <% user_deck_flashcards_count = @user_flashcards.where(user_deck_id: user_deck.id).count %>
     <% user_deck_flashcards_learnt_count = @user_flashcards.where("user_deck_id = ? AND learnt = ?", user_deck.id, true).count %>
     <% user_deck_flashcards_to_review_count = @user_flashcards.where("user_deck_id = ? AND learnt = ? AND next_review < ?", user_deck.id, true, Time.now).count %>
@@ -19,7 +20,9 @@
       <div class="col-lg-10 deck-info-col">
         <div class="row deck-row-top-buffer">
           <div class="col">
-            <h2><%= user_deck.language %></h2>
+            <%# <h2><%= user_deck.language</h2> %>
+            <h2><%= deck.name %></h2>
+            <h2><%= deck.language %></h2>
           </div>
           <div class="col-lg-1 justify-content-end" >
             <i class="fa-solid fa-ellipsis-vertical"></i>

@@ -3,6 +3,13 @@
     <%# <div class="col"> %>
 <div class='container'>
 
+  <%# This div display the flash notice "Deck already added!" %>
+  <% flash.each do |type, msg| %>
+  <div class="alert alert-info">
+    <%= msg %>
+  </div>
+<% end %>
+
   <% @decks.each do | deck | %>
 
     <% deck_flashcards_count = @flashcards.where(deck_id: deck.id).count %>
@@ -21,7 +28,9 @@
             <%= deck_flashcards_count %>
           </div>
           <div class="col">
-            <%= button_to "Add", user_deck_path(deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
+            <%# <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %>
+            <%# <%= link_to "Add", decks_path(deck_id: deck.id), method: :post %>
+            <%= button_to "Add", user_decks_path(deck_id: deck.id), method: :post, id: 'show-button', class: 'deck-button' %>
           </div>
           <div class="col-lg-1 justify-content-end" >
             <%# Ellipsis options icon: %>

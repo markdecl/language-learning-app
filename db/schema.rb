@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_08_025013) do
+ActiveRecord::Schema.define(version: 2022_03_08_202728) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_03_08_025013) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "language"
+    t.integer "deck_id", null: false
+    t.index ["deck_id"], name: "index_user_decks_on_deck_id"
   end
 
   create_table "user_flashcards", force: :cascade do |t|
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 2022_03_08_025013) do
   end
 
   add_foreign_key "flashcards", "decks"
+  add_foreign_key "user_decks", "decks"
   add_foreign_key "user_flashcards", "flashcards"
   add_foreign_key "user_flashcards", "user_decks"
 end

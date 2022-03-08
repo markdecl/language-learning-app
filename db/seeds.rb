@@ -26,18 +26,18 @@ end
 
 
 
-puts "Cleaning database..."
-UserDeck.destroy_all
+# puts "Cleaning database..."
+# UserDeck.destroy_all
 
-puts "Creating user decks..."
+# puts "Creating user decks..."
 
-russian = { language: "Russian" }
-portuguese =  { language: "Portuguese" }
+# russian = { language: "Russian" }
+# portuguese =  { language: "Portuguese" }
 
-[russian, portuguese].each do |attributes|
-  user_deck = UserDeck.create!(attributes)
-  puts "Created #{user_deck.language}"
-end
+# [russian, portuguese].each do |attributes|
+#   user_deck = UserDeck.create!(attributes)
+#   puts "Created #{user_deck.language}"
+# end
 
 
 
@@ -87,10 +87,10 @@ csv.each do |row|
 end
 
 
-puts "Cleaning database..."
-UserFlashcard.destroy_all
+# puts "Cleaning database..."
+# UserFlashcard.destroy_all
 
-puts "Creating user flashcards..."
+# puts "Creating user flashcards..."
 
 # puts UserDeck.all
 # puts Flashcard.all
@@ -100,11 +100,13 @@ puts "Creating user flashcards..."
 #   {user_deck_id: 1, flashcard_id: 2, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
 # ]
 
-(1..Flashcard.all.count).each do |flashcard_id|
-  attributes = {user_deck_id: 1, flashcard_id: flashcard_id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
-  user_flashcard = UserFlashcard.create!(attributes)
-  puts "Created #{user_flashcard}"
-end
+# (1..Flashcard.all.count).each do |flashcard_id|
+#   attributes = {user_deck_id: 1, flashcard_id: flashcard_id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+#   user_flashcard = UserFlashcard.create!(attributes)
+#   puts "Created #{user_flashcard}"
+# end
+
+
 
 # user_flashcards.each do |attributes|
 #   user_flashcard = UserFlashcard.create!(attributes)

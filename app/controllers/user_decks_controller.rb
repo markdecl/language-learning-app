@@ -1,5 +1,6 @@
 class UserDecksController < ApplicationController
   def index
+    @decks = Deck.all
     @user_decks = UserDeck.all
     @user_flashcards = UserFlashcard.all
   end
@@ -19,13 +20,23 @@ class UserDecksController < ApplicationController
   end
 
   def create
-    @user_deck = UserDeck.new(user_deck_params)
+    @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the id as a string for some reason
     if @user_deck.save
-      redirect_to user_deck_path(@user_deck)
+      # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO:
+      @deck_flashcards = Flashcard.where(deck_id: user_deck_params) # user_deck_params is just the id as a string for some reason
+      @deck_flashcards.each do |deck_flashcard|
+        attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+        user_flashcard = UserFlashcard.create!(attributes)
+        #puts "Created #{user_flashcard}"
+      end
+      #redirect_to user_deck_path(@user_deck)
+      redirect_to user_decks_path
     else
-      render :new
+      #render :new
+      #redirect_to decks_path, notice: "Deck already added!"
+      flash[:alert] = "Deck already added!"
+      redirect_to decks_path
     end
-    # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO
   end
 
   def learn
@@ -56,5 +67,9 @@ class UserDecksController < ApplicationController
 
   # def edit_review_time
   # end
+
+  def user_deck_params
+    params.require(:deck_id)#.permit(:name, :address, :stars)
+  end
 
 end
