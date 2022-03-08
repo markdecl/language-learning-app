@@ -1,10 +1,13 @@
 class UserFlashcardsController < ApplicationController
 
   def index
-    @flashcards = Flashcard.all
+    @user_flashcards = UserFlashcard.all
     # @user_deck = UserDeck.find(params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id)
     # @flashcards = Flashcard.all
+  end
+
+  def new
   end
 
   def create

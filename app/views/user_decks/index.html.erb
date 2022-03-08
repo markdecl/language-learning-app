@@ -33,11 +33,17 @@
             <%= user_deck_flashcards_count %>
 
             <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+              <% if user_deck_flashcards_learnt_count > 0 && user_deck_flashcards_count > 0 %>
+                <%= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100  %>
+                <div class="progress-bar" role="progressbar" style="width: <%= user_deck_flashcards_learnt_count / user_deck_flashcards_count * 100 %>%" aria-valuenow="<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+              <% end %>
             </div>
 
             <br>
             ***Today's goal: 6/10 cards***
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
             <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
             <%# if user_deck_flashcards_learnt_count > 0 and user_deck_flashcards_count > 0 %>
               <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
@@ -45,18 +51,18 @@
               <%# 0% %>
             <%# end %>
           </div>
-          <div class="col-lg-2">
-            <div class="col">
+          <div class="col-lg-4">
+            <div class="col deck-button-col">
               <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
               <%= button_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
 
             </div>
-            <div class="col">
+            <div class="col deck-button-col">
               <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
               <%= button_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', class: 'deck-button' %>
               <%# <button type="button" class="btn btn-warning">Learn</button> %>
             </div>
-            <div class="col">
+            <div class="col deck-button-col">
               <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
               <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
               <% if user_deck_flashcards_to_review_count > 0 %>

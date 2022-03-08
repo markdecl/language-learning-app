@@ -15,6 +15,19 @@ class UserDecksController < ApplicationController
     @flashcards = Flashcard.all
   end
 
+  def new
+  end
+
+  def create
+    @user_deck = UserDeck.new(user_deck_params)
+    if @user_deck.save
+      redirect_to user_deck_path(@user_deck)
+    else
+      render :new
+    end
+    # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO
+  end
+
   def learn
     @user_deck = UserDeck.find(params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
@@ -43,14 +56,5 @@ class UserDecksController < ApplicationController
 
   # def edit_review_time
   # end
-
-  def create
-    @user_deck = UserDeck.new(user_deck_params)
-    if @user_deck.save
-      redirect_to user_deck_path(@user_deck)
-    else
-      render :new
-    end
-  end
 
 end

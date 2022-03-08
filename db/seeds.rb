@@ -7,6 +7,25 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # db/seeds.rb
+
+
+puts "Cleaning database..."
+Deck.destroy_all
+
+puts "Creating user decks..."
+
+russian = { language: "Russian", name: "Russian" }
+portuguese = { language: "Portuguese", name: "Portuguese" }
+french =  { language: "French", name: "French" }
+
+[russian, portuguese, french].each do |attributes|
+  deck = Deck.create!(attributes)
+  puts "Created #{deck.language}"
+end
+
+
+
+
 puts "Cleaning database..."
 UserDeck.destroy_all
 
@@ -46,6 +65,7 @@ csv.each do |row|
   puts row
 
   t = Flashcard.new
+  t.deck_id = 1
   t.scaled_frequency = row['scaled_frequency']
   t.frequency_rank = row['frequency_rank']
   t.term_collocation_test = row['term_collocation_test']

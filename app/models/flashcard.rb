@@ -1,4 +1,5 @@
 class Flashcard < ApplicationRecord
+  belongs_to :deck
   has_many :user_flashcards
 
   # require 'csv'

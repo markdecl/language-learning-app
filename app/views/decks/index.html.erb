@@ -1,0 +1,41 @@
+<%# <div class="container-fluid main-container">
+  <div class="row"> %>
+    <%# <div class="col"> %>
+<div class='container'>
+
+  <% @decks.each do | deck | %>
+
+    <% deck_flashcards_count = @flashcards.where(deck_id: deck.id).count %>
+
+    <div class="row deck-row">
+      <div class="col-sm-2 deck-img-col">
+        <%# add deck image here: %>
+        <%= image_tag "st_basils_cathedral.jpg", class: "user_deck_img" %>
+        <%# <img src="st_basils_cathedral.jpg" data-src="aws-image.jpg" class="lazyload" /> %>
+      </div>
+      <div class="col-lg-10 deck-info-col">
+        <div class="row deck-row-top-buffer">
+          <div class="col">
+            <h1><%= deck.name %></h1>
+            <h2><%= deck.language %></h2>
+            <%= deck_flashcards_count %>
+          </div>
+          <div class="col">
+            <%= button_to "Add", user_deck_path(deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
+          </div>
+          <div class="col-lg-1 justify-content-end" >
+            <%# Ellipsis options icon: %>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+          </div>
+        </div>
+      <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
+      </div>
+    </div>
+    <br>
+  <% end %>
+
+</div>

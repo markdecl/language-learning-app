@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   #   resources :user_flashcards
   # end
 
+  resources :decks
+
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review

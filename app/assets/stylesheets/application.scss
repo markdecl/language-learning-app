@@ -7,10 +7,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
 
 // Set color scheme
-$green: #197278;
-$yellow: #F7B32B;
-$red: #FE5F55;
-$gray: #EBF2FA;
+// $green: #197278;
+$green: #115055;
+
+// $yellow: #F7B32B;
+// $yellow: #FFCB77;
+$yellow: #FFE900;
+// $red: #DE6B48;
+// $red: #ED254E;
+// $red: #FF5964;
+$red: #E53D00;
+// $gray: #EBF2FA;
+// $gray: #FEF9EF;
+// $gray: #F1F7F8;
+$gray: #FCFFF7;
 
 html, body {
   height: 100%;
@@ -78,9 +88,13 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
   // padding: 10px;
   border-radius: 10px;
   height: 150px;
-  background-color: #FE5F55;
+  background-color: $red;
   // box-shadow: 2px 2px 4px 2px #888888;
   box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+}
+
+.deck-row:hover {
+  filter: brightness(85%);
 }
 
 .deck-row-top-buffer {
@@ -107,8 +121,25 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
   // margin-right: auto;
 }
 
+form.button_to {
+  width: 50px;
+  margin: 0px;
+}
+
+.deck-button-col {
+  width: 50px;
+}
+
 .deck-button {
-  // padding: 10px 10px;
+  width: 50px;
+  padding: 10px 10px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .deck-button:hover {
@@ -117,35 +148,14 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
 
 #show-button {
   background-color: $green;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
 
 #learn-button {
   background-color: $yellow;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
 
 #review-button {
   background-color: $red;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
 
 #review-button.reviews_due {
