@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_08_202728) do
+ActiveRecord::Schema.define(version: 2022_03_09_011054) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2022_03_08_202728) do
     t.string "other_sentence_pairs"
     t.string "other_sentence_pairs_both"
     t.integer "deck_id", null: false
+    t.string "test_direction"
     t.index ["deck_id"], name: "index_flashcards_on_deck_id"
   end
 

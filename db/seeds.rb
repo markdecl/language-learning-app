@@ -61,11 +61,21 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'russian_flashcards.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'utf-8') # check that this encoding works with cyrillic
 csv.each do |row|
-  # puts row.to_hash
+  #puts row.to_hash
   puts row
 
   t = Flashcard.new
   t.deck_id = 1
+
+  # Label test direction of flashard
+  if row['question'].include? "\""
+    # Make en->tl flashcard
+    t.test_direction = 'en-tl'
+  else
+    # Make tl->en flashcard
+    t.test_direction = 'tl-en'
+  end
+
   t.scaled_frequency = row['scaled_frequency']
   t.frequency_rank = row['frequency_rank']
   t.term_collocation_test = row['term_collocation_test']
@@ -84,6 +94,8 @@ csv.each do |row|
   t.other_sentence_pairs_both = row['other_sentence_pairs_both']
   t.save
   puts "#{t.question}, #{t.answer} saved"
+
+
 end
 
 

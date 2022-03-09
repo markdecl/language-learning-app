@@ -57,13 +57,14 @@
           <% time_difference = user_deck_flashcard.next_review - Time.now %>
           <%# <%= DateTime.Today.AddDays(1) %>
           <%# <%= time_difference %>
+          <br>
           <% if user_deck_flashcard.next_review.past? %>
             Due
           <% elsif time_difference < (24 * 60 * 60) %>
             <% if time_difference < (60 * 60) %>
               Less than an hour
             <% else %>
-              <%= (time_difference / (60 * 60)).round %> hour(s)
+              in <%= (time_difference / (60 * 60)).round %> hour(s)
             <% end %>
           <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
             Tomorrow
