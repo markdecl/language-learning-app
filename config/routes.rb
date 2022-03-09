@@ -19,9 +19,12 @@ Rails.application.routes.draw do
     member do
       patch :update_learn
       patch :update_review
+      # patch :check_answer
       # patch :update_learn, to: "user_decks#learn", as: :update_learn
     end
   end
+  get "/user_flashcards/:id/review_answer", to: "user_flashcards#check_answer", as: :check_answer_user_flashcard
+  # get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
 
   # get "/user_decks", to: "user_decks#index", as: :user_decks
   # get    "/user_decks/:id",      to: "user_decks#show",   as: :user_deck

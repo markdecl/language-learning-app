@@ -54,9 +54,16 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt = ? AND next_review < ?", @user_deck.id, true, Time.now)
     @flashcards = Flashcard.all
+    # @answer_checked = params[:answer_checked]
+    # @answer_correct = params[:answer_correct]
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
   end
   helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb
+
+  def review_answer
+
+  end
+
 
   # def show_answer
   # respond_to do |format|
@@ -68,8 +75,20 @@ class UserDecksController < ApplicationController
   # def edit_review_time
   # end
 
+  def destroy
+    # fetch user_deck to destroy from DB
+    user_deck = UserDeck.find(params[:id])
+    # destroy record
+    user_deck.destroy
+    #user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id)
+    #user_deck_flashcards.destroy
+    # redirect to index
+    redirect_to user_decks_path
+  end
+
   def user_deck_params
     params.require(:deck_id)#.permit(:name, :address, :stars)
+    #params.require(:user_deck)#.permit(:name, :address, :stars)
   end
 
 end
