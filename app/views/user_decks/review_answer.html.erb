@@ -24,7 +24,7 @@
 <%# <br> %>
 <%# <br> %>
 
-<%# <% if @user_deck_flashcards.any? %> %>
+<%# <% if @user_deck_flashcards.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
   <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
 
@@ -35,25 +35,25 @@
 
   <%# <h3>Left to review: <%= @user_deck_flashcards.count</h3> %>
 
-  <%# <% @top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %> %>
-  <% @top_flashcard = @flashcards.find(@top_user_flashcard.flashcard_id) %>
+  <%# <% @user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
+<% @top_flashcard = @flashcards.find(@user_flashcard.flashcard_id) %>
 
 <div class="flashcard-container">
 
   <%#= @top_flashcard.attributes %>
-  <div class="container">
+  <%# <div class="container">
     <% @top_flashcard.attributes.each do |key, value| %>
-      <div class="row border bg-light">
-        <div class="col">
-          <%= key %>
-        </div>
-        <div class="col">
-          <%= value %>
-        </div>
+      <%# <div class="row border bg-light"> %>
+        <%# <div class="col"> %>
+          <%# <%= key %> %>
+        <%# </div> %>
+        <%# <div class="col"> %>
+          <%# <%= value %> %>
+        <%# </div> %> %>
         <%# <br> %>
-      </div>
-    <% end %>
-  </div>
+      <%# </div> %>
+    <%# <% end %> %>
+  <%# </div> %>
 
 
   <div class="flashcard">
@@ -62,10 +62,10 @@
         <%= @top_flashcard.question %>
       </div>
       <div class="col">
-        <input type="text">
-        <br>
+        <%# <input type="text"> %>
+        <%# <br> %>
         <%# <% if answer_checked == true %>
-          <%# <%= @top_flashcard.answer %>
+        <%= @top_flashcard.answer %>
         <% user_answer = "User answer" %>
         <%# <% end %> %>
       </div>
@@ -102,19 +102,19 @@
         <%# <div class="col offset-md-3"> %>
 
           <%# <% if answer_checked == false %>
-          <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), method: :patch %>
+          <%# <%= link_to "Check answer", check_answer_user_flashcard_path(@user_flashcard, user_answer: user_answer), method: :patch %>
 
           <%# <% elsif answer_checked == true %>
             <%# <button>Incorrect</button> %>
-            <%# <%= button_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), method: :patch %> %>
+            <%= button_to "Incorrect", update_review_user_flashcard_path(@user_flashcard, answer_correct: false), method: :patch %>
             <%# <i class="fa-solid fa-circle-xmark"></i> %>
             <%# Edit current user_flashcard with new due review and redirect back to this view %>
             <%# <button>Correct</button> %>
             <%# Edit current user_flashcard with new due review and redirect back to this view: %>
-            <%# <%= button_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), method: :patch %>
-            <%# <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), method: :patch %> %>
+            <%= button_to "Correct", update_review_user_flashcard_path(@user_flashcard, answer_correct: true), method: :patch %>
+            <%# <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(@user_flashcard, answer_correct: true), method: :patch %>
             <%# <%= javascript_pack_tag 'correctAnswer' %> %>
-            <%# <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard), method: :patch %>
+            <%# <%= link_to "Correct", update_review_user_flashcard_path(@user_flashcard), method: :patch %>
 
           <%# <% end %> %> %>
         <%# </div> %>

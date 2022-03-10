@@ -41,19 +41,19 @@
   <div class="flashcard-container">
 
     <%#= top_flashcard.attributes %>
-    <div class="container">
+    <%# <div class="container">
       <% top_flashcard.attributes.each do |key, value| %>
-        <div class="row border bg-light">
-          <div class="col">
-            <%= key %>
-          </div>
-          <div class="col">
-            <%= value %>
-          </div>
+        <%# <div class="row border bg-light"> %>
+          <%# <div class="col"> %>
+            <%# <%= key %> %>
+          <%# </div> %>
+          <%# <div class="col"> %>
+            <%# <%= value %> %>
+          <%# </div> %>
           <%# <br> %>
-        </div>
-      <% end %>
-    </div>
+        <%# </div> %>
+      <%# <% end %> %>
+    <%# </div> %> %>
 
 
     <div class="flashcard">
@@ -76,7 +76,7 @@
         </div>
         <div class="col">
           <%# <% if answer_checked == true %> %>
-          <%= sanitize top_flashcard.target_sentence %>
+          <%# <%= sanitize top_flashcard.target_sentence %> %>
           <%# <% end %> %>
         </div>
       </div>
@@ -102,22 +102,24 @@
           <%# <div class="col offset-md-3"> %>
 
             <%# <% if answer_checked == false %>
+
             <%# <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :get %>
-            <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :get %>
+            <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :patch %>
+            <%# <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :get %>
 
             <%# <% elsif answer_checked == true %>
               <%# <button>Incorrect</button> %>
-              <%# <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %> %>
+              <%# <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %>
               <%# <i class="fa-solid fa-circle-xmark"></i> %>
               <%# Edit current user_flashcard with new due review and redirect back to this view %>
               <%# <button>Correct</button> %>
               <%# Edit current user_flashcard with new due review and redirect back to this view: %>
               <%# <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
-              <%# <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %> %>
-              <%# <%= javascript_pack_tag 'correctAnswer' %> %>
+              <%# <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
+              <%# <%= javascript_pack_tag 'correctAnswer' %>
               <%# <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
 
-            <%# <% end %> %> %>
+            <%# <% end %>
           <%# </div> %>
         </div>
       </div>

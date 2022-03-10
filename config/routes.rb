@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
-  get 'show_answer', to: 'user_decks#show_answer'
+  get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
+  # get 'show_answer', to: 'user_decks#show_answer'
 
   resources :user_flashcards
   resources :user_flashcards do
@@ -23,8 +24,7 @@ Rails.application.routes.draw do
       # patch :update_learn, to: "user_decks#learn", as: :update_learn
     end
   end
-  get "/user_flashcards/:id/review_answer", to: "user_flashcards#check_answer", as: :check_answer_user_flashcard
-  # get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
+  patch "/user_flashcards/:id/review_answer", to: "user_flashcards#check_answer", as: :check_answer_user_flashcard
 
   # get "/user_decks", to: "user_decks#index", as: :user_decks
   # get    "/user_decks/:id",      to: "user_decks#show",   as: :user_deck
