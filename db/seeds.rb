@@ -68,7 +68,8 @@ csv.each do |row|
   t.deck_id = 1
 
   # Label test direction of flashard
-  if row['question'].include? "\""
+  # if row['question'].include? "\""
+  if row['question'].count("a-zA-Z") > 0
     # Make en->tl flashcard
     t.test_direction = 'en-tl'
   else

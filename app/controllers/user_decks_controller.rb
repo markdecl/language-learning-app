@@ -13,7 +13,11 @@ class UserDecksController < ApplicationController
   def show
     @user_deck = UserDeck.find(params[:id])
     @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id)
-    @flashcards = Flashcard.all
+    # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
+    # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
+    # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id] )
+    # @user_deck_flashcards = @user_deck_flashcards.find(:all,:joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
+    @flashcards = Flashcard.where(deck_id: @user_deck.id)
   end
 
   def new
@@ -57,6 +61,8 @@ class UserDecksController < ApplicationController
     # @answer_checked = params[:answer_checked]
     # @answer_correct = params[:answer_correct]
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
+    @top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first
+    @top_flashcard = Flashcard.find(@top_user_flashcard.flashcard_id)
   end
   helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb
 
@@ -71,6 +77,8 @@ class UserDecksController < ApplicationController
     # @answer_correct = params[:answer_correct]
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
     @user_flashcard = UserFlashcard.find(params[:id])
+    @user_answer = params[:user_answer]
+    @answer_correct = params[:answer_correct]
   end
 
 

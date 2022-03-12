@@ -1,0 +1,147 @@
+
+<%# <h1><%= @user_deck.language</h1> %>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= link_to "Learn", user_flashcards_path %>
+<%# <br>
+<%# <br>
+<%# <%= link_to "Review", user_flashcards_path %>
+<%# <br>
+<%# <br>
+
+<%# <%= @user_deck.id %>
+
+<%# <%= @user_deck_flashcards %>
+
+<%# <%= @flashcards %>
+<%# <br>
+<%# <br> %>
+
+<%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
+
+<%# <%= link_to "Back to My Decks", user_decks_path %>
+<%# <br> %>
+<%# <br> %>
+
+<% if @user_deck_flashcards.any? %>
+<%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
+  <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
+
+  <%# Answer checked? <%= answer_checked %>
+  <%# <br> %>
+  <%# Answer correct? <%= answer_correct %>
+  <%# <br> %>
+
+  <h3>Left to review: <%= @user_deck_flashcards.count %></h3>
+
+  <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first %>
+  <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
+
+  <div class="flashcard-container">
+
+    <%#= top_flashcard.attributes %>
+    <%# <div class="container">
+      <% top_flashcard.attributes.each do |key, value| %>
+        <%# <div class="row border bg-light"> %>
+          <%# <div class="col"> %>
+            <%# <%= key %>
+          <%# </div> %>
+          <%# <div class="col"> %>
+            <%# <%= value %>
+          <%# </div> %>
+          <%# <br> %>
+        <%# </div> %>
+      <%# <% end %>
+    <%# </div> %>
+
+
+    <div class="flashcard">
+      <div class="row flashcard-definition">
+        <div class="col" style="border-right: 1px solid #ccc;" >
+          <%= top_flashcard.question %>
+        </div>
+        <div class="col">
+          <input type="text">
+          <br>
+          <%# <% if answer_checked == true %>
+            <%# <%= top_flashcard.answer %>
+          <% user_answer = "User answer" %>
+          <%# <% end %>
+        </div>
+      </div>
+      <div class="row align-items-end flashcard-example-sentences">
+        <div class="col" style="border-right: 1px solid #ccc;" >
+          <%= sanitize top_flashcard.source_sentence %>
+        </div>
+        <div class="col">
+          <%# <% if answer_checked == true %>
+          <%# <%= sanitize top_flashcard.target_sentence %>
+          <%# <% end %>
+        </div>
+      </div>
+      <div class= "row answer-buttons-row justify-content-center">
+        <%# <div class="row g-2"> %>
+          <%# <div class="col offset-md-3"> %>
+
+            <%# <button id="show-answer-button">
+              Show answer
+            </button> %>
+
+            <%# <i class="fa-solid fa-eye"></i> %>
+            <%#= javascript_pack_tag 'flipFlashcard' %>
+
+            <%#= link_to "Show answer", show_answer_path, remote: true %>
+
+            <%# <div id="content"> %>
+            <%# </div> %>
+
+          <%# </div> %>
+        <%# </div> %>
+        <div class="row">
+          <%# <div class="col offset-md-3"> %>
+
+            <%# <% if answer_checked == false %>
+
+            <%# <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :get %>
+            <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :patch %>
+            <%# <%= link_to "Check answer", check_answer_user_flashcard_path(top_user_flashcard, user_answer: user_answer), method: :get %>
+
+            <%# <% elsif answer_checked == true %>
+              <%# <button>Incorrect</button> %>
+              <%# <%= button_to "Incorrect", update_review_user_flashcard_path(top_user_flashcard, answer_correct: false), method: :patch %>
+              <%# <i class="fa-solid fa-circle-xmark"></i> %>
+              <%# Edit current user_flashcard with new due review and redirect back to this view %>
+              <%# <button>Correct</button> %>
+              <%# Edit current user_flashcard with new due review and redirect back to this view: %>
+              <%# <%= button_to "Correct", update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
+              <%# <%= button_to raw("<i class=\"fa-solid fa-circle-check\"></i>"), update_review_user_flashcard_path(top_user_flashcard, answer_correct: true), method: :patch %>
+              <%# <%= javascript_pack_tag 'correctAnswer' %>
+              <%# <%= link_to "Correct", update_review_user_flashcard_path(top_user_flashcard), method: :patch %>
+
+            <%# <% end %>
+          <%# </div> %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <div id="all-caught-up">
+    <%# <i class="fa-solid fa-hot-tub-person fa-8x"></i> %>
+    <i class="fa-solid fa-face-grin-stars fa-8x"></i>
+    <h2>All caught up!</h2>
+  </div>
+<% end %>
+
+
+<%# <% @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.each do |user_deck_flashcard| %>
+  <%# <%= user_deck_flashcard.learnt %>
+<%#   <%= user_deck_flashcard.due_to_learn %>
+<%#   <%= user_deck_flashcard.flashcard_id %>
+<%#   <%= @flashcards.ids %>
+<%#   <% @flashcards.where(id: user_deck_flashcard.flashcard_id).each do |flashcard| %>
+<%#     <%= flashcard.front %>
+<%#     <%= flashcard.back %>
+<%#   <% end %>
+<%# <% end %>

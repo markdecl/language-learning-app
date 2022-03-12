@@ -33,7 +33,8 @@ class UserFlashcardsController < ApplicationController
     # answer_correct = (@user_answer == @user_flashcard.flashcard.answer)
 
     # redirect_to user_deck_review_answer_path(@user_flashcard.user_deck_id, user_answer: @user_answer, answer_checked: true, answer_correct: answer_correct)
-    redirect_to user_deck_review_answer_path(@user_flashcard, user_answer: @user_answer, answer_checked: true, answer_correct: answer_correct)
+    # redirect_to user_deck_review_answer_path(@user_flashcard, user_answer: @user_answer, answer_checked: true, answer_correct: answer_correct)
+    redirect_to user_deck_review_answer_path(@user_flashcard, user_answer: @user_answer, answer_correct: answer_correct)
   end
 
   def update_learn
@@ -59,9 +60,11 @@ class UserFlashcardsController < ApplicationController
     previous_review = @user_flashcard.previous_review
     next_review = @user_flashcard.next_review
     if answer_correct
-      @user_flashcard.update(next_review: next_review + ((next_review - previous_review) * 2.5)) # multiplies by 2.5
+      # @user_flashcard.update(next_review: next_review + ((next_review - previous_review) * 2.5)) # multiplies by 2.5
+      @user_flashcard.update(next_review: Time.now + ((Time.now - previous_review) * 2.5)) # multiplies time interval between previous review and NOW by 2.5
     else
-      @user_flashcard.update(next_review: next_review + ((next_review - previous_review) * 0.4)) # multiplies by 0.4
+      # @user_flashcard.update(next_review: next_review + ((next_review - previous_review) * 0.4)) # multiplies by 0.4
+      @user_flashcard.update(next_review: Time.now + ((Time.now - previous_review) * 0.4)) # multiplies time interval between previous review and NOW by 0.4
     end
     @user_flashcard.update(previous_review: next_review)
     # redirect_to user_flashcard_path(@user_flashcard)

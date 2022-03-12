@@ -8,10 +8,15 @@
       <b>id</b>
     </div>
     <div class="col">
-      <b>English</b>
+      <b>Scaled Frequency</b>
     </div>
     <div class="col">
-      <b><%= @user_deck.language %></b>
+      <%# <b>English</b> %>
+      <b>Question</b>
+    </div>
+    <div class="col">
+      <%# <b><%= @user_deck.language</b> %>
+      <b>Answer</b>
     </div>
     <div class="col">
       <b>Due to Learn</b>
@@ -32,9 +37,14 @@
     <% else %>
       <div class="row border bg-light">
     <% end %>
-        <%= user_deck_flashcard.id %>
+
+        <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+
         <div class="col">
-          <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+          <%= user_deck_flashcard.id %>
+        </div>
+        <div class="col">
+          <%= flashcard.scaled_frequency %>
         </div>
         <div class="col">
           <%= flashcard.question %>
