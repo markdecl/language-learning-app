@@ -26,44 +26,46 @@ html, body {
   height: 100%;
   // padding-left: 100px;
   // padding-right: 100px;
-  background-color: $gray;
-  font-family: 'Cabin', sans-serif;
+  // background-color: $gray;
+  // font-family: 'Cabin', sans-serif;
 }
 
-// /layouts
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 70px;
-  box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
-  background: $green;
-  color: $gray;
-  font-size: 30px;
-}
-nav .navbar-nav li a, .navbar-brand {
-  color: white !important;
-  }
+/*------- Layouts -------*/
 
-nav .navbar-nav li a:hover, .navbar-brand:hover {
-  color: $yellow !important;
-  }
+// .navbar {
+//   // position: sticky;
+//   // top: 0;
+//   z-index: 100;
+//   // height: 70px;
+//   box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+//   background: $green;
+//   color: $gray;
+//   // font-size: 30px;
+// }
 
-.navbar-brand {
-  font-size: 40px;
-  font-family: 'Cabin Sketch', cursive;
-  font-weight: 700;
-}
+// nav .navbar-nav li a, .navbar-brand {
+//   color: white !important;
+//   }
 
-.page-footer {
-  background: $green;
-  color: $gray;
-  position: relative;
-  margin-top: -150px; /* negative value of footer height */
-  height: 150px;
-  clear:both;
-  padding-top:20px;
-}
+// nav .navbar-nav li a:hover, .navbar-brand:hover {
+//   color: $yellow !important;
+//   }
+
+// .navbar-brand {
+//   font-size: 40px;
+//   font-family: 'Cabin Sketch', cursive;
+//   font-weight: 700;
+// }
+
+// .page-footer {
+//   background: $green;
+//   color: $gray;
+//   position: relative;
+//   margin-top: -150px; /* negative value of footer height */
+//   height: 150px;
+//   clear:both;
+//   padding-top:20px;
+// }
 
 //-------
 // index.html.erb
@@ -71,110 +73,119 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
 #wrap {
   min-height: 100%;
   // margin: 50px;
-  margin-top: 50px;
-  margin-left: 100px;
-  margin-right: 100px;
+  // margin-top: 50px;
+  // margin-left: 100px;
+  // margin-right: 100px;
   // min-height: 70%;
   // height: 100%;
 }
 
 #main {
   // overflow:auto;
-  padding-bottom:150px; /* this needs to be bigger than footer height*/
-  min-height: 100%; /* temporary fix */
-  height: 500px; /* temporary fix */
+  padding-top: 56px; /* to accommodate navbar */
+  padding-bottom: 150px; /* this needs to be bigger than footer height*/
+  // min-height: 100%; /* temporary fix */
+  // height: 500px; /* temporary fix */
 }
 
-.my-decks-container {
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear :both;
+  padding-top: 20px;
+}
+
+// .my-decks-container {
   // margin: 50px;
-  margin-top: 50px;
+  // margin-top: 50px;
   // margin-left: 100px;
   // margin-right: 100px;
-  min-height: 100%;
-  height: 100%;
-}
+  // min-height: 100%;
+  // height: 100%;
+// }
 
-.deck-row {
-  padding: 5px;
-  // border-radius: 10px;
-  height: 200px;
-  background-color: $gray; //$red;
-  // box-shadow: 2px 2px 4px 2px #888888;
-  // box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
-  transition: 0.2s;
-}
+// .deck-row {
+//   padding: 5px;
+//   // border-radius: 10px;
+//   height: 200px;
+//   background-color: $gray; //$red;
+//   // box-shadow: 2px 2px 4px 2px #888888;
+//   // box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+//   transition: 0.2s;
+// }
 
-.deck-row:hover {
-  // filter: brightness(85%);
-  box-shadow: 0 0 5px 4px rgba(0,0,0,.2);
-}
+// .deck-row:hover {
+//   // filter: brightness(85%);
+//   // box-shadow: 0 0 5px 4px rgba(0,0,0,.2);
+// }
 
-.deck-row-top-buffer {
-  margin-top: 10px;
-}
+// .deck-row-top-buffer {
+//   margin-top: 10px;
+// }
 
-.deck-img-col {
-  // text-align: center;
-  // justify-content: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .deck-img-col {
+//   // text-align: center;
+//   // justify-content: center;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-.user_deck_img {
-  object-fit: cover;
-  border-radius: 50%;
-  // width: 100px;
-  width: 100%;
-  // height: 100px;
-  height: 100%;
+// .user_deck_img {
+//   object-fit: cover;
+//   border-radius: 50%;
+//   // width: 100px;
+//   width: 100%;
+//   // height: 100px;
+//   height: 100%;
 
-  // display: block;
-  // width: 60%;
-  // margin-left: auto;
-  // margin-right: auto;
-}
+//   // display: block;
+//   // width: 60%;
+//   // margin-left: auto;
+//   // margin-right: auto;
+// }
 
-form.button_to {
-  width: 50px;
-  margin: 0px;
-}
+// form.button_to {
+//   width: 50px;
+//   margin: 0px;
+// }
 
-.deck-button-col {
-  width: 50px;
-}
+// .deck-button-col {
+//   width: 50px;
+// }
 
-.deck-button {
-  width: 100px;
-  // width: 100%;
-  padding: 10px 10px;
-  // border-radius: 50%;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
+// .deck-button {
+//   width: 100px;
+//   // width: 100%;
+//   padding: 10px 10px;
+//   // border-radius: 50%;
+//   border: none;
+//   color: white;
+//   text-align: center;
+//   text-decoration: none;
+//   display: inline-block;
+//   font-size: 16px;
+// }
 
-.deck-button:hover {
-  box-shadow: 0 10px 10px -10px rgba(0,0,0,.2);
-}
+// .deck-button:hover {
+//   box-shadow: 0 10px 10px -10px rgba(0,0,0,.2);
+// }
 
 #show-button {
-  background-color: $green;
+  // background-color: $green;
 }
 
 #learn-button {
-  background-color: $green;
+  // background-color: $green;
 }
 
 #review-button {
-  background-color: $green;
+  // background-color: $green;
 }
 
 #review-button.reviews_due {
-  background-color: red;
+  // background-color: red;
 }
 
 //-------
@@ -184,86 +195,86 @@ form.button_to {
 //   border: 1px solid;
 // }
 
-.flashcard-container {
-  position: relative;
-  // width: 700px;
-  width: 100%;
-  // height: 433px;
-  // height: 30%;
-}
+// .flashcard-container {
+//   position: relative;
+//   // width: 700px;
+//   width: 100%;
+//   // height: 433px;
+//   // height: 30%;
+// }
 
-.flashcard {
-  position: absolute;
-  width: 100%;
-  // height: 100%;
-  transition: all 0.75s ease;
-  transform-style: preserve-3d;
-  // border-radius: 10px; // not working for some reason
-}
+// .flashcard {
+//   position: absolute;
+//   width: 100%;
+//   // height: 100%;
+//   transition: all 0.75s ease;
+//   transform-style: preserve-3d;
+//   // border-radius: 10px; // not working for some reason
+// }
 
-.flashcard-definition {
-  font-size: 30px;
-  margin-bottom: 50px;
-}
+// .flashcard-definition {
+//   font-size: 30px;
+//   margin-bottom: 50px;
+// }
 
-.flashcard-example-sentences {
+// .flashcard-example-sentences {
 
-}
+// }
 
 // .flashcard:hover {
-.flashcard.flipped {
-  transform: rotateX(180deg);
-}
+// .flashcard.flipped {
+//   transform: rotateX(180deg);
+// }
 
-.flashcard-front, .flashcard-back {
-  /* This part controls the flip */
-  backface-visibility: hidden;
+// .flashcard-front, .flashcard-back {
+//   /* This part controls the flip */
+//   backface-visibility: hidden;
 
-  /* Size and card position */
-  position: absolute;
-  width: 100%;
-  height: 100%;
+//   /* Size and card position */
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
 
-  /* Appearance */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
-}
+//   /* Appearance */
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 1em;
+//   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+// }
 
-.flashcard-front {
-  background-color: #fff;
-  color: #333;
-}
+// .flashcard-front {
+//   background-color: #fff;
+//   color: #333;
+// }
 
-.flashcard-back {
-  transform: rotateX(180deg);
+// .flashcard-back {
+//   transform: rotateX(180deg);
 
-  background-color: #fff;
-  color: #333;
-}
+//   background-color: #fff;
+//   color: #333;
+// }
 
-.row { // I think this is overriding the Bootstrap row default styling
-  margin-right: 0px;
-  margin-left: 0px;
-}
+// .row { // I think this is overriding the Bootstrap row default styling
+//   margin-right: 0px;
+//   margin-left: 0px;
+// }
 
-.answer-buttons-row {
-  margin-top: 50px;
-  width: 100%;
-}
+// .answer-buttons-row {
+//   margin-top: 50px;
+//   width: 100%;
+// }
 
-.col-centered{
-float: none;
-margin: 0 auto;
-}
+// .col-centered{
+// float: none;
+// margin: 0 auto;
+// }
 
-#all-caught-up {
-  // justify-content: center;
-  // align-items: center;
-  text-align: center;
-  position: relative;
-  // height: 100%;
-}
+// #all-caught-up {
+//   // justify-content: center;
+//   // align-items: center;
+//   text-align: center;
+//   position: relative;
+//   // height: 100%;
+// }

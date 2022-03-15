@@ -4,6 +4,9 @@
     <%# <div class="col"> %>
 <div class='container'>
 
+
+  <%= render "components/user_deck_card" %>
+
   <% @user_decks.each do | user_deck | %>
 
     <% deck = @decks.find(user_deck.deck_id) %>
@@ -90,7 +93,7 @@
       </div>
       <%# </div> %>
       <div class="col-lg-2">
-        <div class="row deck-button-col">
+        <div class="row w-100 deck-button-col">
           <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
           <%= button_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
 
