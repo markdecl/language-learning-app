@@ -17,8 +17,11 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <div class="page-container">
-      <%= yield %>
+    <div id="wrap">
+      <div id="main" class="container clear-top">
+      <%# <div> %>
+        <%= yield %>
+      </div>
     </div>
     <%= render "layouts/footer" %>
   </body>

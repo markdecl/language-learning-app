@@ -17,14 +17,14 @@
     <div class="row deck-row">
       <div class="col-sm-2 deck-img-col">
         <%# add deck image here: %>
-        <%= image_tag "st_basils_cathedral.jpg", class: "user_deck_img" %>
+        <%= image_tag "#{deck.name.downcase}.jpg", class: "user_deck_img" %>
         <%# <img src="st_basils_cathedral.jpg" data-src="aws-image.jpg" class="lazyload" /> %>
       </div>
       <div class="col-lg-10 deck-info-col">
         <div class="row deck-row-top-buffer">
           <div class="col">
             <h1><%= deck.name %></h1>
-            <h2><%= deck.language %></h2>
+            <%# <h2><%= deck.language</h2> %>
             <%= deck_flashcards_count %> card(s)
           </div>
           <div class="col">
@@ -34,7 +34,7 @@
           </div>
           <div class="col-lg-1 justify-content-end" >
             <%# Ellipsis options icon: %>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
+            <%# <i class="fa-solid fa-ellipsis-vertical"></i> %>
           </div>
         </div>
         <div class="row">

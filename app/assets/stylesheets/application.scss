@@ -58,21 +58,31 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
 .page-footer {
   background: $green;
   color: $gray;
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
 }
 
 //-------
 // index.html.erb
 
-.main-container {
-}
-
-.page-container {
+#wrap {
+  min-height: 100%;
   // margin: 50px;
   margin-top: 50px;
   margin-left: 100px;
   margin-right: 100px;
-  min-height: 70%;
+  // min-height: 70%;
   // height: 100%;
+}
+
+#main {
+  // overflow:auto;
+  padding-bottom:150px; /* this needs to be bigger than footer height*/
+  min-height: 100%; /* temporary fix */
+  height: 500px; /* temporary fix */
 }
 
 .my-decks-container {
@@ -85,12 +95,12 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
 }
 
 .deck-row {
-  // padding: 10px;
-  border-radius: 10px;
-  height: 150px;
+  padding: 5px;
+  // border-radius: 10px;
+  height: 200px;
   background-color: $gray; //$red;
   // box-shadow: 2px 2px 4px 2px #888888;
-  box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+  // box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
   transition: 0.2s;
 }
 
@@ -114,8 +124,10 @@ nav .navbar-nav li a:hover, .navbar-brand:hover {
 .user_deck_img {
   object-fit: cover;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  // width: 100px;
+  width: 100%;
+  // height: 100px;
+  height: 100%;
 
   // display: block;
   // width: 60%;
@@ -133,9 +145,10 @@ form.button_to {
 }
 
 .deck-button {
-  width: 50px;
+  width: 100px;
+  // width: 100%;
   padding: 10px 10px;
-  border-radius: 50%;
+  // border-radius: 50%;
   border: none;
   color: white;
   text-align: center;
@@ -153,11 +166,11 @@ form.button_to {
 }
 
 #learn-button {
-  background-color: $yellow;
+  background-color: $green;
 }
 
 #review-button {
-  background-color: $red;
+  background-color: $green;
 }
 
 #review-button.reviews_due {
@@ -176,7 +189,7 @@ form.button_to {
   // width: 700px;
   width: 100%;
   // height: 433px;
-  height: 30%;
+  // height: 30%;
 }
 
 .flashcard {

@@ -3,79 +3,91 @@
   <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
   <h3>Left to review: <%= @user_deck_flashcards.count %></h3>
 
-  <div class="flashcard-container">
+  <div class="row">
+    <div class="flashcard-container">
 
-    <div class="flashcard">
+      <div class="flashcard">
 
-      Frequency rank: <%= @top_flashcard.frequency_rank %>
-      <br>
-      Scaled frequency: <%= @top_flashcard.scaled_frequency %>
-      <br>
-      Test direction: <%= @top_flashcard.test_direction %>
+        Frequency rank: <%= @top_flashcard.frequency_rank %>
+        <br>
+        Scaled frequency: <%= @top_flashcard.scaled_frequency %>
+        <br>
+        Test direction: <%= @top_flashcard.test_direction %>
 
-      <% if @top_flashcard.test_direction == 'tl-en' %>
-        <div class="row flashcard-definition">
-          <div class="col" style="border-right: 1px solid #ccc;" >
-            <%= @top_flashcard.question %>
-            <br>
-            <%= sanitize @top_flashcard.term_with_accent %>
-            <br>
-            <%= @top_flashcard.conjugation_and_declension_info %>
+        <% if @top_flashcard.test_direction == 'tl-en' %>
+          <div class="row flashcard-definition">
+            <div class="col" style="border-right: 1px solid #ccc;" >
+              <%= @top_flashcard.question %>
+              <br>
+              <%= sanitize @top_flashcard.term_with_accent %>
+              <br>
+              <%= @top_flashcard.conjugation_and_declension_info %>
+            </div>
+            <div class="col">
+              <input type="text">
+              <br>
+              <% user_answer = "User answer" %>
+              <br>
+              Other definitions:
+              <br>
+              <%= sanitize @top_flashcard.other_definitions %>
+            </div>
           </div>
-          <div class="col">
-            <input type="text">
-            <br>
-            <% user_answer = "User answer" %>
-            <br>
-            Other definitions:
-            <br>
-            <%= sanitize @top_flashcard.other_definitions %>
+          Example sentence:
+          <div class="row align-items-end flashcard-example-sentences">
+            <div class="col" style="border-right: 1px solid #ccc;" >
+              <%= sanitize @top_flashcard.source_sentence %>
+            </div>
+            <div class="col">
+            </div>
           </div>
-        </div>
-        Example sentence:
-        <div class="row align-items-end flashcard-example-sentences">
-          <div class="col" style="border-right: 1px solid #ccc;" >
-            <%= sanitize @top_flashcard.source_sentence %>
-          </div>
-          <div class="col">
-          </div>
-        </div>
 
-      <% elsif @top_flashcard.test_direction == 'en-tl' %>
-        <div class="row flashcard-definition">
-          <div class="col" style="border-right: 1px solid #ccc;" >
-            <%= @top_flashcard.question %>
-            <br>
-            Definition being tested:
-            <br>
-            <%= sanitize @top_flashcard.definition_being_tested %>
-            Other definitions:
-            <br>
-            <%= sanitize @top_flashcard.other_definitions %>
-          </div>
-          <div class="col">
-            <input type="text">
-            <br>
-            <%# Remove this and accept input box text instead: %>
-            <% user_answer = "User answer" %>
-          </div>
-        </div>
-        <div class="row align-items-end flashcard-example-sentences">
-          <div class="col" style="border-right: 1px solid #ccc;" >
-            <%= sanitize @top_flashcard.target_sentence %>
-          </div>
-          <div class="col">
-          </div>
-        </div>
-      <% end %>
+        <% elsif @top_flashcard.test_direction == 'en-tl' %>
+          <div class="row flashcard-definition">
+            <div class="col" style="border-right: 1px solid #ccc;" >
+              <%= @top_flashcard.question %>
+              <br>
+              Definition being tested:
+              <br>
+              <%= sanitize @top_flashcard.definition_being_tested %>
+              Other definitions:
+              <br>
+              <%= sanitize @top_flashcard.other_definitions %>
+            </div>
+            <div class="col">
+              <input type="text">
+              <br>
 
-      <div class= "row answer-buttons-row justify-content-center">
-          <div class="row">
-            <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), method: :patch %>
+              <%= form_with url: "/search", method: :get do |form| %>
+                <%# <%= form.label :query, "Search for:" %>
+                <%= form.text_field :query %>
+                <%= form.submit "Check answer" %>
+              <% end %>
+
+              <%# Remove this and accept input box text instead: %>
+              <% user_answer = "User answer" %>
+            </div>
           </div>
-        </div>
+          <div class="row align-items-end flashcard-example-sentences">
+            <div class="col" style="border-right: 1px solid #ccc;" >
+              <%= sanitize @top_flashcard.target_sentence %>
+            </div>
+            <div class="col">
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
+
+  <div class= "row justify-content-center mt-auto d-grid gap-2 answer-buttons-row">
+    <%# <div class="d-grid gap-2"> %>
+      <button class="btn btn-primary" type="button">
+        <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), method: :patch %>
+      </button>
+    <%# </div> %>
+  </div>
+
 
 <% else %>
   <div id="all-caught-up">

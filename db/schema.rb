@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_011054) do
+ActiveRecord::Schema.define(version: 2022_03_15_011630) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_011054) do
   create_table "user_flashcards", force: :cascade do |t|
     t.datetime "next_review"
     t.datetime "due_to_learn"
-    t.boolean "learnt"
+    t.datetime "learnt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_deck_id"
