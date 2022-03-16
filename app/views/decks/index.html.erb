@@ -18,13 +18,13 @@
 
       <div class="col">
 
-        <div class="card bg-dark text-white">
-          <%= image_tag "#{deck.name.downcase}.jpg", class: "card_img" %>
+        <div class="card bg-light text-white">
+          <%= image_tag "#{deck.name.downcase}.jpg", class: "deck_card_img", style: "height: 400px;object-fit:cover;" %>
           <div class="card-img-overlay">
-            <h5 class="card-title"><%= deck.name %></h5>
+            <h3 class="card-title"><%= deck.name %></h3>
             <p class="card-text"><%= deck_flashcards_count %> card(s)</p>
             <p class="card-text">Last updated 3 mins ago</p>
-            <%= button_to "Add", user_decks_path(deck_id: deck.id), method: :post, id: 'show-button', class: 'deck-button' %>
+            <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, id: 'show-button', class: 'btn btn-primary' %>
           </div>
         </div>
 

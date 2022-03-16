@@ -24,6 +24,10 @@
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
   <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>
   <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
+
+
+  <%= render "components/flashcard", top_flashcard: top_flashcard %>
+
   <%= 'Question:' %>
   <%= top_flashcard.question %>
   <br>

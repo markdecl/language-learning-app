@@ -7,9 +7,9 @@
 
 <div class="card mb-3">
   <div class="row g-0">
-    <div class="col-md-4 d-none d-lg-block"> <%# d-none d-lg-block hides the image div on screens smaller than large %>
-      <%# <img src="/app/assets/images/<%= deck.name.downcase %><%#.jpg" class="img-fluid rounded-start" alt="..."> %>
-      <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top user_deck_card_img img-fluid rounded-start" %>
+    <div class="col-md-4 d-none d-md-block"> <%# d-none d-md-block hides the image div on screens smaller than md %>
+      <%# <img src="images/<%= deck.name.downcase %><%#.jpg" class="img-fluid rounded-start" alt="..."> %>
+      <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top user_deck_card_img img-fluid rounded-start", style: "height: 300px;object-fit:cover;" %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -18,7 +18,7 @@
 
           <li class="list-group-item">
 
-            <h5 class="card-title"><%= deck.name %></h5>
+            <h3 class="card-title"><%= deck.name %></h3>
             <p class="card-text"><%= user_deck_flashcards_count %> card(s)</p>
 
           </li>
@@ -82,31 +82,37 @@
 
         <div class="card-footer">
 
-            <div class="btn-group" role="group">
+          <%# <div class="btn-group" role="group">
 
-              <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
-              <%= button_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
+            <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
+            <%= link_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', :class => "btn btn-primary w-25" %>
 
-              <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
-              <%= button_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', class: 'deck-button' %>
-              <%# <button type="button" class="btn btn-warning">Learn</button> %>
+            <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
+            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning w-25" %>
+            <%# <button type="button" class="btn btn-warning">Learn</button> %>
 
-              <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
-              <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
-              <% if user_deck_flashcards_to_review_count > 0 %>
-                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button reviews_due' %>
-              <% else %>
-                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button' %>
+            <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
+            <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
+            <% if to_review_today_count > 0 %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', :class => "btn btn-danger w-25", class: 'btn btn-danger w-25', data: {toggle: :tab} do %>
+                Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
               <% end %>
+            <% else %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', :class => "btn btn-danger w-25", class: 'btn btn-danger disabled w-25', data: {toggle: :tab} do %>
+                Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
+              <% end %>
+            <% end %>
 
-              <%# helper method to return count of review pile %>
-              <%# <%= button_to "Review", user_deck_review_path(user_deck.id) %>
-              <%# <button type="button" class="btn btn-danger">Review</button> %>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="_user_deck_delete_modal">
-                Delete
-              </button>
+            <%# helper method to return count of review pile %>
+            <%# <%= button_to "Review", user_deck_review_path(user_deck.id) %>
+            <%# <button type="button" class="btn btn-danger">Review</button> %>
+            <%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="_user_deck_delete_modal">
+              Delete
+            </button> %>
 
-          </div>
+            <%= link_to 'Delete', user_deck_path(user_deck), :method => :delete, data: { confirm: "Are you sure you want to delete this deck? This action cannot be undone." }, :class => "btn btn-secondary w-25" %>
+
+          <%# </div> %>
 
         </div>
       </div>
