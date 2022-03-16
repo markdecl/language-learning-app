@@ -1,14 +1,114 @@
 <%# <div class="card mb-3" style="max-width: 540px;"> %>
+
+<% deck = @decks.find(user_deck.deck_id) %>
+<% user_deck_flashcards_count = @user_flashcards.where(user_deck_id: user_deck.id).count %>
+<% user_deck_flashcards_learnt_count = @user_flashcards.where("user_deck_id = ? AND learnt = ?", user_deck.id, true).count %>
+<% user_deck_flashcards_to_review_count = @user_flashcards.where("user_deck_id = ? AND learnt = ? AND next_review < ?", user_deck.id, true, Time.now).count %>
+
 <div class="card mb-3">
   <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
+    <div class="col-md-4 d-none d-lg-block"> <%# d-none d-lg-block hides the image div on screens smaller than large %>
+      <%# <img src="/app/assets/images/<%= deck.name.downcase %><%#.jpg" class="img-fluid rounded-start" alt="..."> %>
+      <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top user_deck_card_img img-fluid rounded-start" %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+        <ul class="list-group list-group-flush">
+
+          <li class="list-group-item">
+
+            <h5 class="card-title"><%= deck.name %></h5>
+            <p class="card-text"><%= user_deck_flashcards_count %> card(s)</p>
+
+          </li>
+
+          <li class="list-group-item">
+
+            Deck progress:
+            <%# <%= user_deck_flashcards_learnt_count / user_deck_flashcards_count * 100 %>
+            <%# <%= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100  %>
+            <div class="progress">
+              <% if user_deck_flashcards_learnt_count > 0 && user_deck_flashcards_count > 0 %>
+                <% deck_progress_percentage = user_deck_flashcards_learnt_count.to_f / user_deck_flashcards_count.to_f * 100 %>
+                <%# <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="<%= user_deck_flashcards_learnt_count" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count"></div> %>
+                <div class="progress-bar" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+              <% end %>
+            </div>
+            <%# <%= user_deck_flashcards_learnt_count / <%= user_deck_flashcards_count %>
+            <%# <br>
+            <%# Daily learn progress bar %>
+
+            Daily learning goal:
+            <% learnt_today_count = @user_flashcards.where("user_deck_id = ? AND learnt <= ?", user_deck.id, Time.now).count %>
+            <% learnt_today_count = @user_flashcards.where("user_deck_id = ? AND learnt > ? AND learnt <= ?", user_deck.id, Time.now.to_date.midnight, Time.now).count %>
+            <%= learnt_today_count %>
+            <% to_learn_today_count = @user_flashcards.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", user_deck.id, nil, Time.now).count %>
+            <%# <%= to_learn_today_count %>
+            <% total_learn_today_count = learnt_today_count + to_learn_today_count %>
+            / <%= total_learn_today_count %>
+            <% if learnt_today_count > 0 && total_learn_today_count > 0 %>
+              <% today_learn_progress_percentage = learnt_today_count.to_f / total_learn_today_count.to_f * 100 %>
+            <% else %>
+              <% today_learn_progress_percentage = 0 %>
+            <% end %>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: <%= "#{today_learn_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
+            <%# <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
+
+            <%# Daily review progress bar %>
+            Daily review goal:
+            <% reviewed_today_count = @user_flashcards.where("user_deck_id = ? AND previous_review <= ?", user_deck.id, Time.now).count %>
+            <%# <%= reviewed_today_count %>
+            <% to_review_today_count = @user_flashcards.where("user_deck_id = ? AND next_review <= ?", user_deck.id, Time.now).count %>
+            <%# <%= to_review_today_count %>
+            <% total_review_today_count = reviewed_today_count + to_review_today_count %>
+            <% if reviewed_today_count > 0 && total_review_today_count > 0 %>
+              <% today_review_progress_percentage = reviewed_today_count.to_f / total_review_today_count.to_f * 100 %>
+            <% else %>
+              <% today_review_progress_percentage = 0 %>
+            <% end %>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: <%= "#{today_review_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
+
+          </li>
+        </ul>
+
+        <%# <p class="card-text"><small class="text-muted"></small></p> %>
+
+        <div class="card-footer">
+
+            <div class="btn-group" role="group">
+
+              <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
+              <%= button_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
+
+              <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
+              <%= button_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', class: 'deck-button' %>
+              <%# <button type="button" class="btn btn-warning">Learn</button> %>
+
+              <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
+              <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
+              <% if user_deck_flashcards_to_review_count > 0 %>
+                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button reviews_due' %>
+              <% else %>
+                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button' %>
+              <% end %>
+
+              <%# helper method to return count of review pile %>
+              <%# <%= button_to "Review", user_deck_review_path(user_deck.id) %>
+              <%# <button type="button" class="btn btn-danger">Review</button> %>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="_user_deck_delete_modal">
+                Delete
+              </button>
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

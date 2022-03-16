@@ -4,10 +4,9 @@
     <%# <div class="col"> %>
 <div class='container'>
 
-
-  <%= render "components/user_deck_card" %>
-
   <% @user_decks.each do | user_deck | %>
+
+    <%= render "components/user_deck_card", user_deck: user_deck %>
 
     <% deck = @decks.find(user_deck.deck_id) %>
     <% user_deck_flashcards_count = @user_flashcards.where(user_deck_id: user_deck.id).count %>

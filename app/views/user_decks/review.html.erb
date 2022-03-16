@@ -83,7 +83,7 @@
   <div class= "row justify-content-center mt-auto d-grid gap-2 answer-buttons-row">
     <%# <div class="d-grid gap-2"> %>
       <button class="btn btn-primary" type="button">
-        <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), method: :patch %>
+        <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), class: "btn", method: :patch %>
       </button>
     <%# </div> %>
   </div>

@@ -132,6 +132,17 @@ html, body {
 //   align-items: center;
 // }
 
+
+.user_deck_card_img {
+    width: 100%;
+    // height: 15vw;
+    object-fit: cover;
+    // display: flex;
+    // justify-content: center;
+    // position: relative;
+    // margin: auto;
+}
+
 // .user_deck_img {
 //   object-fit: cover;
 //   border-radius: 50%;
@@ -172,21 +183,21 @@ html, body {
 //   box-shadow: 0 10px 10px -10px rgba(0,0,0,.2);
 // }
 
-#show-button {
-  // background-color: $green;
-}
+// #show-button {
+//   // background-color: $green;
+// }
 
-#learn-button {
-  // background-color: $green;
-}
+// #learn-button {
+//   // background-color: $green;
+// }
 
-#review-button {
-  // background-color: $green;
-}
+// #review-button {
+//   // background-color: $green;
+// }
 
-#review-button.reviews_due {
-  // background-color: red;
-}
+// #review-button.reviews_due {
+//   // background-color: red;
+// }
 
 //-------
 // review.html.erb
