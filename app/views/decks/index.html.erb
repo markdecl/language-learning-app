@@ -1,40 +1,28 @@
 <%# <div class="container-fluid main-container">
-  <div class="row"> %>
-    <%# <div class="col"> %>
-<div class='container'>
+<div class="row"> %>
+  <%# <div class="col"> %>
 
-  <%# This div display the flash notice "Deck already added!" %>
-  <% flash.each do |type, msg| %>
+<%# This div display the flash notice "Deck already added!" %>
+<% flash.each do |type, msg| %>
   <div class="alert alert-info">
     <%= msg %>
   </div>
 <% end %>
 
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 d-flex flex-xl-wrap">
+<%# <div class="d-flex flex-lg-wrap"> %>
+<%# <div class="card-group"> %>
 
-    <% @decks.each do | deck | %>
+  <% @decks.each do | deck | %>
 
-      <% deck_flashcards_count = @flashcards.where(deck_id: deck.id).count %>
+    <% deck_flashcards_count = @flashcards.where(deck_id: deck.id).count %>
 
-      <div class="col">
+    <div class="col">
 
-        <div class="card bg-light text-white">
-          <%= image_tag "#{deck.name.downcase}.jpg", class: "deck_card_img", style: "height: 400px;object-fit:cover;" %>
-          <div class="card-img-overlay">
-            <h3 class="card-title"><%= deck.name %></h3>
-            <p class="card-text"><%= deck_flashcards_count %> card(s)</p>
-            <p class="card-text">Last updated 3 mins ago</p>
-            <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, id: 'show-button', class: 'btn btn-primary' %>
-          </div>
-        </div>
+      <%= render "components/deck_card", deck: deck, deck_flashcards_count: deck_flashcards_count %>
 
-      </div>
+    </div>
 
-    <% end %>
-
-
-  </div>
-
-
+  <% end %>
 
 </div>

@@ -1,98 +1,27 @@
 
-<% if @user_deck_flashcards.any? %>
-  <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
-  <h3>Left to review: <%= @user_deck_flashcards.count %></h3>
+<%# <% if @user_deck_flashcards.any? %>
+<%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
+<h3>Left to review: <%= @user_deck_flashcards.count %></h3>
 
-  <%= render "components/flashcard", top_flashcard: @top_flashcard %>
+<%= render "components/flashcard", top_flashcard: @top_flashcard %>
 
-  <div class="row">
-    <div class="flashcard-container">
-
-      <div class="flashcard">
-
-        Frequency rank: <%= @top_flashcard.frequency_rank %>
-        <br>
-        Scaled frequency: <%= @top_flashcard.scaled_frequency %>
-        <br>
-        Test direction: <%= @top_flashcard.test_direction %>
-
-        <% if @top_flashcard.test_direction == 'tl-en' %>
-          <div class="row flashcard-definition">
-            <div class="col" style="border-right: 1px solid #ccc;" >
-              <%= @top_flashcard.question %>
-              <br>
-              <%= sanitize @top_flashcard.term_with_accent %>
-              <br>
-              <%= @top_flashcard.conjugation_and_declension_info %>
-            </div>
-            <div class="col">
-              <input type="text">
-              <br>
-              <% user_answer = "User answer" %>
-              <br>
-              Other definitions:
-              <br>
-              <%= sanitize @top_flashcard.other_definitions %>
-            </div>
-          </div>
-          Example sentence:
-          <div class="row align-items-end flashcard-example-sentences">
-            <div class="col" style="border-right: 1px solid #ccc;" >
-              <%= sanitize @top_flashcard.source_sentence %>
-            </div>
-            <div class="col">
-            </div>
-          </div>
-
-        <% elsif @top_flashcard.test_direction == 'en-tl' %>
-          <div class="row flashcard-definition">
-            <div class="col" style="border-right: 1px solid #ccc;" >
-              <%= @top_flashcard.question %>
-              <br>
-              Definition being tested:
-              <br>
-              <%= sanitize @top_flashcard.definition_being_tested %>
-              Other definitions:
-              <br>
-              <%= sanitize @top_flashcard.other_definitions %>
-            </div>
-            <div class="col">
-              <input type="text">
-              <br>
-
-              <%= form_with url: "/search", method: :get do |form| %>
-                <%# <%= form.label :query, "Search for:" %>
-                <%= form.text_field :query %>
-                <%= form.submit "Check answer" %>
-              <% end %>
-
-              <%# Remove this and accept input box text instead: %>
-              <% user_answer = "User answer" %>
-            </div>
-          </div>
-          <div class="row align-items-end flashcard-example-sentences">
-            <div class="col" style="border-right: 1px solid #ccc;" >
-              <%= sanitize @top_flashcard.target_sentence %>
-            </div>
-            <div class="col">
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class= "row justify-content-center mt-auto d-grid gap-2 answer-buttons-row">
-    <%# <div class="d-grid gap-2"> %>
-      <%= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), class: "btn btn-primary btn-lg", method: :patch %>
-    <%# </div> %>
-  </div>
+<%# <div class= "row justify-content-center mt-auto d-block answer-buttons-row">
+  <%# <div class="d-grid gap-2"> %>
+    <%#= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), class: "btn btn-primary btn-lg", method: :patch %>
+  <%# </div> %>
+<%# </div> %>
+<div class= "d-flex mt-auto justify-content-center answer-buttons-row">
+  <%# <div class="d-grid gap-2"> %>
+  <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-primary btn-lg w-50", method: :patch %>
+  <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-primary btn-lg w-50", method: :patch %>
+  <%# </div> %>
+</div>
 
 
-<% else %>
-  <div id="all-caught-up">
-    <%# <i class="fa-solid fa-hot-tub-person fa-8x"></i> %>
-    <i class="fa-solid fa-face-grin-stars fa-8x"></i>
-    <h2>All caught up!</h2>
-  </div>
-<% end %>
+<%# <% else %>
+<%#   <div id="all-caught-up">
+<%#     <%# <i class="fa-solid fa-hot-tub-person fa-8x"></i> %>
+<%#     <i class="fa-solid fa-face-grin-stars fa-8x"></i>
+<%#     <h2>All caught up!</h2>
+<%#   </div>
+<%# <% end %>

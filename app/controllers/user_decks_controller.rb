@@ -30,7 +30,9 @@ class UserDecksController < ApplicationController
   end
 
   def create
+    @deck = Deck.find(user_deck_params) # user_deck_params is just the id as a string for some reason
     @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the id as a string for some reason
+    @user_deck.id = @deck.id # this ensures that the user_deck is the same as the deck_id, in case multiple user_decks are created and destroyed leading to misalignment between the two tables
     if @user_deck.save
       # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO:
       @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the id as a string for some reason
@@ -43,12 +45,13 @@ class UserDecksController < ApplicationController
         user_flashcard = UserFlashcard.create!(attributes)
         #puts "Created #{user_flashcard}"
         user_flashcard_index += 1
-        if user_flashcard_index > 10
+        if user_flashcard_index > 100
           due_to_learn += (24 * 60 * 60)
           user_flashcard_index = 1
         end
       end
       #redirect_to user_deck_path(@user_deck)
+      flash[:alert] = "#{@deck.language} deck added!"
       redirect_to user_decks_path
     else
       #render :new
@@ -59,18 +62,28 @@ class UserDecksController < ApplicationController
   end
 
   def update_learning_schedule
-
   end
 
   def learn
+    @deck = Deck.find(params[:id])
     @user_deck = UserDeck.find(params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", @user_deck.id, nil, Time.now)
-    @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
+    # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
+    if @user_deck_flashcards.any?
+      @top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first
+      @top_flashcard = Flashcard.find(@top_user_flashcard.flashcard_id)
+    else
+      # @top_user_flashcard = nil
+      # @top_flashcard = nil
+      flash[:alert] = "Congrats! You've completed your daily learning goal for the #{@deck.language} deck."
+      redirect_to user_decks_path
+    end
   end
 
   def review
+    @deck = Deck.find(params[:id])
     @user_deck = UserDeck.find(params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
@@ -84,8 +97,10 @@ class UserDecksController < ApplicationController
       @top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:next_review] }.first
       @top_flashcard = Flashcard.find(@top_user_flashcard.flashcard_id)
     else
-      @top_user_flashcard = nil
-      @top_flashcard = nil
+      # @top_user_flashcard = nil
+      # @top_flashcard = nil
+      flash[:alert] = "Congrats! You've caught up on the #{@deck.language} deck reviews."
+      redirect_to user_decks_path
     end
   end
   helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb
@@ -114,6 +129,10 @@ class UserDecksController < ApplicationController
   # end
 
   # def edit_review_time
+  # end
+
+  # def open_delete_modal
+  #   @user_deck = UserDeck.find(params[:id])
   # end
 
   def destroy

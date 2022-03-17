@@ -22,24 +22,24 @@
 
 <% if @user_deck_flashcards.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
-  <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>
-  <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
 
+  <%= render "components/flashcard", top_flashcard: @top_flashcard %>
 
-  <%= render "components/flashcard", top_flashcard: top_flashcard %>
-
-  <%= 'Question:' %>
-  <%= top_flashcard.question %>
-  <br>
-  <%= 'Answer:' %>
-  <%= top_flashcard.answer %>
-  <br>
-  <button>Incorrect</button>
+  <%# <button>Incorrect</button>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
 
-  <button>Correct</button>
-  <%= link_to "Correct", update_learn_user_flashcard_path(top_user_flashcard), method: :patch %>
+  <%# <button>Correct</button>
+  <%#= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), method: :patch %>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
+
+  <div class="collapse" id="collapseExample">
+    <div class= "d-flex mt-auto justify-content-center answer-buttons-row">
+      <%# <div class="d-grid gap-2"> %>
+      <%= link_to "Incorrect", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-danger btn-lg w-50", method: :patch %>
+      <%= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-success btn-lg w-50", method: :patch %>
+      <%# </div> %>
+    </div>
+  </div>
 <% else %>
   <h2>All caught up!</h2>
 <% end %>

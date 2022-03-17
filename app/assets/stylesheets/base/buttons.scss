@@ -1,0 +1,9 @@
+.see-answer-button #see-answer {
+  display:inline;
+}
+.see-answer-button.collapsed #hide-answer {
+  display:none;
+}
+.see-answer-button:not(.collapsed) #see-answer {
+  display:none;
+}

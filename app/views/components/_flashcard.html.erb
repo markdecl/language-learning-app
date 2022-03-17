@@ -1,23 +1,61 @@
 <div class="card text-center">
   <div class="card-header">
-    Featured
+    Frequency rank: <%= @top_flashcard.frequency_rank %>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-    </div>
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item">
+        <% if @top_flashcard.test_direction == 'tl-en' %>
+          <p class="text-muted"><%= @top_flashcard.deck.language %></p>
+        <% else %>
+          <p class="text-muted">English</p>
+        <% end %>
+
+        <h5 class="card-title"><%= @top_flashcard.question %></h5>
+        <i class="fa-solid fa-volume-high"></i>
+
+        <% if @top_flashcard.test_direction == 'tl-en' %>
+          <p class="card-text"><%= sanitize @top_flashcard.source_sentence %></p>
+        <% else %>
+          <p class="card-text"><%= sanitize @top_flashcard.target_sentence %></p>
+        <% end %>
+      </li>
+
+      <li class="list-group-item">
+
+        <% if @top_flashcard.test_direction == 'tl-en' %>
+          <p class="text-muted">English</p>
+        <% else %>
+          <p class="text-muted"><%= @top_flashcard.deck.language %></p>
+        <% end %>
+
+        <div class="collapse" id="collapseExample">
+          <h5 class="card-title"><%= @top_flashcard.answer %></h5>
+          <i class="fa-solid fa-volume-high"></i>
+
+          <% if @top_flashcard.test_direction == 'tl-en' %>
+            <p class="card-text"><%= sanitize @top_flashcard.target_sentence %></p>
+          <% else %>
+            <p class="card-text"><%= sanitize @top_flashcard.source_sentence %></p>
+          <% end %>
+        </div>
+
+      </li>
+
+
   </div>
 
   <div class="card-footer text-muted">
-    2 days ago
+    Last reviewed 2 days ago
   </div>
 
-  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Link with href
+  <a class="btn btn-primary see-answer-button collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <div id="see-answer">
+      See answer
+    </div>
+    <div id="hide-answer">
+      Hide answer
+    </div>
   </a>
 </div>

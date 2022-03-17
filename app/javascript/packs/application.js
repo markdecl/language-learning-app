@@ -8,7 +8,9 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import "@fortawesome/fontawesome-free/css/all"
+import "@fortawesome/fontawesome-free/css/all";
+
+// import 'bootstrap';
 
 
 // require("flip_flashcard")
@@ -20,3 +22,6 @@ import "@fortawesome/fontawesome-free/css/all"
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+
+// ------ User deck confirm delete modal ------

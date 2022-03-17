@@ -4,10 +4,22 @@
     <%# <div class="col"> %>
 <%# <div class='container'> %>
 
-<% @user_decks.each do | user_deck | %>
+<%# This div display the flash notice "Deck added!" %>
+<% flash.each do |type, msg| %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong><%= msg %></strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% end %>
 
-  <%= render "components/user_deck_card", user_deck: user_deck %>
+<% if @user_decks.any? %>
+  <% @user_decks.each do | user_deck | %>
 
+    <%= render "components/user_deck_card", user_deck: user_deck %>
+
+  <% end %>
+<% else %>
+  <h2>No decks added... yet.</h2>
 <% end %>
 
 <%# </div> %>
