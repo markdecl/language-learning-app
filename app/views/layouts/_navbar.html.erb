@@ -6,10 +6,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <%# <%= link_to "My Decks", user_decks_path%>
-          <a class="nav-link" href="/user_decks"> My Decks <span class="sr-only">(current)</span></a>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%# <%= link_to "My Decks", user_decks_path%>
+            <a class="nav-link" href="/user_decks"> My Decks <span class="sr-only">(current)</span></a>
+          </li>
+        <% end %>
         <li class="nav-item active">
           <%# <%= link_to "My Decks", user_decks_path%>
           <a class="nav-link" href="/decks"> Browse Decks <span class="sr-only">(current)</span></a>
@@ -17,12 +19,19 @@
         <%# <li class="nav-item active">
           <a class="nav-link" href="#"> Language <span class="sr-only">(current)</span></a>
         </li> %>
-        <li class="nav-link">
-          Log in
-        </li>
-        <li class="nav-link">
-          <span class="badge bg-secondary bg-light text-dark">Sign up</span>
-        </li>
+
+        <% unless user_signed_in? %>
+          <li class="nav-item active">
+            <a class="nav-link" href="/users/sign_in"> Log in <span class="sr-only">(current)</span></a>
+            <%#= link_to "Log in", new_user_session_path, :method => :get %>
+          </li>
+          <li class="nav-link">
+            <%= link_to new_user_registration_path, :method => :get do %>
+              <span class="badge bg-secondary bg-light text-dark">Sign up</span>
+            <% end %>
+          </li>
+        <% end %>
+
       </ul>
       <% if @user_deck %>
         <ul class="navbar-nav mx-auto">
@@ -31,35 +40,42 @@
           </li>
         </ul>
       <% end %>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Mark
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Log Out</a>
-          </div>
+      <% if user_signed_in? %>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Logged in as <%= current_user.email %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Log Out</a>
+            </div>
+          </li>
+          <%# <div class="dropdown">
+            <button class="dropbtn">Mark
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Profile</a>
+              <a href="#">Settings</a>
+              <a href="#">Log out</a>
+            </div>
+          </div> %>
+          <%# <li class="nav-item active">
+            <a class="nav-link" href="#"> Mark <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
+          </li> %>
+        </ul>
+        <li>
+          <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
+          <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
         </li>
-        <%# <div class="dropdown">
-          <button class="dropbtn">Mark
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="#">Profile</a>
-            <a href="#">Settings</a>
-            <a href="#">Log out</a>
-          </div>
-        </div> %>
-        <%# <li class="nav-item active">
-          <a class="nav-link" href="#"> Mark <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
-        </li> %>
-      </ul>
+
+      <% end %>
       <%# <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

@@ -8,7 +8,7 @@
       <p class="card-text"><%= deck_flashcards_count %> cards</p>
     <% end %>
     <p class="card-text">Last updated 3 mins ago</p>
-    <%= link_to "View", user_decks_path(deck_id: deck.id), method: :post, class: 'btn btn-primary' %>
+    <%= link_to "View", deck_path(deck.id), method: :get, class: 'btn btn-primary' %>
     <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, class: 'btn btn-success' %>
   </div>
 </div>
