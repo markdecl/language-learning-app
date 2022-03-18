@@ -1,7 +1,7 @@
 class UserDecksController < ApplicationController
   def index
     @decks = Deck.all
-    @user_decks = UserDeck.all
+    @user_decks = UserDeck.where(user_id: current_user.id)
     @user_flashcards = UserFlashcard.all
   end
 
@@ -30,13 +30,14 @@ class UserDecksController < ApplicationController
   end
 
   def create
-    @deck = Deck.find(user_deck_params) # user_deck_params is just the id as a string for some reason
-    @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the id as a string for some reason
-    @user_deck.id = @deck.id # this ensures that the user_deck is the same as the deck_id, in case multiple user_decks are created and destroyed leading to misalignment between the two tables
+    @deck = Deck.find(user_deck_params) # user_deck_params is just the deck_id as a string for some reason
+    @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the deck_id as a string for some reason
+    # @user_deck.id = @deck.id # this ensures that the user_deck is the same as the deck_id, in case multiple user_decks are created and destroyed, leading to misalignment between the two tables. UPDATE: but this breaks when multiple users try to add the same deck.
+    @user_deck.user_id = current_user.id
     if @user_deck.save
       # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO:
-      @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the id as a string for some reason
-      # Set the due_to_learn attribute for every 20 user_flashcards as that of the previous 20 cards + 1 day
+      @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
+      # Set the due_to_learn attribute for every 100 user_flashcards as that of the previous 100 cards + 1 day
       due_to_learn = Time.now
       user_flashcard_index = 1
       @deck_flashcards.each do |deck_flashcard|
@@ -65,8 +66,8 @@ class UserDecksController < ApplicationController
   end
 
   def learn
-    @deck = Deck.find(params[:id])
     @user_deck = UserDeck.find(params[:id])
+    @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", @user_deck.id, nil, Time.now)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
@@ -83,8 +84,8 @@ class UserDecksController < ApplicationController
   end
 
   def review
-    @deck = Deck.find(params[:id])
     @user_deck = UserDeck.find(params[:id])
+    @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)

@@ -28,9 +28,17 @@
       <div id="main" class="container clear-top" style="max-width:800px;">
       <%# <div> %>
 
+        <%# This div displays flash notices and alerts etc. %>
+        <% flash.each do |type, msg| %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong><%= msg %></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% end %>
+
         <%# For Devise: %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <%# <p class="notice"><%= notice %><%# </p>
+        <%# <p class="alert"><%= alert %><%# </p> %>
 
         <%= yield %>
       </div>

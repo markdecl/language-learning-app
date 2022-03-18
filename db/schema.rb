@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_035928) do
+ActiveRecord::Schema.define(version: 2022_03_18_150734) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -50,7 +50,10 @@ ActiveRecord::Schema.define(version: 2022_03_18_035928) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "language"
     t.integer "deck_id", null: false
+    t.integer "user_id", null: false
+    t.index ["deck_id", "user_id"], name: "index_user_decks_on_deck_id_and_user_id", unique: true
     t.index ["deck_id"], name: "index_user_decks_on_deck_id"
+    t.index ["user_id"], name: "index_user_decks_on_user_id"
   end
 
   create_table "user_flashcards", force: :cascade do |t|
@@ -81,6 +84,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_035928) do
 
   add_foreign_key "flashcards", "decks"
   add_foreign_key "user_decks", "decks"
+  add_foreign_key "user_decks", "users"
   add_foreign_key "user_flashcards", "flashcards"
   add_foreign_key "user_flashcards", "user_decks"
 end

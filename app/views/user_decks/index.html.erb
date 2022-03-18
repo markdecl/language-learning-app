@@ -4,14 +4,6 @@
     <%# <div class="col"> %>
 <%# <div class='container'> %>
 
-<%# This div display the flash notice "Deck added!" %>
-<% flash.each do |type, msg| %>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong><%= msg %></strong>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% end %>
-
 <% if @user_decks.any? %>
   <% @user_decks.each do | user_deck | %>
 
@@ -19,7 +11,7 @@
 
   <% end %>
 <% else %>
-  <h2>No decks added... yet.</h2>
+  <h2>No decks added yet.</h2>
 <% end %>
 
 <%# </div> %>
