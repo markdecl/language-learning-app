@@ -28,7 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3', '~> 1.4' #gem to use in development-test environment
+  gem 'sqlite3', '~> 1.4' # gem to use in development-test environment
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -51,7 +51,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'         #gem to use in production environment
+  gem 'pg' # gem to use in production environment
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
