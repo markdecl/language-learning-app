@@ -17,7 +17,7 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id] )
     # @user_deck_flashcards = @user_deck_flashcards.find(:all,:joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
-    @flashcards = Flashcard.where(deck_id: @user_deck.id)
+    @flashcards = Flashcard.where(deck_id: @user_deck.deck_id)
 
     # @flashcards_joined = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
     # @flashcards_ordered = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
@@ -89,7 +89,8 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Time.now)
+    # @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Time.now) # current time or earlier
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Date.today) # end of today or earlier
     # @flashcards = Flashcard.all
     # @answer_checked = params[:answer_checked]
     # @answer_correct = params[:answer_correct]
@@ -104,7 +105,7 @@ class UserDecksController < ApplicationController
       redirect_to user_decks_path
     end
   end
-  helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb
+  helper_method :review # dunno if this should be here. Supposed to help render the review pile count in index.html.erb.
 
   def review_answer
     # @user_deck = UserDeck.find(params[:id])

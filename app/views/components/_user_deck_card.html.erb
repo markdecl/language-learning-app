@@ -85,9 +85,9 @@
 
             <%# Daily review progress bar %>
             Daily review goal:
-            <% reviewed_today_count = @user_flashcards.where("user_deck_id = ? AND previous_review <= ?", user_deck.id, Time.now).count %>
+            <% reviewed_today_count = @user_flashcards.where("user_deck_id = ? AND previous_review <= ?", user_deck.id, Date.today).count %>
             <%# <%= reviewed_today_count %>
-            <% to_review_today_count = @user_flashcards.where("user_deck_id = ? AND next_review <= ?", user_deck.id, Time.now).count %>
+            <% to_review_today_count = @user_flashcards.where("user_deck_id = ? AND next_review <= ?", user_deck.id, Date.today).count %>
             <%# <%= to_review_today_count %>
             <% total_review_today_count = reviewed_today_count + to_review_today_count %>
             <% if reviewed_today_count > 0 && total_review_today_count > 0 %>
