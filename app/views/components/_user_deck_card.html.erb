@@ -7,9 +7,9 @@
 
 <%= render 'components/delete_user_deck_modal', user_deck: user_deck %>
 
-<div class="card mb-3 user_deck_card">
+<div class="card shadow mb-4 user_deck_card">
   <div class="row g-0">
-    <div class="col-md-4 d-none d-md-block"> <%# d-none d-md-block hides the image div on screens smaller than md %>
+    <div class="col-md-4 d-none d-md-block"> <%# d-none d-md-block hides this div on screen sizes smaller than md %>
       <%# <img src="images/<%= deck.name.downcase %><%#.jpg" class="img-fluid rounded-start" alt="..."> %>
       <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top user_deck_card_img img-fluid rounded-start", style: "height: 322px;object-fit:cover;" %>
     </div>
@@ -85,9 +85,9 @@
 
             <%# Daily review progress bar %>
             Daily review goal:
-            <% reviewed_today_count = @user_flashcards.where("user_deck_id = ? AND previous_review <= ?", user_deck.id, Date.today).count %>
+            <% reviewed_today_count = @user_flashcards.where("user_deck_id = ? AND previous_review <= ?", user_deck.id, DateTime.now.utc.end_of_day).count %>
             <%# <%= reviewed_today_count %>
-            <% to_review_today_count = @user_flashcards.where("user_deck_id = ? AND next_review <= ?", user_deck.id, Date.today).count %>
+            <% to_review_today_count = @user_flashcards.where("user_deck_id = ? AND next_review <= ?", user_deck.id, DateTime.now.utc.end_of_day).count %>
             <%# <%= to_review_today_count %>
             <% total_review_today_count = reviewed_today_count + to_review_today_count %>
             <% if reviewed_today_count > 0 && total_review_today_count > 0 %>
@@ -118,6 +118,9 @@
             <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
             <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:32%;" %>
             <%# <button type="button" class="btn btn-warning">Learn</button> %>
+
+
+            <%= link_to "Change learning schedule", get_learning_schedule_path(user_deck.id), method: :get, :class => "btn btn-primary", style: "width:32%;" %>
 
             <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
             <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>

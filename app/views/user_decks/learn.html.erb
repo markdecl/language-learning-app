@@ -32,8 +32,8 @@
   <%#= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), method: :patch %>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
 
-  <div class="collapse" id="collapseExample">
-    <div class= "d-flex mt-auto justify-content-center answer-buttons-row">
+  <div class="collapse" id="collapseExample" style="margin-top:auto;">
+    <div class= "d-flex answer-buttons-row">
       <%# <div class="d-grid gap-2"> %>
       <%= link_to "Incorrect", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-danger btn-lg w-50", method: :patch %>
       <%= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-success btn-lg w-50", method: :patch %>

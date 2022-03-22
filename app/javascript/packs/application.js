@@ -8,7 +8,12 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+require("packs/closeAlert")
+
 import "@fortawesome/fontawesome-free/css/all";
+
+require("jquery")
+//= require jquery_ujs
 
 // import 'bootstrap';
 

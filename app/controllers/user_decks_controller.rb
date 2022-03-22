@@ -30,30 +30,35 @@ class UserDecksController < ApplicationController
   end
 
   def create
-    @deck = Deck.find(user_deck_params) # user_deck_params is just the deck_id as a string for some reason
-    @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the deck_id as a string for some reason
+    deck_id = params[:deck_id]
+    @deck = Deck.find(deck_id)
+    # @deck = Deck.find(user_deck_params) # user_deck_params is just the deck_id as a string for some reason
+    @user_deck = UserDeck.new({deck_id: deck_id})
+    # @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the deck_id as a string for some reason
     # @user_deck.id = @deck.id # this ensures that the user_deck is the same as the deck_id, in case multiple user_decks are created and destroyed, leading to misalignment between the two tables. UPDATE: but this breaks when multiple users try to add the same deck.
     @user_deck.user_id = current_user.id
     if @user_deck.save
       # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO:
-      @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
+      @deck_flashcards = Flashcard.where(deck_id: deck_id).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
+      # @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
       # Set the due_to_learn attribute for every 100 user_flashcards as that of the previous 100 cards + 1 day
-      due_to_learn = Time.now
-      user_flashcard_index = 1
+      # due_to_learn = Time.now
+      # user_flashcard_index = 1
       @deck_flashcards.each do |deck_flashcard|
         # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
-        attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: due_to_learn}
+        attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: nil} # due_to_learn is set to nil for the time being
         user_flashcard = UserFlashcard.create!(attributes)
         #puts "Created #{user_flashcard}"
-        user_flashcard_index += 1
-        if user_flashcard_index > 100
-          due_to_learn += (24 * 60 * 60)
-          user_flashcard_index = 1
-        end
+        # user_flashcard_index += 1
+        # if user_flashcard_index > 100
+          # due_to_learn += (24 * 60 * 60)
+          # user_flashcard_index = 1
+        # end
       end
+      redirect_to get_learning_schedule_path(@user_deck)
       #redirect_to user_deck_path(@user_deck)
       flash[:alert] = "#{@deck.language} deck added!"
-      redirect_to user_decks_path
+      # redirect_to user_decks_path
     else
       #render :new
       #redirect_to decks_path, notice: "Deck already added!"
@@ -62,7 +67,30 @@ class UserDecksController < ApplicationController
     end
   end
 
+  def get_learning_schedule
+    @user_deck = UserDeck.find(user_deck_params)
+  end
+
   def update_learning_schedule
+    @user_deck = UserDeck.find(params[:id])
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
+    due_to_learn = Time.now
+    to_learn_per_day = params[:to_learn_per_day].to_i
+    user_flashcard_index = 1
+    @user_deck_flashcards.each do |user_deck_flashcard|
+      # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+      # attributes = {user_deck_id: @user_deck.id, flashcard_id: user_deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: due_to_learn}
+      # user_flashcard = UserFlashcard.create!(attributes)
+      user_deck_flashcard.update(due_to_learn: due_to_learn)
+      #puts "Created #{user_flashcard}"
+      user_flashcard_index += 1
+      if user_flashcard_index > to_learn_per_day.to_i
+        due_to_learn += (24 * 60 * 60)
+        user_flashcard_index = 1
+      end
+    end
+    flash[:alert] = "Deck learning schedule updated!"
+    redirect_to user_decks_path
   end
 
   def learn
@@ -90,7 +118,7 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
     # @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Time.now) # current time or earlier
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Date.today) # end of today or earlier
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, DateTime.now.utc.end_of_day) # end of today or earlier
     # @flashcards = Flashcard.all
     # @answer_checked = params[:answer_checked]
     # @answer_correct = params[:answer_correct]
@@ -149,7 +177,8 @@ class UserDecksController < ApplicationController
   end
 
   def user_deck_params
-    params.require(:deck_id)#.permit(:name, :address, :stars)
+    params.fetch(:id, :deck_id)
+    # params.require(:id)#.permit(:name, :address, :stars)
     #params.require(:user_deck)#.permit(:name, :address, :stars)
   end
 
