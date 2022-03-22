@@ -40,7 +40,7 @@ class UserFlashcardsController < ApplicationController
   def update_learn
     @user_flashcard = UserFlashcard.find(params[:id])
     # params[:learnt] = true
-    @user_flashcard.update(learnt: true)
+    @user_flashcard.update(learnt: Time.now)
     # params[:next_review] = Time.now
 
     @user_flashcard.update(previous_review: Time.now) # set as current date and time

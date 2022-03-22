@@ -5,5 +5,6 @@ class CreateUserDecks < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     # add_index :user_decks, :deck_id, unique: true
+    add_index :user_decks, [ :deck_id, :user_id ], unique: true
   end
 end

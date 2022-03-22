@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root to: 'user_decks#index'
+  # root to: 'user_decks#index'
+  root to: 'static_pages#home'
 
   # resources :user_decks do
   #   resources :user_flashcards
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
   get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
+  # patch "/user_decks", to: "user_decks#open_delete_modal", as: :user_deck_open_delete_modal
   # get 'show_answer', to: 'user_decks#show_answer'
 
   resources :user_flashcards

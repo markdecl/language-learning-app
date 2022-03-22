@@ -3,13 +3,20 @@
 
   <h2>Cards in deck: <%= @user_deck_flashcards.count %></h2>
 
+  <br>
+  <h2>Ordered by user_deck_flashcard.due_to_learn:</h2>
+  <br>
+  <br>
+
   <div class="row">
     <div class="col">
       <b>id</b>
     </div>
+    <%#
     <div class="col">
       <b>Scaled Frequency</b>
     </div>
+    %>
     <div class="col">
       <%# <b>English</b> %>
       <b>Question</b>
@@ -32,20 +39,25 @@
     </div>
   </div>
   <% @user_deck_flashcards.each do | user_deck_flashcard | %>
+  <%# <% @flashcards_ordered.each do | flashcard | %>
+    <%# <%= flashcard.attributes %>
+
+    <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+    <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
+
     <% if user_deck_flashcard.learnt %>
-      <div class="row border bg-light" style="background-color:green;">
+      <div class="row border bg-success">
     <% else %>
       <div class="row border bg-light">
     <% end %>
 
-        <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
-
         <div class="col">
           <%= user_deck_flashcard.id %>
         </div>
+        <%#
         <div class="col">
           <%= flashcard.scaled_frequency %>
-        </div>
+       <%# </div>%>
         <div class="col">
           <%= flashcard.question %>
         </div>
@@ -62,24 +74,29 @@
           <%= user_deck_flashcard.previous_review %>
         </div>
         <div class="col">
-          <%= user_deck_flashcard.next_review %>
 
-          <% time_difference = user_deck_flashcard.next_review - Time.now %>
-          <%# <%= DateTime.Today.AddDays(1) %>
-          <%# <%= time_difference %>
-          <br>
-          <% if user_deck_flashcard.next_review.past? %>
-            Due
-          <% elsif time_difference < (24 * 60 * 60) %>
-            <% if time_difference < (60 * 60) %>
-              Less than an hour
-            <% else %>
-              in <%= (time_difference / (60 * 60)).round %> hour(s)
-            <% end %>
-          <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
-            Tomorrow
-          <% else %>
+          <% unless user_deck_flashcard.next_review.nil? %>
+
             <%= user_deck_flashcard.next_review %>
+
+            <% time_difference = user_deck_flashcard.next_review - Time.now %>
+            <%# <%= DateTime.Today.AddDays(1) %>
+            <%# <%= time_difference %>
+            <br>
+            <% if user_deck_flashcard.next_review.past? %>
+              Due
+            <% elsif time_difference < (24 * 60 * 60) %>
+              <% if time_difference < (60 * 60) %>
+                Less than an hour
+              <% else %>
+                in <%= (time_difference / (60 * 60)).round %> hour(s)
+              <% end %>
+            <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
+              Tomorrow
+            <% else %>
+              <%= user_deck_flashcard.next_review %>
+            <% end %>
+
           <% end %>
         </div>
         <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
