@@ -39,7 +39,7 @@ class UserDecksController < ApplicationController
     @user_deck.user_id = current_user.id
     if @user_deck.save
       # BUILD THE LOGIC TO CREATE THE USER_FLASHCARDS ASSOCIATED WITH THE NEW DECK TOO:
-      @deck_flashcards = Flashcard.where(deck_id: deck_id).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
+      @deck_flashcards = Flashcard.where(deck_id: deck_id).order('scaled_frequency DESC')
       # @deck_flashcards = Flashcard.where(deck_id: user_deck_params).order('scaled_frequency DESC') # user_deck_params is just the deck_id as a string for some reason
       # Set the due_to_learn attribute for every 100 user_flashcards as that of the previous 100 cards + 1 day
       # due_to_learn = Time.now

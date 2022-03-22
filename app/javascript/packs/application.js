@@ -15,7 +15,12 @@ import "@fortawesome/fontawesome-free/css/all";
 require("jquery")
 //= require jquery_ujs
 
+import "bootstrap"
 // import 'bootstrap';
+
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
 
 
 // require("flip_flashcard")

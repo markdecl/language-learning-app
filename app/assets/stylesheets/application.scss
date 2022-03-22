@@ -1,17 +1,21 @@
-@import "bootstrap/scss/bootstrap";
+@import "nodemodule.css";
+
+@import "bootstrap/scss/bootstrap"; /* picks it up in node_modules! */
+
+// @import "bootstrap"; /* throws scss compilation error */
+
 @import "font-awesome";
-
-
-// Custom CSS:
-@import "custom";
-
-// Import fonts
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch&family=Merriweather&family=Teko:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
 
 // Fonts and colors
 @import "base/typography";
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather:wght@300;400&family=Teko:wght@500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch&family=Merriweather&family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap');
 
 // Pages
 @import "views/static_pages";
@@ -21,21 +25,8 @@
 
 @import "views/user_decks/index";
 
-// Set color scheme
-// $green: #197278;
-$green: #115055;
-
-// $yellow: #F7B32B;
-// $yellow: #FFCB77;
-$yellow: #FFE900;
-// $red: #DE6B48;
-// $red: #ED254E;
-// $red: #FF5964;
-$red: #E53D00;
-// $gray: #EBF2FA;
-// $gray: #FEF9EF;
-// $gray: #F1F7F8;
-$gray: #FCFFF7;
+// Custom CSS:
+@import "custom";
 
 html, body {
   height: 100%;
@@ -46,21 +37,6 @@ html, body {
 }
 
 /*------- Layouts -------*/
-
-.navbar {
-  // position: sticky;
-  // top: 0;
-  // z-index: 100;
-  // height: 70px;
-  // box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
-  background: #004777;
-  // color: $gray;
-  // font-size: 30px;
-}
-
-// nav .navbar-nav li a, .navbar-brand {
-//   color: white !important;
-//   }
 
 // nav .navbar-nav li a:hover, .navbar-brand:hover {
 //   color: $yellow !important;
