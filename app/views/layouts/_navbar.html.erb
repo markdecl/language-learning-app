@@ -1,4 +1,4 @@
-<nav class="navbar myNavbar navbar-expand fixed-top navbar-dark ">
+<nav class="navbar myNavbar py-3 navbar-expand fixed-top navbar-dark "> <%# .py-3 class is to slightly increase navbar height %>
   <div class="container">
     <a class="navbar-brand" href="/">Verble</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,11 +69,16 @@
           <li class="nav-item active">
             <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
           </li> %>
+          <li>
+            <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
+            <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
+            <%= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;s' %>
+          </li>
         </ul>
-        <li>
+        <%# <li> %>
           <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
-          <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
-        </li>
+          <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none !important;' %>
+        <%# </li> %>
 
       <% end %>
       <%# <form class="form-inline my-2 my-lg-0">

@@ -25,6 +25,9 @@
 
 @import "views/user_decks/index";
 
+// Alerts
+@import "components/alert";
+
 // Custom CSS:
 @import "custom";
 
@@ -63,12 +66,19 @@ html, body {
 
 #wrap {
   min-height: 100%;
+  position: relative; // to enable the background SVGs to be position:fixed;
   // margin: 50px;
   // margin-top: 50px;
   // margin-left: 100px;
   // margin-right: 100px;
   // min-height: 70%;
   // height: 100%;
+}
+
+#background-svg {
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
 }
 
 #main {

@@ -62,8 +62,8 @@ class UserDecksController < ApplicationController
     else
       #render :new
       #redirect_to decks_path, notice: "Deck already added!"
-      flash[:alert] = "Deck already added!"
-      redirect_to decks_path
+      # flash.now[:alert] = "Deck already added!"
+      redirect_to decks_path, alert: "Deck already added!"
     end
   end
 

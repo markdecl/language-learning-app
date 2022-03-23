@@ -30,22 +30,24 @@
 
     <%= render "layouts/navbar" %>
     <div id="wrap">
+      <%# This div displays flash notices and alerts etc. %>
+      <% flash.each do |type, msg| %>
+        <%= type %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong><%= msg %></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+      <%# For Devise: %>
+      <%# <p class="notice"><%= notice %><%# </p>
+      <%# <p class="alert"><%= alert %><%# </p> %>
+
+      <div id="background-svg">
+        <%= show_svg('undraw_road_to_knowledge_.svg') %>
+      </div>
+
       <div id="main" class="container d-flex flex-column" style="max-width:800px;">
       <%# <div> %>
-
-        <%# This div displays flash notices and alerts etc. %>
-        <% flash.each do |type, msg| %>
-          <%= type %>
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong><%= msg %></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        <% end %>
-
-        <%# For Devise: %>
-        <%# <p class="notice"><%= notice %><%# </p>
-        <%# <p class="alert"><%= alert %><%# </p> %>
-
         <%= yield %>
       </div>
     </div>

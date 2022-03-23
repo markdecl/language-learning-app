@@ -1,5 +1,5 @@
-<div class="card mb-3 shadow bg-light text-white deck_card" style="min-width:300px">
-  <%= image_tag "#{deck.name.downcase}.jpg", class: "deck_card_img", style: "min-width:300px;height:322px;object-fit:cover;" %>
+<div class="card m-3 shadow bg-light text-white deck_card" style="">
+  <%= image_tag "#{deck.name.downcase}.jpg", class: "deck_card_img", style: "height:322px;object-fit:cover;" %>
   <div class="card-img-overlay">
     <h3 class="card-title"><%= deck.name %></h3>
     <% if deck_flashcards_count == 1 %>
