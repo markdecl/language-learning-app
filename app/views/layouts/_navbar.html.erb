@@ -19,8 +19,16 @@
         <%# <li class="nav-item active">
           <a class="nav-link" href="#"> Language <span class="sr-only">(current)</span></a>
         </li> %>
-
-        <% unless user_signed_in? %>
+      </ul>
+      <% if @user_deck %>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link"> <%= @user_deck.language %> <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      <% end %>
+      <% unless user_signed_in? %>
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/users/sign_in"> Log in <span class="sr-only">(current)</span></a>
             <%#= link_to "Log in", new_user_session_path, :method => :get %>
@@ -29,14 +37,6 @@
             <%= link_to new_user_registration_path, :method => :get do %>
               <span class="badge bg-secondary bg-light text-dark">Sign up</span>
             <% end %>
-          </li>
-        <% end %>
-
-      </ul>
-      <% if @user_deck %>
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item active">
-            <a class="nav-link"> <%= @user_deck.language %> <span class="sr-only">(current)</span></a>
           </li>
         </ul>
       <% end %>
