@@ -12,8 +12,8 @@
 <%# </div> %>
 <div class= "d-flex mt-auto justify-content-center answer-buttons-row">
   <%# <div class="d-grid gap-2"> %>
-  <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-primary btn-lg w-50", method: :patch %>
-  <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-primary btn-lg w-50", method: :patch %>
+  <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>
+  <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-success btn-lg w-50", method: :patch %>
   <%# </div> %>
 </div>
 
