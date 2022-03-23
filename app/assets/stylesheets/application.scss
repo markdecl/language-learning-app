@@ -77,8 +77,23 @@ html, body {
 
 #background-svg {
   position: fixed;
+  bottom: 300px;
+  right: 25px;
+  z-index: -1;
+}
+
+#background-circle-1 {
+  position: fixed;
+  top: -300px;
+  left: -250px;
+  z-index: -1;
+}
+
+#background-circle-2 {
+  position: fixed;
   bottom: 100px;
-  right: 50px;
+  right: -250px;
+  z-index: -1;
 }
 
 #main {
