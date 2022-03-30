@@ -5,6 +5,7 @@
 <% user_deck_flashcards_learnt_count = @user_flashcards.where("user_deck_id = ? AND learnt IS NOT ?", user_deck.id, nil).count %>
 <% user_deck_flashcards_to_review_count = @user_flashcards.where("user_deck_id = ? AND learnt IS NOT ? AND next_review < ?", user_deck.id, nil, Time.now).count %>
 
+
 <%= render 'components/delete_user_deck_modal', user_deck: user_deck %>
 
 <div class="card shadow m-3 user_deck_card">
@@ -33,6 +34,17 @@
             <!-- Button trigger confirm delete deck modal -->
             <div data-bs-toggle="modal" data-bs-target="#ConfirmDeleteDeckModal">
               <i class="fa-solid fa-trash-can user_deck_card_delete_icon text-secondary"></i>
+            </div>
+
+            <div id="user_deck_card_dropdown" class="dropdown" style="z-index: 1;">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="z-index: 1;">
+                Dropdown
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><button class="dropdown-item" type="button">Action</button></li>
+                <li><button class="dropdown-item" type="button">Another action</button></li>
+                <li><button class="dropdown-item" type="button">Something else here</button></li>
+              </ul>
             </div>
 
           </li>
@@ -110,26 +122,28 @@
 
         <div class="card-footer d-flex justify-content-between">
 
+          <%# z-index is set to 1 for the buttons to 'raise' them above the Bootstrap stretched link %>
+
           <%# <div class="btn-group" role="group">
 
             <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
-            <%= link_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', :class => "btn btn-primary", style: "width:24%;" %>
+            <%= link_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', :class => "btn btn-primary", style: "width:24%;z-index: 1;" %>
 
             <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
-            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:24%;" %>
+            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:24%;z-index: 1;" %>
             <%# <button type="button" class="btn btn-warning">Learn</button> %>
 
 
-            <%= link_to "Edit", get_learning_schedule_path(user_deck.id), method: :get, :class => "btn btn-primary", style: "width:24%;" %>
+            <%= link_to "Edit", get_learning_schedule_path(user_deck.id), method: :get, :class => "btn btn-primary", style: "width:24%;z-index: 1;" %>
 
             <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
             <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
             <% if to_review_today_count > 0 %>
-              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger', style: "width:24%;", data: {toggle: :tab} do %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger', style: "width:24%;z-index: 1;", data: {toggle: :tab} do %>
                 Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
               <% end %>
             <% else %>
-              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger disabled', style: "width:24%;", data: {toggle: :tab} do %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger disabled', style: "width:24%;z-index: 1;", data: {toggle: :tab} do %>
                 Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
               <% end %>
             <% end %>

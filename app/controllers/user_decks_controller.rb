@@ -12,6 +12,9 @@ class UserDecksController < ApplicationController
 
   def show
     @user_deck = UserDeck.find(params[:id])
+    @deck = Deck.find(@user_deck.deck_id)
+    @decks = Deck.all
+    @user_flashcards = UserFlashcard.all
     @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('due_to_learn')
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
@@ -24,6 +27,11 @@ class UserDecksController < ApplicationController
     @flashcards_ordered = Flashcard.includes(:user_flashcards)
     # @flashcards_joined = UserFlashcard.joins(:flashcard)
     # @flashcards_joined = Flashcard.joins("INNER JOIN user_flashcards ON user_flashcards.flashcard_id = flashcards.id")
+
+    user_deck_flashcards_count = @user_deck_flashcards.count
+    user_deck_flashcards_learnt_count = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ?", @user_deck.id, nil).count
+    user_deck_flashcards_to_review_count = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review < ?", @user_deck.id, nil, Time.now).count
+
   end
 
   def new

@@ -1,84 +1,41 @@
 
-<div class="container">
+<%= render "components/user_deck_card", user_deck: @user_deck, deck: @decks %>
 
-  <h2>Cards in deck: <%= @user_deck_flashcards.count %></h2>
+<%# <h2>Ordered by user_deck_flashcard.due_to_learn:</h2> %>
 
-  <br>
-  <h2>Ordered by user_deck_flashcard.due_to_learn:</h2>
-  <br>
-  <br>
+<table class="table table-hover">
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Frequency Rank</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+      <th scope="col">Next Review</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @user_deck_flashcards.each do | user_deck_flashcard | %>
+    <%# <% @flashcards_ordered.each do | flashcard | %>
+      <%# <%= flashcard.attributes %>
 
-  <div class="row">
-    <div class="col">
-      <b>id</b>
-    </div>
-    <%#
-    <div class="col">
-      <b>Scaled Frequency</b>
-    </div>
-    %>
-    <div class="col">
-      <%# <b>English</b> %>
-      <b>Question</b>
-    </div>
-    <div class="col">
-      <%# <b><%= @user_deck.language</b> %>
-      <b>Answer</b>
-    </div>
-    <div class="col">
-      <b>Due to Learn</b>
-    </div>
-    <div class="col">
-      <b>Learnt</b>
-    </div>
-    <div class="col">
-      <b>Previous Review</b>
-    </div>
-    <div class="col">
-      <b>Next Review</b>
-    </div>
-  </div>
-  <% @user_deck_flashcards.each do | user_deck_flashcard | %>
-  <%# <% @flashcards_ordered.each do | flashcard | %>
-    <%# <%= flashcard.attributes %>
+      <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+      <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
 
-    <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
-    <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
+      <% if user_deck_flashcard.learnt %>
+        <% if user_deck_flashcard.next_review.past? %>
+          <tr class="table-warning">
+        <% else %>
+          <tr class="table-success">
+        <% end %>
+      <% else %>
+        <tr class="table-light">
+      <% end %>
 
-    <% if user_deck_flashcard.learnt %>
-      <div class="row border bg-success">
-    <% else %>
-      <div class="row border bg-light">
-    <% end %>
-
-        <div class="col">
-          <%= user_deck_flashcard.id %>
-        </div>
-        <%#
-        <div class="col">
-          <%= flashcard.scaled_frequency %>
-       <%# </div>%>
-        <div class="col">
-          <%= flashcard.question %>
-        </div>
-        <div class="col">
-          <%= flashcard.answer %>
-        </div>
-        <div class="col">
-          <%= user_deck_flashcard.due_to_learn %>
-        </div>
-        <div class="col">
-          <%= user_deck_flashcard.learnt %>
-        </div>
-        <div class="col">
-          <%= user_deck_flashcard.previous_review %>
-        </div>
-        <div class="col">
-
+        <th scope="row"><%= flashcard.frequency_rank %></th>
+        <td><%= flashcard.question %></td>
+        <td><%= flashcard.answer %></td>
+        <td>
           <% unless user_deck_flashcard.next_review.nil? %>
-
-            <%= user_deck_flashcard.next_review %>
-
+            <%#= user_deck_flashcard.next_review %>
             <% time_difference = user_deck_flashcard.next_review - Time.now %>
             <%# <%= DateTime.Today.AddDays(1) %>
             <%# <%= time_difference %>
@@ -96,10 +53,9 @@
             <% else %>
               <%= user_deck_flashcard.next_review %>
             <% end %>
-
           <% end %>
-        </div>
-        <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
-      </div>
-  <% end %>
-</div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
