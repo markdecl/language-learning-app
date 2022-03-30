@@ -33,7 +33,7 @@
       <%# This div displays flash notices and alerts etc. %>
       <% flash.each do |type, msg| %>
         <%= type %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div id="alert-bottom-right" class="alert alert-success alert-dismissible fade show" role="alert">
           <strong><%= msg %></strong>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
