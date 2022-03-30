@@ -12,7 +12,7 @@
   <div class="row g-0">
     <div class="col-md-4 d-none d-md-block"> <%# d-none d-md-block hides this div on screen sizes smaller than md %>
       <%# <img src="images/<%= deck.name.downcase %><%#.jpg" class="img-fluid rounded-start" alt="..."> %>
-      <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top user_deck_card_img img-fluid rounded-start", style: "height: 322px;object-fit:cover;" %>
+      <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img-top img-fluid rounded-start user_deck_card_img", style: "height: 322px;object-fit:cover;" %>
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -31,19 +31,21 @@
             <%#= link_to user_deck_open_delete_modal_path(user_deck), :method => :patch do %>
               <%# <i class="fa-solid fa-trash-can user_deck_card_delete_icon text-secondary"></i>
             <%# end %>
-            <!-- Button trigger confirm delete deck modal -->
-            <div data-bs-toggle="modal" data-bs-target="#ConfirmDeleteDeckModal">
-              <i class="fa-solid fa-trash-can user_deck_card_delete_icon text-secondary"></i>
-            </div>
 
             <div id="user_deck_card_dropdown" class="dropdown" style="z-index: 1;">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="z-index: 1;">
-                Dropdown
+              <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="z-index: 1;">
+                Options
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><button class="dropdown-item" type="button">Action</button></li>
-                <li><button class="dropdown-item" type="button">Another action</button></li>
-                <li><button class="dropdown-item" type="button">Something else here</button></li>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                <li><%= link_to "Show / View cards", user_deck_path(user_deck.id), method: :get, class: "dropdown-item" %></li>
+                <li><%= link_to "Change learning schedule", get_learning_schedule_path(user_deck.id), method: :get, class: "dropdown-item" %></li>
+                <!-- Button trigger confirm delete deck modal -->
+                <li>
+                  <div data-bs-toggle="modal" data-bs-target="#ConfirmDeleteDeckModal" class="dropdown-item text-danger">
+                    <i class="fa-solid fa-trash-can user_deck_card_delete_icon text-secondary"></i>
+                    Delete deck
+                  </div>
+                </li>
               </ul>
             </div>
 
@@ -127,23 +129,19 @@
           <%# <div class="btn-group" role="group">
 
             <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
-            <%= link_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', :class => "btn btn-primary", style: "width:24%;z-index: 1;" %>
 
             <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
-            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:24%;z-index: 1;" %>
+            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:49%;z-index: 1;" %>
             <%# <button type="button" class="btn btn-warning">Learn</button> %>
-
-
-            <%= link_to "Edit", get_learning_schedule_path(user_deck.id), method: :get, :class => "btn btn-primary", style: "width:24%;z-index: 1;" %>
 
             <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
             <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
             <% if to_review_today_count > 0 %>
-              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger', style: "width:24%;z-index: 1;", data: {toggle: :tab} do %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger', style: "width:49%;z-index: 1;", data: {toggle: :tab} do %>
                 Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
               <% end %>
             <% else %>
-              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger disabled', style: "width:24%;z-index: 1;", data: {toggle: :tab} do %>
+              <%= link_to user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'btn btn-danger disabled', style: "width:49%;z-index: 1;", data: {toggle: :tab} do %>
                 Review <%= content_tag :span, to_review_today_count, class: 'badge bg-dark' %>
               <% end %>
             <% end %>

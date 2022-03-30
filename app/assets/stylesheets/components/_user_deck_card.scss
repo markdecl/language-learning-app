@@ -4,7 +4,7 @@
   position: relative; // so the delete icon can have position:absolute and go in the top right of the user deck card
 }
 
-.user_deck_card_delete_icon, #user_deck_card_dropdown {
+#user_deck_card_dropdown {
   display: inline-block;
   float: right;
   margin: 13px 5px 0 0;
