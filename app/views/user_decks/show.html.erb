@@ -27,7 +27,11 @@
           <tr class="table-success">
         <% end %>
       <% else %>
-        <tr class="table-light">
+        <% if user_deck_flashcard.due_to_learn.past? %>
+          <tr class="table-danger">
+        <% else %>
+          <tr class="table-light">
+        <% end %>
       <% end %>
 
         <th scope="row"><%= flashcard.frequency_rank %></th>

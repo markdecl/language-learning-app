@@ -69,10 +69,11 @@
           <li class="nav-item active">
             <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
           </li> %>
-          <li>
+          <li class="nav-link">
+            Log out
             <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
             <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
-            <%= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;s' %>
+            <%= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
           </li>
         </ul>
         <%# <li> %>

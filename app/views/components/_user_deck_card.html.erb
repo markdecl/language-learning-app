@@ -39,6 +39,7 @@
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
                 <li><%= link_to "Show / View cards", user_deck_path(user_deck.id), method: :get, class: "dropdown-item" %></li>
                 <li><%= link_to "Change learning schedule", get_learning_schedule_path(user_deck.id), method: :get, class: "dropdown-item" %></li>
+                <li><hr class="dropdown-divider"></li>
                 <!-- Button trigger confirm delete deck modal -->
                 <li>
                   <div data-bs-toggle="modal" data-bs-target="#ConfirmDeleteDeckModal" class="dropdown-item text-danger">
@@ -79,8 +80,7 @@
             <%= learnt_today_count %>
             <% to_learn_today_count = @user_flashcards.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", user_deck.id, nil, Time.now).count %>
             <%# <%= to_learn_today_count %>
-            <% total_learn_today_count = learnt_today_count + to_learn_today_count %>
-            / <%= total_learn_today_count %>
+            <% total_learn_today_count = learnt_today_count + to_learn_today_count %> / <%= total_learn_today_count %>
             <% if learnt_today_count > 0 && total_learn_today_count > 0 %>
               <% today_learn_progress_percentage = learnt_today_count.to_f / total_learn_today_count.to_f * 100 %>
             <% else %>
@@ -90,7 +90,7 @@
               <% if today_learn_progress_percentage == 100 %>
                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= "#{today_learn_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
               <% else %>
-                <div class="progress-bar bg-warning" role="progressbar" style="width: <%= "#{today_learn_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+                <div class="progress-bar bg-warning" role="progressbar" style="width: <%= "#{today_learn_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10" data-bs-toggle="popover" data-bs-trigger="focus" title="Dismissible popover" data-bs-content="And here's some amazing content. It's very engaging. Right?"></div>
               <% end %>
             </div>
             <%# <div class="progress">
@@ -131,7 +131,9 @@
             <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
 
             <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
-            <%= link_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', :class => "btn btn-warning", style: "width:49%;z-index: 1;" %>
+            <%= link_to user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', class: "btn btn-warning", style: "width:49%;z-index: 1;" do %>
+              Learn <%= content_tag :span, to_learn_today_count, class: 'badge bg-dark' %>
+            <% end %>
             <%# <button type="button" class="btn btn-warning">Learn</button> %>
 
             <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
