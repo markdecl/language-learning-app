@@ -7,12 +7,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
+          <li class="nav-item active fw-bold">
             <%# <%= link_to "My Decks", user_decks_path%>
             <a class="nav-link" href="/user_decks"> My Decks <span class="sr-only">(current)</span></a>
           </li>
         <% end %>
-        <li class="nav-item active">
+        <li class="nav-item active fw-bold">
           <%# <%= link_to "My Decks", user_decks_path%>
           <a class="nav-link" href="/decks"> Browse Decks <span class="sr-only">(current)</span></a>
         </li>
@@ -42,9 +42,15 @@
       <% end %>
       <% if user_signed_in? %>
         <ul class="navbar-nav ms-auto">
+            <span class="navbar-text d-none d-md-block" style="padding-left:8px;padding-right:8px;"> <%# manually added CSS padding because navbar-text class doesn't have it by default, unlike navbar-link class %>
+              Logged in as <%= current_user.email %>
+            </span>
+          <%#
           <li class="nav-item dropdown d-none d-md-block"> <%# d-none d-md-block hides this div on screens smaller than md %>
+          <%#
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Logged in as <%= current_user.email %>
+          <%#
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">Profile</a>
@@ -52,7 +58,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Log Out</a>
             </div>
-          </li>
+          </li> %>
           <%# <div class="dropdown">
             <button class="dropbtn">Mark
               <i class="fa fa-caret-down"></i>
@@ -69,11 +75,11 @@
           <li class="nav-item active">
             <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
           </li> %>
-          <li class="nav-link">
-            Log out
+          <li class="nav-item active  fw-bold">
             <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
             <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
-            <%= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
+            <a class="nav-link" href="/users/sign_out" data-method="delete">Log out</a>
+            <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
           </li>
         </ul>
         <%# <li> %>

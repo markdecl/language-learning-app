@@ -3,13 +3,20 @@
 
 <%# <h2>Ordered by user_deck_flashcard.due_to_learn:</h2> %>
 
-<table class="table table-hover">
+<div class= "d-flex m-4 justify-content-evenly">
+  <%# <div class="d-grid gap-2"> %>
+  <%= link_to "Ignore individual cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
+  <%= link_to "Ignore first x cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
+  <%# </div> %>
+</div>
+
+<table class="table table-sm table-hover table-responsive shadow">
   <thead>
     <tr class="table-dark">
-      <th scope="col">Frequency Rank</th>
+      <th scope="col" class="d-none d-sm-table-cell">Frequency Rank</th>
       <th scope="col">Question</th>
       <th scope="col">Answer</th>
-      <th scope="col">Next Review</th>
+      <th scope="col" class="d-none d-sm-table-cell">Next Review</th>
     </tr>
   </thead>
   <tbody>
@@ -34,10 +41,10 @@
         <% end %>
       <% end %>
 
-        <th scope="row"><%= flashcard.frequency_rank %></th>
+        <td scope="row" class="d-none d-sm-table-cell"><%= flashcard.frequency_rank %></td>
         <td><%= flashcard.question %></td>
         <td><%= flashcard.answer %></td>
-        <td>
+        <td class="d-none d-sm-table-cell">
           <% unless user_deck_flashcard.next_review.nil? %>
             <%#= user_deck_flashcard.next_review %>
             <% time_difference = user_deck_flashcard.next_review - Time.now %>

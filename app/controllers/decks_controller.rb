@@ -3,6 +3,7 @@ class DecksController < ApplicationController
 
   def index
     @decks = Deck.all
+    @user_deck_ids = UserDeck.where(user_id: current_user.id).pluck("deck_id")
     @flashcards = Flashcard.all
   end
 

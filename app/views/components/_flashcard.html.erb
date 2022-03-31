@@ -16,9 +16,9 @@
         <i class="fa-solid fa-volume-high"></i>
 
         <% if @top_flashcard.test_direction == 'tl-en' %>
-          <p class="card-text"><%= sanitize @top_flashcard.source_sentence %></p>
+          <p class="card-text fst-italic"><%= sanitize @top_flashcard.source_sentence %></p>
         <% else %>
-          <p class="card-text"><%= sanitize @top_flashcard.target_sentence %></p>
+          <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
         <% end %>
       </li>
 
@@ -35,9 +35,9 @@
           <i class="fa-solid fa-volume-high"></i>
 
           <% if @top_flashcard.test_direction == 'tl-en' %>
-            <p class="card-text"><%= sanitize @top_flashcard.target_sentence %></p>
+            <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
           <% else %>
-            <p class="card-text"><%= sanitize @top_flashcard.source_sentence %></p>
+            <p class="card-text fst-italic"><%= sanitize @top_flashcard.source_sentence %></p>
           <% end %>
         </div>
 
@@ -47,15 +47,18 @@
   </div>
 
   <div class="card-footer text-muted">
-    Last reviewed 2 days ago
+    <% if top_user_flashcard.learnt %>
+      Last review: <%= top_user_flashcard.previous_review %>
+    <% end %>
   </div>
 
-  <a class="btn btn-primary collapsed fixed-bottom see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <a class="btn btn-primary btn-lg w-100 collapsed fixed-bottom see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     <div id="see-answer">
       See answer
     </div>
-    <div id="hide-answer">
+    <%# <div id="hide-answer">
       Hide answer
     </div>
+    %>
   </a>
 </div>
