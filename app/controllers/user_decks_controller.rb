@@ -52,16 +52,25 @@ class UserDecksController < ApplicationController
       # Set the due_to_learn attribute for every 100 user_flashcards as that of the previous 100 cards + 1 day
       # due_to_learn = Time.now
       # user_flashcard_index = 1
-      @deck_flashcards.each do |deck_flashcard|
-        # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
-        attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: nil} # due_to_learn is set to nil for the time being
-        user_flashcard = UserFlashcard.create!(attributes)
-        #puts "Created #{user_flashcard}"
-        # user_flashcard_index += 1
-        # if user_flashcard_index > 100
-          # due_to_learn += (24 * 60 * 60)
-          # user_flashcard_index = 1
-        # end
+
+      #deck_flashcard_attributes = []
+      if @deck_flashcards.count > 0
+        user_flashcards_attrs = []
+        @deck_flashcards.each do |deck_flashcard|
+          # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
+          attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: nil, created_at: Time.now, updated_at: Time.now} # due_to_learn is set to nil for the time being
+          user_flashcards_attrs << attributes
+          #deck_flashcard_attributes << attributes
+          # user_flashcard = UserFlashcard.create!(attributes)
+          #puts "Created #{user_flashcard}"
+          ## user_flashcard_index += 1
+          ## if user_flashcard_index > 100
+            # due_to_learn += (24 * 60 * 60)
+            # user_flashcard_index = 1
+          # end
+        # UserFlashcard.create!(deck_flashcard_attributes)
+        end
+        UserFlashcard.insert_all(user_flashcards_attrs)
       end
       redirect_to get_learning_schedule_path(@user_deck)
       #redirect_to user_deck_path(@user_deck)

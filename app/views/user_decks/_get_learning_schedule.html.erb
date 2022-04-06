@@ -1,0 +1,7 @@
+<%# Current learning schedule: <%= @user_deck.learning_schedule %>
+
+<%= form_with url: update_learning_schedule_path do |form| %>
+  <%= form.label :to_learn_per_day, "New cards to learn per day:" %>
+  <%= form.number_field :to_learn_per_day, in: 1..100, step: 1 %>
+  <%= form.submit "Update" %>
+<% end %>

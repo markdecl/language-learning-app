@@ -58,11 +58,11 @@ puts "Creating flashcards..."
 
 require 'csv'
 
-csv_text = File.read(Rails.root.join('lib', 'seeds', 'russian_flashcards.csv'))
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'russian_flashcards_cleaned.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'utf-8') # check that this encoding works with cyrillic
 csv.each do |row|
   #puts row.to_hash
-  puts row
+  # puts row
 
   t = Flashcard.new
   t.deck_id = 1
@@ -94,7 +94,7 @@ csv.each do |row|
   t.other_sentence_pairs = row['other_sentence_pairs']
   t.other_sentence_pairs_both = row['other_sentence_pairs_both']
   t.save
-  puts "#{t.question}, #{t.answer} saved"
+  # puts "#{t.question}, #{t.answer} saved"
 
 
 end
