@@ -72,7 +72,8 @@ class UserDecksController < ApplicationController
         end
         UserFlashcard.insert_all(user_flashcards_attrs)
       end
-      redirect_to get_learning_schedule_path(@user_deck)
+      # redirect_to get_learning_schedule_path(@user_deck)
+      redirect_to user_decks_path
       #redirect_to user_deck_path(@user_deck)
       flash[:alert] = "#{@deck.language} deck added!"
       # redirect_to user_decks_path
@@ -93,12 +94,14 @@ class UserDecksController < ApplicationController
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
     due_to_learn = Time.now
     to_learn_per_day = params[:to_learn_per_day].to_i
+    user_flashcards_due_to_learn = []
     user_flashcard_index = 1
     @user_deck_flashcards.each do |user_deck_flashcard|
       # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
       # attributes = {user_deck_id: @user_deck.id, flashcard_id: user_deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: due_to_learn}
       # user_flashcard = UserFlashcard.create!(attributes)
-      user_deck_flashcard.update(due_to_learn: due_to_learn)
+      # user_deck_flashcard.update(due_to_learn: due_to_learn)
+      user_flashcards_due_to_learn << {due_to_learn: due_to_learn}
       #puts "Created #{user_flashcard}"
       user_flashcard_index += 1
       if user_flashcard_index > to_learn_per_day.to_i
@@ -106,6 +109,7 @@ class UserDecksController < ApplicationController
         user_flashcard_index = 1
       end
     end
+    @user_deck_flashcards.upsert_all(user_flashcards_due_to_learn)
     flash[:alert] = "Deck learning schedule updated!"
     redirect_to user_decks_path
   end

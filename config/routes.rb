@@ -16,8 +16,8 @@ Rails.application.routes.draw do
 
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
-  get "/user_decks/:id/get_learning_schedule", to: "user_decks#get_learning_schedule", as: :get_learning_schedule
-  post "/user_decks/:id/get_learning_schedule", to: "user_decks#update_learning_schedule", as: :update_learning_schedule
+  # get "/user_decks/:id/get_learning_schedule", to: "user_decks#get_learning_schedule", as: :get_learning_schedule
+  post "/user_decks", to: "user_decks#update_learning_schedule", as: :update_learning_schedule
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
   get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
   # patch "/user_decks", to: "user_decks#open_delete_modal", as: :user_deck_open_delete_modal
