@@ -13,7 +13,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <%# <button type="button" class="btn btn-danger">Delete</button> %>
 
-        <%= link_to user_deck_path(user_deck), :method => :delete, class: 'btn btn-danger', data: {toggle: :tab} do %>
+        <%= link_to user_deck_path(user_deck), method: :delete, class: 'btn btn-danger', data: {toggle: :tab} do %>
           Delete
         <% end %>
 

@@ -9,8 +9,10 @@
     <% end %>
     <p class="card-text">Last updated 3 mins ago</p>
     <%= link_to "View", deck_path(deck.id), method: :get, class: 'btn btn-primary' %>
-    <% unless user_deck_ids.include? deck.id %>
-      <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, class: 'btn btn-success' %>
+    <% if user_signed_in? %>
+      <% unless user_deck_ids.include? deck.id %>
+        <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, class: 'btn btn-success' %>
+      <% end %>
     <% end %>
   </div>
 </div>

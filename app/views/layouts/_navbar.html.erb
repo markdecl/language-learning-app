@@ -1,4 +1,5 @@
-<nav class="navbar myNavbar py-3 navbar-expand fixed-top navbar-dark "> <%# .py-3 class is to slightly increase navbar height %>
+<%# <nav class="navbar myNavbar py-3 navbar-expand fixed-top navbar-dark "> <%# .py-3 class is to slightly increase navbar height %>
+<nav class="navbar myNavbar py-3 navbar-expand fixed-top"> <%# .py-3 class is to slightly increase navbar height %>
   <div class="container">
     <a class="navbar-brand" href="/">Verble</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +43,7 @@
       <% end %>
       <% if user_signed_in? %>
         <ul class="navbar-nav ms-auto">
-            <span class="navbar-text d-none d-md-block" style="padding-left:8px;padding-right:8px;"> <%# manually added CSS padding because navbar-text class doesn't have it by default, unlike navbar-link class %>
+            <span class="navbar-text d-none d-md-block" style="padding-left:8px;padding-right:8px;"> <%# manually added CSS padding because navbar-text class doesn't have it by default and the padding should match that of navbar-link class %>
               Logged in as <%= current_user.email %>
             </span>
           <%#

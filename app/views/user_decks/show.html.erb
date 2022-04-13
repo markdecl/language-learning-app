@@ -5,14 +5,25 @@
 
 <div class= "d-flex m-4 justify-content-evenly">
   <%# <div class="d-grid gap-2"> %>
+  <a class="btn btn-primary shadow collapsed ignore-cards-button" data-bs-toggle="collapse" href="#ignore_card_collapse" role="button" aria-expanded="false" aria-controls="ignore_card_collapse">
+    <div id="ignore-cards">
+      Ignore cards
+    </div>
+  </a>
+  <%= link_to "Ignore cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
   <%= link_to "Ignore individual cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
   <%= link_to "Ignore first x cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
   <%# </div> %>
 </div>
 
+<%= render "components/user_deck_show_pagination_buttons", user_deck: @user_deck, section: @section %>
+
 <table class="table table-sm table-hover table-responsive shadow">
   <thead>
     <tr class="table-dark">
+      <div class="collapse" id="ignore_card_collapse">
+        <th scope="col">Ignore?</th>
+      </div>
       <th scope="col" class="d-none d-sm-table-cell">Frequency Rank</th>
       <th scope="col">Question</th>
       <th scope="col">Answer</th>
@@ -20,53 +31,77 @@
     </tr>
   </thead>
   <tbody>
-      <% @user_deck_flashcards.each do | user_deck_flashcard | %>
-    <%# <% @flashcards_ordered.each do | flashcard | %>
-      <%# <%= flashcard.attributes %>
+      <div class="collapse" id="ignore_card_collapse">
+        <%= form_for @user_deck_flashcards, url: { action: :ignore, controller: "user_flashcards" }, method: :post do |form| %>
+      </div>
+      <%#= form_with url: ignore_user_flashcards_path, method: :get do |form| %>
+        <% @user_deck_flashcards.each do | user_deck_flashcard | %>
+        <%# <% @flashcards_ordered.each do | flashcard | %>
+        <%# <%= flashcard.attributes %>
 
-      <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
-      <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
+          <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+          <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
 
-      <% if user_deck_flashcard.learnt %>
-        <% if user_deck_flashcard.next_review.past? %>
-          <tr class="table-warning">
-        <% else %>
-          <tr class="table-success">
-        <% end %>
-      <% else %>
-        <% if user_deck_flashcard.due_to_learn.past? %>
-          <tr class="table-danger">
-        <% else %>
-          <tr class="table-light">
-        <% end %>
-      <% end %>
-
-        <td scope="row" class="d-none d-sm-table-cell"><%= flashcard.frequency_rank %></td>
-        <td><%= flashcard.question %></td>
-        <td><%= flashcard.answer %></td>
-        <td class="d-none d-sm-table-cell">
-          <% unless user_deck_flashcard.next_review.nil? %>
-            <%#= user_deck_flashcard.next_review %>
-            <% time_difference = user_deck_flashcard.next_review - Time.now %>
-            <%# <%= DateTime.Today.AddDays(1) %>
-            <%# <%= time_difference %>
-            <br>
-            <% if user_deck_flashcard.next_review.past? %>
-              Due
-            <% elsif time_difference < (24 * 60 * 60) %>
-              <% if time_difference < (60 * 60) %>
-                Less than an hour
+          <% if user_deck_flashcard.ignore %>
+            <tr class="table-secondary">
+          <% else %>
+            <% if user_deck_flashcard.learnt %>
+              <% if user_deck_flashcard.next_review.past? %>
+                <tr class="table-warning">
               <% else %>
-                in <%= (time_difference / (60 * 60)).round %> hour(s)
+                <tr class="table-success">
               <% end %>
-            <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
-              Tomorrow
             <% else %>
-              <%= user_deck_flashcard.next_review %>
+              <% if user_deck_flashcard.due_to_learn.past? %>
+                <tr class="table-danger">
+              <% else %>
+                <tr class="table-light">
+              <% end %>
             <% end %>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
+            <div class="collapse" id="ignore_card_collapse">
+              <td>
+                <% if user_deck_flashcard.ignore %>
+                  <%= check_box_tag 'user_deck_flashcard_ids[]', user_deck_flashcard.id, checked=true %>
+                <% else %>
+                  <%# <input class="form-check-input mx-auto" type="checkbox" value="" id="flexCheckDefault"> %>
+                  <%= check_box_tag 'user_deck_flashcard_ids[]', user_deck_flashcard.id %>
+                  <%#= form.hidden_field :id, value: user_deck_flashcard.id %>
+                  <%#= form.check_box :ignore, {multiple: true}, user_deck_flashcard.id, nil %>
+                  <%#= form.label :ignore_card, "I own a dog" %>
+                <% end %>
+              </td>
+            </div>
+            <td scope="row" class="d-none d-sm-table-cell"><%= flashcard.frequency_rank %></td>
+            <td><%= flashcard.question %></td>
+            <td><%= flashcard.answer %></td>
+            <td class="d-none d-sm-table-cell">
+              <% unless user_deck_flashcard.next_review.nil? %>
+                <%#= user_deck_flashcard.next_review %>
+                <% time_difference = user_deck_flashcard.next_review - Time.now %>
+                <%# <%= DateTime.Today.AddDays(1) %>
+                <%# <%= time_difference %>
+                <br>
+                <% if user_deck_flashcard.next_review.past? %>
+                  Due
+                <% elsif time_difference < (24 * 60 * 60) %>
+                  <% if time_difference < (60 * 60) %>
+                    Less than an hour
+                  <% else %>
+                    in <%= (time_difference / (60 * 60)).round %> hour(s)
+                  <% end %>
+                <% elsif user_deck_flashcard.next_review.to_date == Date.tomorrow %>
+                  Tomorrow
+                <% else %>
+                  <%= user_deck_flashcard.next_review %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        <%= form.submit "Ignore selected cards", class: "btn btn-primary" %>
+      <% end %>
   </tbody>
 </table>
+
+<%= render "components/user_deck_show_pagination_buttons", user_deck: @user_deck, section: @section %>

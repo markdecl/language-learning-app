@@ -19,6 +19,17 @@ class UserFlashcardsController < ApplicationController
     end
   end
 
+  def ignore
+    user_deck_id = params[:id]
+    user_deck_flashcards_to_ignore_ids = params[:user_deck_flashcard_ids]
+    user_deck_flashcards_to_ignore = UserFlashcard.where(user_deck_flashcards_to_ignore_ids)
+    # flashcards_to_ignore.each do |flashcard_to_ignore|
+    #   flashcard_to_ignore.update(ignore: true)
+    # end
+    user_deck_flashcards_to_ignore.update_all(ignore: true)
+    redirect_to user_deck_path(user_deck_id, section: 0)
+  end
+
   def check_answer
     @user_flashcard = UserFlashcard.find(params[:id])
     # @flashcard = Flashcard.find(@user_flashcard.flashcard_id)

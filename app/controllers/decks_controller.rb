@@ -3,7 +3,9 @@ class DecksController < ApplicationController
 
   def index
     @decks = Deck.all
-    @user_deck_ids = UserDeck.where(user_id: current_user.id).pluck("deck_id")
+    if user_signed_in?
+      @user_deck_ids = UserDeck.where(user_id: current_user.id).pluck("deck_id")
+    end
     @flashcards = Flashcard.all
   end
 

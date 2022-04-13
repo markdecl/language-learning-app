@@ -3,6 +3,9 @@
     Frequency rank: <%= @top_flashcard.frequency_rank %>
   </div>
   <div class="card-body">
+
+    <%= link_to "Ignore card", user_decks_path, class: "btn btn-secondary shadow", method: :patch %>
+
     <ul class="list-group list-group-flush">
 
       <li class="list-group-item">

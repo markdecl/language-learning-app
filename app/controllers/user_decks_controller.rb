@@ -12,10 +12,18 @@ class UserDecksController < ApplicationController
 
   def show
     @user_deck = UserDeck.find(params[:id])
+    @section = params[:section]
     @deck = Deck.find(@user_deck.deck_id)
     @decks = Deck.all
     @user_flashcards = UserFlashcard.all
-    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('due_to_learn')
+
+    if @section == 0
+      start_index = 0
+    else
+      start_index = @section.to_i * 100
+    end
+    end_index = start_index + 99
+    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('due_to_learn')[start_index..end_index]#.page params[:page]
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id] )
@@ -58,7 +66,7 @@ class UserDecksController < ApplicationController
         user_flashcards_attrs = []
         @deck_flashcards.each do |deck_flashcard|
           # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
-          attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: nil, created_at: Time.now, updated_at: Time.now} # due_to_learn is set to nil for the time being
+          attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: nil, ignore: false, created_at: Time.now, updated_at: Time.now} # due_to_learn is set to nil for the time being
           user_flashcards_attrs << attributes
           #deck_flashcard_attributes << attributes
           # user_flashcard = UserFlashcard.create!(attributes)
@@ -87,13 +95,15 @@ class UserDecksController < ApplicationController
 
   def get_learning_schedule
     @user_deck = UserDeck.find(user_deck_params)
+    # = @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
   end
 
   def update_learning_schedule
     @user_deck = UserDeck.find(params[:id])
     @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
     due_to_learn = Time.now
-    to_learn_per_day = params[:to_learn_per_day].to_i
+    to_learn_per_day = params[:user_deck][:to_learn_per_day].to_i
+    # user_flashcards_due_to_learn = {}
     user_flashcards_due_to_learn = []
     user_flashcard_index = 1
     @user_deck_flashcards.each do |user_deck_flashcard|
@@ -101,7 +111,13 @@ class UserDecksController < ApplicationController
       # attributes = {user_deck_id: @user_deck.id, flashcard_id: user_deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: due_to_learn}
       # user_flashcard = UserFlashcard.create!(attributes)
       # user_deck_flashcard.update(due_to_learn: due_to_learn)
-      user_flashcards_due_to_learn << {due_to_learn: due_to_learn}
+      # user_deck_flashcard[:due_to_learn] = due_to_learn
+      # user_flashcards_due_to_learn[user_deck_flashcard.id] = {due_to_learn: due_to_learn} # user_deck_flashcard # {due_to_learn: due_to_learn}
+      # user_flashcards_due_to_learn << {user_deck_flashcard.id => {updated_at: user_deck_flashcard.updated_at, due_to_learn: due_to_learn}} # user_deck_flashcard # {due_to_learn: due_to_learn}
+
+      user_flashcards_due_to_learn << {id: user_deck_flashcard.id, created_at: user_deck_flashcard.created_at, updated_at: Time.now, due_to_learn: due_to_learn}
+      # user_flashcards_due_to_learn << {updated_at: Time.now, due_to_learn: due_to_learn}
+
       #puts "Created #{user_flashcard}"
       user_flashcard_index += 1
       if user_flashcard_index > to_learn_per_day.to_i
@@ -109,7 +125,12 @@ class UserDecksController < ApplicationController
         user_flashcard_index = 1
       end
     end
-    @user_deck_flashcards.upsert_all(user_flashcards_due_to_learn)
+    # @user_deck_flashcards.upsert_all(user_flashcards_due_to_learn)
+    # @user_deck_flashcards = UserFlashcard.upsert_all(user_flashcards_due_to_learn)
+    if user_flashcards_due_to_learn.count > 0
+      UserFlashcard.upsert_all(user_flashcards_due_to_learn)
+    end
+    # @user_deck_flashcards.update(user_flashcards_due_to_learn.keys, user_flashcards_due_to_learn.values)
     flash[:alert] = "Deck learning schedule updated!"
     redirect_to user_decks_path
   end
@@ -118,7 +139,7 @@ class UserDecksController < ApplicationController
     @user_deck = UserDeck.find(params[:id])
     @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", @user_deck.id, nil, Time.now)
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", @user_deck.id, nil, DateTime.now.utc.end_of_day)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
     if @user_deck_flashcards.any?
@@ -198,7 +219,7 @@ class UserDecksController < ApplicationController
   end
 
   def user_deck_params
-    params.fetch(:id, :deck_id)
+    params.fetch(:id, :deck_id, :to_learn_per_day, :section)
     # params.require(:id)#.permit(:name, :address, :stars)
     #params.require(:user_deck)#.permit(:name, :address, :stars)
   end

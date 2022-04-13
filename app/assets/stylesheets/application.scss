@@ -100,11 +100,12 @@ html, body {
 
 #main {
   // overflow:auto;
-  padding-top: 100px; /* to accommodate navbar and padding below navbar */
-  padding-bottom: 150px; /* this needs to be bigger than footer height */
+  padding-top: 90px; /* to accommodate navbar and padding below navbar */
+  padding-bottom: 50px; /* this needs to be bigger than footer height */
   min-height: 100vh; /* temporary fix */
   // height: 500px; /* temporary fix */
   flex-direction: column;
+  max-width: 700px;
 }
 
 .footer {

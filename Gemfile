@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 
+gem 'kaminari'#, '~> 1.2.1'
+
 
 # gem 'bootstrap', '~> 5.0.2'
 

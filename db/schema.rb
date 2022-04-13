@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_150734) do
+ActiveRecord::Schema.define(version: 2022_04_11_230509) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_150734) do
     t.string "language"
     t.integer "deck_id", null: false
     t.integer "user_id", null: false
+    t.integer "to_learn_per_day"
     t.index ["deck_id", "user_id"], name: "index_user_decks_on_deck_id_and_user_id", unique: true
     t.index ["deck_id"], name: "index_user_decks_on_deck_id"
     t.index ["user_id"], name: "index_user_decks_on_user_id"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_150734) do
     t.integer "flashcard_id"
     t.datetime "previous_review"
     t.boolean "lapsed"
+    t.boolean "ignore"
     t.index ["flashcard_id"], name: "index_user_flashcards_on_flashcard_id"
     t.index ["user_deck_id"], name: "index_user_flashcards_on_user_deck_id"
   end
