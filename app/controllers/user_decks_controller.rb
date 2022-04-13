@@ -139,7 +139,7 @@ class UserDecksController < ApplicationController
     @user_deck = UserDeck.find(params[:id])
     @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ?", @user_deck.id, nil, DateTime.now.utc.end_of_day)
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
     if @user_deck_flashcards.any?
@@ -160,7 +160,7 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
     # @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Time.now) # current time or earlier
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, DateTime.now.utc.end_of_day) # end of today or earlier
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ? AND ignore = false", @user_deck.id, nil, DateTime.now.utc.end_of_day, false) # end of today or earlier
     # @flashcards = Flashcard.all
     # @answer_checked = params[:answer_checked]
     # @answer_correct = params[:answer_correct]
