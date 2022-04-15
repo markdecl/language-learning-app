@@ -160,7 +160,7 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
     # @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ?", @user_deck.id, nil, Time.now) # current time or earlier
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ? AND ignore = false", @user_deck.id, nil, DateTime.now.utc.end_of_day, false) # end of today or earlier
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false) # end of today or earlier
     # @flashcards = Flashcard.all
     # @answer_checked = params[:answer_checked]
     # @answer_correct = params[:answer_correct]
@@ -210,11 +210,13 @@ class UserDecksController < ApplicationController
   def destroy
     # fetch user_deck to destroy from DB
     user_deck = UserDeck.find(params[:id])
+    deck = Deck.find(user_deck.deck_id)
     # destroy record
     user_deck.destroy
     #user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id)
     #user_deck_flashcards.destroy
     # redirect to index
+    flash[:alert] = "#{deck.language} deck deleted."
     redirect_to user_decks_path
   end
 

@@ -22,12 +22,31 @@ class UserFlashcardsController < ApplicationController
   def ignore
     user_deck_id = params[:id]
     section = params[:section]
-    user_deck_flashcards_to_ignore_ids = params[:user_deck_flashcard_ids]
-    user_deck_flashcards_to_ignore = UserFlashcard.where(user_deck_flashcards_to_ignore_ids)
+    user_deck_flashcards_ids = params[:user_deck_flashcards_ids]
+    # user_deck_flashcards = params[:user_flashcard][:user_deck_flashcards]
+    if params[:user_deck_flashcards_to_ignore_ids].nil?
+      user_deck_flashcards_to_ignore_ids = []
+    else
+      user_deck_flashcards_to_ignore_ids = params[:user_deck_flashcards_to_ignore_ids]
+    end
+    # ignore_option = params[:ignore_option]
+    # ignore_options
+    user_deck_flashcards = UserFlashcard.where(id: user_deck_flashcards_ids)
+    user_deck_flashcards_to_ignore = UserFlashcard.where(id: user_deck_flashcards_to_ignore_ids)
+    user_deck_flashcards_to_unignore_ids = user_deck_flashcards_ids - user_deck_flashcards_to_ignore_ids
+    user_deck_flashcards_to_unignore = UserFlashcard.where(id: user_deck_flashcards_to_unignore_ids)
+    # user_deck = user_decks
     # flashcards_to_ignore.each do |flashcard_to_ignore|
     #   flashcard_to_ignore.update(ignore: true)
     # end
-    user_deck_flashcards_to_ignore.update_all(ignore: true)
+    if params[:commit] == 'Ignore selected'
+      user_deck_flashcards_to_ignore.update_all(ignore: true)
+      user_deck_flashcards_to_unignore.update_all(ignore: false)
+      flash[:alert] = "Selected cards ignored!"
+    elsif params[:commit] == 'Ignore page'
+      user_deck_flashcards.update_all(ignore: true)
+      flash[:alert] = "Page ignored!"
+    end
     redirect_to user_deck_path(user_deck_id, section: section)
   end
 

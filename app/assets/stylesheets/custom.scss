@@ -35,7 +35,8 @@ html, body {
   // background-color: $gray;
   // font-family: 'Cabin', sans-serif !important;
   // font-family: 'Merriweather', serif !important;
-  font-family: 'Lexend', sans-serif !important;
+  // font-family: 'Lexend', sans-serif !important;
+  font-family: 'Comic Sans', sans-serif !important;
 }
 
 #wrap {
@@ -77,6 +78,10 @@ nav .navbar-nav li a, .navbar-brand {
   // color: white !important;
 }
 
+.table-success {
+  background-color: #56E39F !important;
+}
+
 .navbar {
   // position: sticky;
   // top: 0;
@@ -107,6 +112,48 @@ nav .navbar-nav li a, .navbar-brand {
   font-weight: 700;
   color: #FFBF00 !important;
 }
+
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+
+/* stroke */
+nav.stroke ul li a {
+  position: relative;
+}
+
+nav.stroke ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #3454D1 !important;
+  height: 1px;
+}
+
+nav.stroke.scrolled ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #ffff !important;
+  height: 1px;
+}
+
+nav.stroke ul li a:hover:after {
+  width: 100%;
+}
+
 
 footer {
   // background: #3454D1;

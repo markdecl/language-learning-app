@@ -14,6 +14,8 @@ Showing cards <%= section.to_i * 100 %> - <%= section.to_i * 100 + 99 %>
     <% end %>
     <li class="page-item active"><%= link_to section, user_deck_path(user_deck.id, section: section), method: :get, class: "page-link" %></li>
     <li class="page-item"><%= link_to section.to_i + 1, user_deck_path(user_deck.id, section: section.to_i + 1), method: :get, class: "page-link" %></li>
+    <li class="page-item"><%= link_to section.to_i + 2, user_deck_path(user_deck.id, section: section.to_i + 2), method: :get, class: "page-link" %></li>
+    <li class="page-item"><%= link_to section.to_i + 3, user_deck_path(user_deck.id, section: section.to_i + 3), method: :get, class: "page-link" %></li>
     <%# li class="page-item"><a class="page-link" href="#"><%= section.to_i + 1 %><%# </a></li> %>
     <%# li class="page-item"><a class="page-link" href="#">Next</a></li> %>
     <li class="page-item"><%= link_to "Next", user_deck_path(user_deck.id, section: section.to_i + 1), method: :get, class: "page-link" %></li>

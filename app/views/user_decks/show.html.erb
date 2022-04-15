@@ -37,11 +37,16 @@
             <%# Which of these hidden fields is working? %>
             <%= hidden_field_tag 'section', @section %>
             <%= form.hidden_field :section, value: @section %>
+            <%#= hidden_field_tag 'user_deck_flashcards_ids', @user_deck_flashcards.ids %>
+            <%#= form.hidden_field :user_deck_flashcards_ids, value: @user_deck_flashcards.pluck('id') %>
+            <%#= form.hidden_field :user_deck_flashcards, value: @user_deck_flashcards %>
         </div>
         <%#= form_with url: ignore_user_flashcards_path, method: :get do |form| %>
           <% @user_deck_flashcards.each do | user_deck_flashcard | %>
           <%# <% @flashcards_ordered.each do | flashcard | %>
           <%# <%= flashcard.attributes %>
+
+            <%= hidden_field_tag 'user_deck_flashcards_ids[]', user_deck_flashcard.id %>
 
             <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
             <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
@@ -70,10 +75,10 @@
               <div class="collapse" id="ignore_card_collapse">
                 <td>
                   <% if user_deck_flashcard.ignore %>
-                    <%= check_box_tag 'user_deck_flashcard_ids[]', user_deck_flashcard.id, checked=true %>
+                    <%= check_box_tag 'user_deck_flashcards_to_ignore_ids[]', user_deck_flashcard.id, checked=true %>
                   <% else %>
                     <%# <input class="form-check-input mx-auto" type="checkbox" value="" id="flexCheckDefault"> %>
-                    <%= check_box_tag 'user_deck_flashcard_ids[]', user_deck_flashcard.id %>
+                    <%= check_box_tag 'user_deck_flashcards_to_ignore_ids[]', user_deck_flashcard.id %>
                     <%#= form.hidden_field :id, value: user_deck_flashcard.id %>
                     <%#= form.check_box :ignore, {multiple: true}, user_deck_flashcard.id, nil %>
                     <%#= form.label :ignore_card, "I own a dog" %>
@@ -107,7 +112,8 @@
               </td>
             </tr>
           <% end %>
-          <%= form.submit "Ignore selected cards", class: "btn btn-primary" %>
+          <%= form.submit "Ignore selected", ignore_option: 'ignore selected', class: "btn btn-primary" %>
+          <%= submit_tag "Ignore page", ignore_option: 'ignore page', class: "btn btn-primary" %>
         <% end %>
     </tbody>
   <% end %>

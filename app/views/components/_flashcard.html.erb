@@ -6,9 +6,12 @@
 
     <%= link_to "Ignore card", user_decks_path, class: "btn btn-secondary shadow", method: :patch %>
 
-    <ul class="list-group list-group-flush">
+    <%# <ul class="list-group list-group-flush"> %>
+    <div class="row">
 
-      <li class="list-group-item">
+      <%# <li class="list-group-item"> %>
+      <div class="col">
+
         <% if @top_flashcard.test_direction == 'tl-en' %>
           <p class="text-muted"><%= @top_flashcard.deck.language %></p>
         <% else %>
@@ -23,9 +26,11 @@
         <% else %>
           <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
         <% end %>
-      </li>
+      <%# </li> %>
+      </div>
 
-      <li class="list-group-item">
+      <%# <li class="list-group-item"> %>
+      <div class="col">
 
         <% if @top_flashcard.test_direction == 'tl-en' %>
           <p class="text-muted">English</p>
@@ -44,7 +49,8 @@
           <% end %>
         </div>
 
-      </li>
+      <%# </li> %>
+      </div>
 
 
   </div>
@@ -55,7 +61,7 @@
     <% end %>
   </div>
 
-  <a class="btn btn-primary btn-lg w-100 shadow collapsed fixed-bottom see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <a class="btn btn-warning btn-lg w-75 shadow collapsed see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     <div id="see-answer">
       See answer
     </div>
