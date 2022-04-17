@@ -41,6 +41,11 @@
             <%#= form.hidden_field :user_deck_flashcards_ids, value: @user_deck_flashcards.pluck('id') %>
             <%#= form.hidden_field :user_deck_flashcards, value: @user_deck_flashcards %>
         </div>
+
+          <% @flashcards_joined_ordered.each do | flashcard | %>
+            <%= flashcard %>
+          <% end %>
+
         <%#= form_with url: ignore_user_flashcards_path, method: :get do |form| %>
           <% @user_deck_flashcards.each do | user_deck_flashcard | %>
           <%# <% @flashcards_ordered.each do | flashcard | %>

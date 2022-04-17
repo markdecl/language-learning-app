@@ -30,9 +30,13 @@ class UserDecksController < ApplicationController
     # @user_deck_flashcards = @user_deck_flashcards.find(:all,:joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
     @flashcards = Flashcard.where(deck_id: @user_deck.deck_id)
 
+    # INNER JOIN user_flashcards ON user_flashcards.flashcard_id = flashcards.id"
+    # @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).joins((' LEFT OUTER JOIN "user_flashcards" ON "flashcards"."id" = "user_flashcards"."id" '))[start_index..end_index]
+    @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).joins(:user_flashcards)[start_index..end_index].pluck('scaled_frequency')
+
     # @flashcards_joined = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
     # @flashcards_ordered = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
-    @flashcards_ordered = Flashcard.includes(:user_flashcards)
+    # @flashcards_ordered = Flashcard.includes(:user_flashcards)
     # @flashcards_joined = UserFlashcard.joins(:flashcard)
     # @flashcards_joined = Flashcard.joins("INNER JOIN user_flashcards ON user_flashcards.flashcard_id = flashcards.id")
 
