@@ -38,6 +38,7 @@ class UserFlashcardsController < ApplicationController
   end
 
   def update_learn
+    answer_correct = params[:answer_correct]
     @user_flashcard = UserFlashcard.find(params[:id])
     # params[:learnt] = true
     @user_flashcard.update(learnt: Time.now)
@@ -45,9 +46,14 @@ class UserFlashcardsController < ApplicationController
 
     @user_flashcard.update(previous_review: Time.now) # set as current date and time
 
-    @user_flashcard.update(next_review: Time.now + (10)) # set as current date and time plus 10 seconds (for testing purposes)
-    # @user_flashcard.update(next_review: Time.now + (60)) # set as current date and time plus 1 minute (for testing purposes)
-    # @user_flashcard.update(next_review: Time.now + (24*60*60)) # set as current date and time plus 1 day
+    if answer_correct
+      @user_flashcard.update(next_review: Time.now + (10)) # set as current date and time plus 10 seconds (for testing purposes)
+      # @user_flashcard.update(next_review: Time.now + (60)) # set as current date and time plus 1 minute (for testing purposes)
+      # @user_flashcard.update(next_review: Time.now + (24*60*60)) # set as current date and time plus 1 day
+    else
+      @user_flashcard.update(next_review: Time.now + (1)) # set as current date and time plus 10 seconds (for testing purposes)
+      # @user_flashcard.update(next_review: Time.now + (20)) # set as current date and time plus 20 minutes
+    end
 
     # redirect_to @user_deck
     # user_deck = UserDeck.find(params[:user_deck_id])

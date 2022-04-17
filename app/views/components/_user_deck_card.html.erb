@@ -3,7 +3,10 @@
 <% deck = @decks.find(user_deck.deck_id) %>
 <% user_deck_flashcards = user_flashcards.where(user_deck_id: user_deck.id) %>
 <% user_deck_flashcards_count = user_deck_flashcards.count %>
+<% user_deck_flashcards_ignored_count = user_flashcards.where("user_deck_id = ? AND ignore = ?", user_deck.id, true).count %>
+
 <% user_deck_flashcards_learnt_count = user_flashcards.where("user_deck_id = ? AND learnt IS NOT ? AND ignore = ?", user_deck.id, nil, false).count %>
+<% user_deck_flashcards_to_learn_count = user_flashcards.where("user_deck_id = ? AND learnt IS ? AND ignore = ?", user_deck.id, nil, false).count %>
 
 <%# current_user_deck_flashcards_per_day = user_deck_flashcards.where("due_to_learn > ? AND due_to_learn < ?", DateTime.now.utc.beginning_of_day, DateTime.now.utc.end_of_day).count %>
 
@@ -14,7 +17,7 @@
 <% to_review_today_count = user_flashcards.where("user_deck_id = ? AND next_review <= ? AND ignore = ?", user_deck.id, DateTime.now.utc.end_of_day, false).count %>
 <% total_review_today_count = reviewed_today_count + to_review_today_count %>
 
-<%= render 'components/get_learning_schedule_modal', user_deck: user_deck, user_deck_flashcards: user_deck_flashcards %>
+<%= render 'components/get_learning_schedule_modal', user_deck: user_deck, user_deck_flashcards_to_learn_count: user_deck_flashcards_to_learn_count %>
 
 <%= render 'components/delete_user_deck_modal', user_deck: user_deck %>
 
@@ -75,19 +78,19 @@
               Deck progress:
               <%# <%= user_deck_flashcards_learnt_count / user_deck_flashcards_count * 100 %>
               <%# <%= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100  %>
-              <%= user_deck_flashcards_learnt_count%> / <%= user_deck_flashcards_count %>
+              <%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %> / <%= user_deck_flashcards_count %>
 
               <% if user_deck_flashcards_learnt_count > 0 && user_deck_flashcards_count > 0 %>
-                <% deck_progress_percentage = user_deck_flashcards_learnt_count.to_f / user_deck_flashcards_count.to_f * 100 %>
+                <% deck_progress_percentage = (user_deck_flashcards_learnt_count.to_f + user_deck_flashcards_ignored_count.to_f) / user_deck_flashcards_count.to_f * 100 %>
               <% else %>
                 <% deck_progress_percentage = 0 %>
               <% end %>
               <div class="progress">
                 <%# <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="<%= user_deck_flashcards_learnt_count" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count"></div> %>
                 <% if deck_progress_percentage == 100 %>
-                  <div class="progress-bar bg-success" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+                  <div class="progress-bar bg-success" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
                 <% else %>
-                  <div class="progress-bar bg-primary mb-3" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+                  <div class="progress-bar bg-primary mb-3" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
                 <% end %>
               </div>
               <%# <%= user_deck_flashcards_learnt_count / <%= user_deck_flashcards_count %>
