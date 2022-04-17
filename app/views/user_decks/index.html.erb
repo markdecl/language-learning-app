@@ -7,7 +7,7 @@
 <% if @user_decks.any? %>
   <% @user_decks.each do | user_deck | %>
 
-    <%= render "components/user_deck_card", user_deck: user_deck %>
+    <%= render "components/user_deck_card", user_deck: user_deck, user_flashcards: @user_flashcards %>
 
   <% end %>
 <% else %>

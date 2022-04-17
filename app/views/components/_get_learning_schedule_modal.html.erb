@@ -10,16 +10,16 @@
       </div>
       <div class="modal-body">
         <p class="card-text">
-          Current learning schedule: <%= current_user_deck_flashcards_per_day %> per day
+          Current learning schedule: <%= user_deck.to_learn_per_day %> per day
         </p>
         <p class="card-text">
-          <% if current_user_deck_flashcards_per_day > 0 %>
-            Time to complete deck: <%= user_deck_flashcards.count / current_user_deck_flashcards_per_day %> days
+          <% unless user_deck.to_learn_per_day.nil? %>
+            Time to complete deck: <%= user_deck_flashcards.count / user_deck.to_learn_per_day %> days
           <% end %>
         </p>
 
         <%#= form_with url: update_learning_schedule_path, method: :post do |form| %>
-        <%= form_for user_deck, url: { action: :update_learning_schedule }, method: :post do |form| %>
+        <%= form_for user_deck, url: { action: :update_to_learn_per_day }, method: :post do |form| %>
 
           <%# Which of these hidden fields is working? %>
           <%= hidden_field_tag 'id', user_deck.id %>

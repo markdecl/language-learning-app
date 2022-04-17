@@ -17,9 +17,10 @@ Rails.application.routes.draw do
   resources :user_decks
   get "/user_decks/:id/learn", to: "user_decks#learn", as: :user_deck_learn
   # get "/user_decks/:id/get_learning_schedule", to: "user_decks#get_learning_schedule", as: :get_learning_schedule
-  post "/get_learning_schedule_modal", to: "user_decks#update_learning_schedule", as: :update_learning_schedule
+  post "/get_learning_schedule_modal", to: "user_decks#update_to_learn_per_day", as: :update_to_learn_per_day
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
   get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
+  post "/user_decks/:id/show", to: "user_decks#ignore", as: :ignore_user_decks
   # patch "/user_decks", to: "user_decks#open_delete_modal", as: :user_deck_open_delete_modal
   # get 'show_answer', to: 'user_decks#show_answer'
 
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
       # patch :update_learn, to: "user_decks#learn", as: :update_learn
     end
   end
-  post "/user_decks/:id/show", to: "user_flashcards#ignore", as: :ignore_user_flashcards
   patch "/user_flashcards/:id/review_answer", to: "user_flashcards#check_answer", as: :check_answer_user_flashcard
 
   # get "/user_decks", to: "user_decks#index", as: :user_decks

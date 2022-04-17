@@ -8,7 +8,7 @@ Showing cards <%= section.to_i * 100 %> - <%= section.to_i * 100 + 99 %>
     <%# li class="page-item"><a class="page-link" href="#">Previous</a></li> %>
     <% if section.to_i > 0 %>
       <li class="page-item"><%= link_to "Previous", user_deck_path(user_deck.id, section: section.to_i - 1), method: :get, class: "page-link" %></li>
-      <li class="page-item"><a class="page-link" href="#"><%= section.to_i - 1 %></a></li>
+      <li class="page-item"><%= link_to section.to_i - 1, user_deck_path(user_deck.id, section: section.to_i - 1), method: :get, class: "page-link" %></li>
     <% else %>
       <li class="page-item disabled"><%= link_to "Previous", user_deck_path(user_deck.id, section: section.to_i - 1), method: :get, class: "page-link" %></li>
     <% end %>

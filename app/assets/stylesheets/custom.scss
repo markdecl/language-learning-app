@@ -48,7 +48,7 @@ html, body {
 
 .card {
   // background-color: #41EAD4 !important;
-  border-radius: 0 !important;
+  // border-radius: 0 !important;
 }
 
 .btn-primary {
@@ -159,4 +159,8 @@ footer {
   // background: #3454D1;
   background: rgba(52, 84, 209, 1);
   color: white;
+}
+
+#today-learn-progress-bar {
+  // transition-delay: 0.5s;
 }

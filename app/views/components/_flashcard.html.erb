@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
 
-    <%= link_to "Ignore card", user_decks_path, class: "btn btn-secondary shadow", method: :patch %>
+    <%= link_to "Ignore card", url: { action: :ignore_card, controller: "user_decks" }, method: :post, class: "btn btn-secondary shadow" %>
 
     <%# <ul class="list-group list-group-flush"> %>
     <div class="row">

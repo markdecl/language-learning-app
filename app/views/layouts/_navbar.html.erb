@@ -44,7 +44,7 @@
       <% if user_signed_in? %>
         <ul class="navbar-nav ms-auto">
             <span class="navbar-text d-none d-md-block" style="padding-left:8px;padding-right:8px;"> <%# manually added CSS padding because navbar-text class doesn't have it by default and the padding should match that of navbar-link class %>
-              Logged in as <%= current_user.email %>
+              Hi <%= current_user.email %>!
             </span>
           <%#
           <li class="nav-item dropdown d-none d-md-block"> <%# d-none d-md-block hides this div on screens smaller than md %>

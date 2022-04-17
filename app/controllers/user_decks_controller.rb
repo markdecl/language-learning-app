@@ -23,7 +23,7 @@ class UserDecksController < ApplicationController
       start_index = @section.to_i * 100
     end
     end_index = start_index + 99
-    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('due_to_learn')[start_index..end_index]#.page params[:page]
+    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('id')[start_index..end_index]#.page params[:page]
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id] )
@@ -93,20 +93,35 @@ class UserDecksController < ApplicationController
     end
   end
 
-  def get_learning_schedule
-    @user_deck = UserDeck.find(user_deck_params)
-    # = @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
+  # def get_learning_schedule
+  #   @user_deck = UserDeck.find(user_deck_params)
+  #   # = @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
+  # end
+
+  def update_to_learn_per_day
+    @user_deck = UserDeck.find(params[:id])
+    to_learn_per_day = params[:user_deck][:to_learn_per_day].to_i
+    @user_deck.update(to_learn_per_day: to_learn_per_day)
+    update_learning_schedule
+    redirect_to user_decks_path
   end
 
   def update_learning_schedule
     @user_deck = UserDeck.find(params[:id])
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ?", @user_deck.id, nil)
+    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND ignore = ?", @user_deck.id, nil, false)
     due_to_learn = Time.now
-    to_learn_per_day = params[:user_deck][:to_learn_per_day].to_i
+    # to_learn_per_day = params[:user_deck][:to_learn_per_day].to_i
+    to_learn_per_day = @user_deck.to_learn_per_day.to_i
+    learnt_today_count = UserFlashcard.where("user_deck_id = ? AND learnt > ? AND learnt <= ? AND ignore = ?", @user_deck.id, DateTime.now.utc.beginning_of_day, Time.now, false).count
     # user_flashcards_due_to_learn = {}
     user_flashcards_due_to_learn = []
     user_flashcard_index = 1
     @user_deck_flashcards.each do |user_deck_flashcard|
+      if user_flashcard_index > to_learn_per_day - learnt_today_count
+        due_to_learn += (24 * 60 * 60)
+        user_flashcard_index = 1
+        learnt_today_count = 0
+      end
       # attributes = {user_deck_id: @user_deck.id, flashcard_id: deck_flashcard.id, next_review: "2022-02-26 00:00:00", due_to_learn: "2022-02-26 00:00:00", learnt: false}
       # attributes = {user_deck_id: @user_deck.id, flashcard_id: user_deck_flashcard.id, next_review: nil, learnt: nil, due_to_learn: due_to_learn}
       # user_flashcard = UserFlashcard.create!(attributes)
@@ -120,10 +135,6 @@ class UserDecksController < ApplicationController
 
       #puts "Created #{user_flashcard}"
       user_flashcard_index += 1
-      if user_flashcard_index > to_learn_per_day.to_i
-        due_to_learn += (24 * 60 * 60)
-        user_flashcard_index = 1
-      end
     end
     # @user_deck_flashcards.upsert_all(user_flashcards_due_to_learn)
     # @user_deck_flashcards = UserFlashcard.upsert_all(user_flashcards_due_to_learn)
@@ -132,18 +143,18 @@ class UserDecksController < ApplicationController
     end
     # @user_deck_flashcards.update(user_flashcards_due_to_learn.keys, user_flashcards_due_to_learn.values)
     flash[:alert] = "Deck learning schedule updated!"
-    redirect_to user_decks_path
   end
 
   def learn
     @user_deck = UserDeck.find(params[:id])
     @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
-    @user_deck_flashcards = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false)
+    @user_flashcards = UserFlashcard.all
+    @user_deck_flashcards_to_learn = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
-    if @user_deck_flashcards.any?
-      @top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first
+    if @user_deck_flashcards_to_learn.any?
+      @top_user_flashcard = @user_deck_flashcards_to_learn.sort_by{ |flashcard| flashcard[:due_to_learn] }.first
       @top_flashcard = Flashcard.find(@top_user_flashcard.flashcard_id)
     else
       # @top_user_flashcard = nil
@@ -190,6 +201,47 @@ class UserDecksController < ApplicationController
     @user_flashcard = UserFlashcard.find(params[:id])
     @user_answer = params[:user_answer]
     @answer_correct = params[:answer_correct]
+  end
+
+  def ignore
+    user_deck_id = params[:id]
+    section = params[:section]
+    user_deck_flashcards_ids = params[:user_deck_flashcards_ids]
+    # user_deck_flashcards = params[:user_flashcard][:user_deck_flashcards]
+    if params[:user_deck_flashcards_to_ignore_ids].nil?
+      user_deck_flashcards_to_ignore_ids = []
+    else
+      user_deck_flashcards_to_ignore_ids = params[:user_deck_flashcards_to_ignore_ids]
+    end
+    # ignore_option = params[:ignore_option]
+    user_deck_flashcards = UserFlashcard.where(id: user_deck_flashcards_ids)
+    user_deck_flashcards_to_ignore = UserFlashcard.where(id: user_deck_flashcards_to_ignore_ids)
+    user_deck_flashcards_to_unignore_ids = user_deck_flashcards_ids - user_deck_flashcards_to_ignore_ids
+    user_deck_flashcards_to_unignore = UserFlashcard.where(id: user_deck_flashcards_to_unignore_ids)
+    # user_deck = user_decks
+    # flashcards_to_ignore.each do |flashcard_to_ignore|
+    #   flashcard_to_ignore.update(ignore: true)
+    # end
+    if params[:commit] == 'Ignore selected'
+      user_deck_flashcards_to_ignore.update_all(ignore: true)
+      # user_deck_flashcards_to_ignore.update_all(due_to_learn: nil)
+      user_deck_flashcards_to_unignore.update_all(ignore: false)
+      flash[:alert] = "Selected cards ignored!"
+    elsif params[:commit] == 'Ignore page'
+      user_deck_flashcards.update_all(ignore: true)
+      # user_deck_flashcards.update_all(due_to_learn: nil)
+      flash[:alert] = "Page ignored!"
+    end
+    update_learning_schedule
+    redirect_to user_deck_path(user_deck_id, section: section)
+  end
+
+  def ignore_card
+    user_deck_flashcard_id = params[:id]
+    user_deck_flashcard = UserFlashcard.find(user_deck_flashcard_id)
+    user_deck_flashcard.update(ignore: true)
+    flash[:alert] = "Card ignored!"
+    # redirect_to
   end
 
 
