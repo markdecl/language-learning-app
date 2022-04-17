@@ -23,16 +23,18 @@ class UserDecksController < ApplicationController
       start_index = @section.to_i * 100
     end
     end_index = start_index + 99
-    @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('id')[start_index..end_index]#.page params[:page]
+    # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id).order('id')[start_index..end_index]#.page params[:page]
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id], :order=>'flashcards.scaled_frequency DESC' )
     # @user_deck_flashcards = UserFlashcard.find(:all, :conditions => [ "user_deck_id = ?", @user_deck.id] )
     # @user_deck_flashcards = @user_deck_flashcards.find(:all,:joins=>:flashcard, :order=>'flashcards.scaled_frequency DESC' )
-    @flashcards = Flashcard.where(deck_id: @user_deck.deck_id)
+    # @deck_flashcards = Flashcard.where(deck_id: @user_deck.deck_id)
 
     # INNER JOIN user_flashcards ON user_flashcards.flashcard_id = flashcards.id"
     # @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).joins((' LEFT OUTER JOIN "user_flashcards" ON "flashcards"."id" = "user_flashcards"."id" '))[start_index..end_index]
-    @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).joins(:user_flashcards)[start_index..end_index].pluck('scaled_frequency')
+    # @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).joins(:user_flashcards).order(scaled_frequency: :desc)[start_index..end_index]
+    # @flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).includes(:user_flashcards)#.order(scaled_frequency: :desc)[start_index..end_index]
+    @deck_flashcards_joined_ordered = Flashcard.where(deck_id: @user_deck.deck_id).order(scaled_frequency: :desc)[start_index..end_index]
 
     # @flashcards_joined = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
     # @flashcards_ordered = Flashcard.includes(:user_flashcards).order(scaled_frequency: :desc)
@@ -40,7 +42,7 @@ class UserDecksController < ApplicationController
     # @flashcards_joined = UserFlashcard.joins(:flashcard)
     # @flashcards_joined = Flashcard.joins("INNER JOIN user_flashcards ON user_flashcards.flashcard_id = flashcards.id")
 
-    user_deck_flashcards_count = @user_deck_flashcards.count
+    user_deck_flashcards_count = UserFlashcard.where(user_deck_id: @user_deck.id).count
     user_deck_flashcards_learnt_count = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ?", @user_deck.id, nil).count
     user_deck_flashcards_to_review_count = UserFlashcard.where("user_deck_id = ? AND learnt IS NOT ? AND next_review < ?", @user_deck.id, nil, Time.now).count
 
@@ -207,7 +209,7 @@ class UserDecksController < ApplicationController
     @answer_correct = params[:answer_correct]
   end
 
-  def ignore
+  def ignore_cards
     user_deck_id = params[:id]
     section = params[:section]
     user_deck_flashcards_ids = params[:user_deck_flashcards_ids]
@@ -240,7 +242,15 @@ class UserDecksController < ApplicationController
     redirect_to user_deck_path(user_deck_id, section: section)
   end
 
-  def ignore_card
+  def learn_ignore_card
+    user_deck_flashcard_id = params[:user_deck_flashcard_id]
+    user_deck_flashcard = UserFlashcard.find(user_deck_flashcard_id)
+    user_deck_flashcard.update(ignore: true)
+    flash[:alert] = "Card ignored!"
+    redirect_to user_deck_learn_path(user_deck_flashcard.user_deck)
+  end
+
+  def review_ignore_card
     user_deck_flashcard_id = params[:id]
     user_deck_flashcard = UserFlashcard.find(user_deck_flashcard_id)
     user_deck_flashcard.update(ignore: true)

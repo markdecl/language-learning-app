@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   post "/get_learning_schedule_modal", to: "user_decks#update_to_learn_per_day", as: :update_to_learn_per_day
   get "/user_decks/:id/review", to: "user_decks#review", as: :user_deck_review
   get "/user_flashcards/:id/review_answer", to: "user_decks#review_answer", as: :user_deck_review_answer
-  post "/user_decks/:id/show", to: "user_decks#ignore", as: :ignore_user_decks
+  post "/user_decks/:id/show", to: "user_decks#ignore_cards", as: :ignore_cards_user_decks
+  post "/user_decks/:id/learn", to: "user_decks#ignore_card", as: :learn_ignore_card_user_decks
+  post "/user_decks/:id/review", to: "user_decks#ignore_card", as: :review_ignore_card_user_decks
   # patch "/user_decks", to: "user_decks#open_delete_modal", as: :user_deck_open_delete_modal
   # get 'show_answer', to: 'user_decks#show_answer'
 

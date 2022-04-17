@@ -30,10 +30,12 @@
       <th scope="col" class="d-none d-sm-table-cell">Next Review</th>
     </tr>
   </thead>
-  <% if @user_deck_flashcards.count > 0 %>
+  <%# if user_deck_flashcards_count > 0 %>
+  <% if @deck_flashcards_joined_ordered.count > 0 %>
     <tbody>
         <div class="collapse" id="ignore_card_collapse">
-          <%= form_for @user_deck_flashcards, url: { action: :ignore, controller: "user_decks" }, method: :post do |form| %>
+          <%#= form_for @user_deck_flashcards, url: { action: :ignore, controller: "user_decks" }, method: :post do |form| %>
+          <%= form_for @user_flashcards.to_a, url: { action: :ignore_cards, controller: "user_decks" }, method: :post do |form| %>>
             <%# Which of these hidden fields is working? %>
             <%= hidden_field_tag 'section', @section %>
             <%= form.hidden_field :section, value: @section %>
@@ -42,19 +44,22 @@
             <%#= form.hidden_field :user_deck_flashcards, value: @user_deck_flashcards %>
         </div>
 
-          <% @flashcards_joined_ordered.each do | flashcard | %>
-            <%= flashcard %>
-          <% end %>
+          <%#= @deck_flashcards_joined_ordered.pluck('question') %>
+
+          <% @deck_flashcards_joined_ordered.each do | deck_flashcard | %>
+            <%#= user_deck_flashcard %>
+          <%# end %>
+            <% user_deck_flashcard = @user_flashcards.find_by(flashcard_id: deck_flashcard.id) %>
 
         <%#= form_with url: ignore_user_flashcards_path, method: :get do |form| %>
-          <% @user_deck_flashcards.each do | user_deck_flashcard | %>
-          <%# <% @flashcards_ordered.each do | flashcard | %>
-          <%# <%= flashcard.attributes %>
+          <%# @user_deck_flashcards.each do | user_deck_flashcard | %>
+          <%# <% @flashcards_ordered.each do | deck_flashcard | %>
+          <%# <%= deck_flashcard.attributes %>
 
             <%= hidden_field_tag 'user_deck_flashcards_ids[]', user_deck_flashcard.id %>
 
-            <% flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
-            <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: flashcard.id) %>
+            <%# deck_flashcard = @flashcards.find(user_deck_flashcard.flashcard_id) %>
+            <%# <% user_deck_flashcard = @user_deck_flashcards.find_by(flashcard_id: deck_flashcard.id) %>
 
             <% if user_deck_flashcard.ignore %>
               <tr class="table-secondary">
@@ -94,9 +99,9 @@
                   <% end %>
                 </td>
               </div>
-              <td scope="row" class="d-none d-sm-table-cell"><%= flashcard.frequency_rank %></td>
-              <td><%= flashcard.question %></td>
-              <td><%= flashcard.answer %></td>
+              <td scope="row" class="d-none d-sm-table-cell"><%= deck_flashcard.frequency_rank %></td>
+              <td><%= deck_flashcard.question %></td>
+              <td><%= deck_flashcard.answer %></td>
               <td class="d-none d-sm-table-cell">
                 <% unless user_deck_flashcard.next_review.nil? %>
                   <%#= user_deck_flashcard.next_review %>
