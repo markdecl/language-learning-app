@@ -14,7 +14,9 @@
         </p>
         <p class="card-text">
           <% unless user_deck.to_learn_per_day.nil? %>
-            Time to complete deck: <%= user_deck_flashcards.count / user_deck.to_learn_per_day %> days
+            <% if user_deck.to_learn_per_day > 0 %>
+              Time to complete deck: <%= user_deck_flashcards.count / user_deck.to_learn_per_day %> days
+            <% end %>
           <% end %>
         </p>
 

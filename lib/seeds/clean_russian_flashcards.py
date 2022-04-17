@@ -17,17 +17,18 @@ def clean_flashcard(raw_flashcard):
     return cleaned_flashcard
 
 def clean_sentence(sent, capitalize):
-    if sent[0] == '\"':
-        sent = sent[1:]
-    if sent[-1] == '\"':
-        sent = sent[:-1]
-    for char in ['?', '!', '.', ',', '\'', ':']: # string.punctuation:
-        sent = sent.replace(' ' + char, char)
-    sent = sent.replace('\' ', '\'')
-    sent = sent.replace(' i ', ' I ')
-    sent = sent.replace('i\'', 'I\'')
-    if capitalize:
-        sent = sent[0].upper() + sent[1:]
+    if len(sent) > 0:
+        if sent[0] == '\"':
+            sent = sent[1:]
+        if sent[-1] == '\"':
+            sent = sent[:-1]
+        for char in ['?', '!', '.', ',', '\'', ':']: # string.punctuation:
+            sent = sent.replace(' ' + char, char)
+        sent = sent.replace('\' ', '\'')
+        sent = sent.replace(' i ', ' I ')
+        sent = sent.replace('i\'', 'I\'')
+        if capitalize:
+            sent = sent[0].upper() + sent[1:]
 
     return sent
 
@@ -65,6 +66,9 @@ with open("russian_flashcards_raw.csv", "r", encoding='utf-8') as russian_flashc
             row['answer'] = re.sub("[\(].*?[\)]", "", row['answer'])
             # print(row['answer'])
 
+            row['term_with_accent'] = clean_sentence(row['term_with_accent'], capitalize=False)
+
+            row['conjugation_and_declension_info'] = clean_sentence(row['conjugation_and_declension_info'], capitalize=False)
 
             row['source_sentence'] = clean_sentence(row['source_sentence'], capitalize=True)
             row['target_sentence'] = clean_sentence(row['target_sentence'], capitalize=True)

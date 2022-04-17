@@ -32,7 +32,10 @@
 
           <li class="list-group-item">
 
-            <h3 class="card-title"><%= deck.name %></h3>
+            <%= link_to user_deck_path(user_deck.id, section: 0), method: :get, class: 'card-title text-dark text-decoration-none' do %>
+              <h3><%= deck.name %></h3>
+            <% end %>
+
             <% if user_deck_flashcards_count == 1 %>
               <p class="card-text"><%= user_deck_flashcards_count %> card</p>
             <% else %>
@@ -47,8 +50,8 @@
               <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="z-index: 1;">
                 Options
               </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
-                <li><%= link_to "Show / View cards", user_deck_path(user_deck.id, section: 0), method: :get, class: "dropdown-item" %></li>
+              <ul class="dropdown-menu dropdown-menu-end text-end" aria-labelledby="dropdownMenu2">
+                <li><%= link_to "View cards", user_deck_path(user_deck.id, section: 0), method: :get, class: "dropdown-item" %></li>
                 <%# <li><%= link_to "Change learning schedule", get_learning_schedule_path(user_deck.id), method: :get, class: "dropdown-item" %> <%# </li> %>
                 <div data-bs-toggle="modal" data-bs-target="#GetLearningScheduleModal<%= user_deck.id %>" class="dropdown-item">
                   Change learning schedule

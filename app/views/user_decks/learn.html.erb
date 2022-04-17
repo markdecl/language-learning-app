@@ -25,9 +25,11 @@
 
   <%# <h3 class="text-center m-3"><%= content_tag :span, @user_deck_flashcards_to_learn.count, class: 'badge bg-warning' %> <%# </h3> %>
 
-  <%= render 'components/today_learn_progress_bar', user_deck: @user_deck, user_flashcards: @user_flashcards %>
+  <div class="my-3">
+    <%= render 'components/today_learn_progress_bar', user_deck: @user_deck, user_flashcards: @user_flashcards %>
+  </div>
 
-  <%= render "components/flashcard", top_flashcard: @top_flashcard, top_user_flashcard: @top_user_flashcard %>
+  <%= render "components/flashcard", top_flashcard: @top_flashcard, top_user_flashcard: @top_user_flashcard, learn_or_review: 'learn' %>
 
   <%# <button>Incorrect</button>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
@@ -36,14 +38,6 @@
   <%#= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), method: :patch %>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
 
-  <div class="collapse" id="collapseExample" style="margin-top:auto;">
-    <div class= "d-flex shadow answer-buttons-row">
-      <%# <div class="d-grid gap-2"> %>
-      <%= link_to "Incorrect", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-danger btn-lg w-50", method: :patch %>
-      <%= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), class: "btn btn-success btn-lg w-50", method: :patch %>
-      <%# </div> %>
-    </div>
-  </div>
 <% else %>
   <h2>All caught up!</h2>
 <% end %>

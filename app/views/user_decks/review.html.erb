@@ -3,21 +3,23 @@
 <%# SHOW THE CARD WITH THE EARLIEST 'NEXT REVIEW' FIRST: %>
 <h3 class="text-center m-3"><%= content_tag :span, @user_deck_flashcards.count, class: 'badge bg-danger' %></h3>
 
-<%= render "components/flashcard", top_flashcard: @top_flashcard, top_user_flashcard: @top_user_flashcard %>
+<%= render "components/flashcard", top_flashcard: @top_flashcard, top_user_flashcard: @top_user_flashcard, learn_or_review: 'review' %>
 
 <%# <div class= "row justify-content-center mt-auto d-block answer-buttons-row">
   <%# <div class="d-grid gap-2"> %>
     <%#= link_to "Check answer", check_answer_user_flashcard_path(@top_user_flashcard, user_answer: user_answer), class: "btn btn-primary btn-lg", method: :patch %>
   <%# </div> %>
 <%# </div> %>
+<%#
 <div class="collapse" id="collapseExample" style="margin-top:auto;">
   <div class= "d-flex justify-content-center shadow fixed-bottom answer-buttons-row">
     <%# <div class="d-grid gap-2"> %>
-    <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>
-    <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-success btn-lg w-50", method: :patch %>
+    <%# <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>
+    <%#= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-success btn-lg w-50", method: :patch %>
     <%# </div> %>
-  </div>
+  <%# </div>
 </div>
+%>
 
 
 <%# <% else %>

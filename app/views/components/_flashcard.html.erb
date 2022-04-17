@@ -1,73 +1,109 @@
-<div class="card shadow text-center my-auto">
-  <div class="card-header">
-    Frequency rank: <%= @top_flashcard.frequency_rank %>
-  </div>
-  <div class="card-body">
+<div class="d-flex flex-column">
 
-    <%= link_to("Ignore card", :controller => "user_decks", :action => "ignore_card", :user_deck_flashcard_id => @top_flashcard.id, method: :post, class: "btn btn-secondary shadow") %>
+  <div class="card shadow text-center my-auto">
+    <div class="card-header">
+      Frequency rank: <%= @top_flashcard.frequency_rank %>
+    </div>
+    <div class="card-body">
 
-    <%# <ul class="list-group list-group-flush"> %>
-    <div class="row">
+      <%= link_to("Ignore card", :controller => "user_decks", :action => "ignore_card", :user_deck_flashcard_id => @top_flashcard.id, method: :post, class: "btn btn-secondary shadow") %>
 
-      <%# <li class="list-group-item"> %>
-      <div class="col">
+      <%# <ul class="list-group list-group-flush"> %>
+      <div class="row">
 
-        <% if @top_flashcard.test_direction == 'tl-en' %>
-          <p class="text-muted"><%= @top_flashcard.deck.language %></p>
-        <% else %>
-          <p class="text-muted">English</p>
-        <% end %>
-
-        <h5 class="card-title"><%= @top_flashcard.question %></h5>
-        <i class="fa-solid fa-volume-high"></i>
-
-        <% if @top_flashcard.test_direction == 'tl-en' %>
-          <p class="card-text fst-italic"><%= sanitize @top_flashcard.source_sentence %></p>
-        <% else %>
-          <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
-        <% end %>
-      <%# </li> %>
-      </div>
-
-      <%# <li class="list-group-item"> %>
-      <div class="col">
-
-        <% if @top_flashcard.test_direction == 'tl-en' %>
-          <p class="text-muted">English</p>
-        <% else %>
-          <p class="text-muted"><%= @top_flashcard.deck.language %></p>
-        <% end %>
-
-        <div class="collapse" id="collapseExample">
-          <h5 class="card-title"><%= @top_flashcard.answer %></h5>
-          <i class="fa-solid fa-volume-high"></i>
+        <%# <li class="list-group-item"> %>
+        <div class="col">
 
           <% if @top_flashcard.test_direction == 'tl-en' %>
-            <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
+            <p class="text-muted"><%= @top_flashcard.deck.language %></p>
           <% else %>
+            <p class="text-muted">English</p>
+          <% end %>
+
+          <h5 class="card-title"><%= @top_flashcard.question %></h5>
+          <i class="fa-solid fa-volume-high"></i>
+          <% if @top_flashcard.test_direction == 'tl-en' %>
+            <p class="card-text"><%= sanitize @top_flashcard.term_with_accent %></p>
+            <p class="card-text"><%= sanitize @top_flashcard.conjugation_and_declension_info %></p>
+          <% end %>
+
+        <%# </li> %>
+        </div>
+
+        <%# <li class="list-group-item"> %>
+        <div class="col">
+
+          <% if @top_flashcard.test_direction == 'tl-en' %>
+            <p class="text-muted">English</p>
+          <% else %>
+            <p class="text-muted"><%= @top_flashcard.deck.language %></p>
+          <% end %>
+
+          <div class="collapse" id="collapseExample">
+            <h5 class="card-title"><%= @top_flashcard.answer %></h5>
+            <i class="fa-solid fa-volume-high"></i>
+            <% if @top_flashcard.test_direction == 'en-tl' %>
+              <p class="card-text"><%= sanitize @top_flashcard.term_with_accent %></p>
+              <p class="card-text"><%= sanitize @top_flashcard.conjugation_and_declension_info %></p>
+            <% end %>
+          </div>
+
+        <%# </li> %>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col">
+          <% if @top_flashcard.test_direction == 'tl-en' %>
             <p class="card-text fst-italic"><%= sanitize @top_flashcard.source_sentence %></p>
+          <% else %>
+            <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
           <% end %>
         </div>
 
-      <%# </li> %>
+        <div class="col">
+          <div class="collapse" id="collapseExample">
+            <% if @top_flashcard.test_direction == 'tl-en' %>
+              <p class="card-text fst-italic"><%= sanitize @top_flashcard.target_sentence %></p>
+            <% else %>
+              <p class="card-text fst-italic"><%= sanitize @top_flashcard.source_sentence %></p>
+            <% end %>
+          </div>
+        </div>
+
       </div>
 
-
-  </div>
-
-  <div class="card-footer text-muted">
-    <% if top_user_flashcard.learnt %>
-      Last review: <%= top_user_flashcard.previous_review %>
-    <% end %>
-  </div>
-
-  <a class="btn btn-warning btn-lg w-75 shadow collapsed see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    <div id="see-answer">
-      See answer
     </div>
-    <%# <div id="hide-answer">
-      Hide answer
+
+    <div class="card-footer text-muted">
+      <% if top_user_flashcard.learnt %>
+        Last review: <%= top_user_flashcard.previous_review %>
+      <% end %>
     </div>
-    %>
-  </a>
+  </div>
+  <div>
+    <a class="btn btn-warning btn-lg w-100 shadow collapsed see-answer-button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <div id="see-answer">
+        See answer
+      </div>
+      <%# <div id="hide-answer">
+        Hide answer
+      </div>
+      %>
+    </a>
+  </div>
+  <div class="collapse" id="collapseExample" style="margin-top:auto;">
+    <div class= "d-flex shadow answer-buttons-row">
+      <% if learn_or_review == 'learn' %>
+      <%# <div class="d-grid gap-2"> %>
+        <%= link_to "Incorrect", update_learn_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>
+        <%= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-success btn-lg w-50", method: :patch %>
+      <% elsif learn_or_review == 'review' %>
+        <%= link_to "Incorrect", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>
+        <%= link_to "Correct", update_review_user_flashcard_path(@top_user_flashcard, answer_correct: true), class: "btn btn-success btn-lg w-50", method: :patch %>
+      <% end %>
+      <%# </div> %>
+    </div>
+  </div>
 </div>

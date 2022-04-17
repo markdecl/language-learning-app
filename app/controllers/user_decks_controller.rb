@@ -55,7 +55,7 @@ class UserDecksController < ApplicationController
     deck_id = params[:deck_id]
     @deck = Deck.find(deck_id)
     # @deck = Deck.find(user_deck_params) # user_deck_params is just the deck_id as a string for some reason
-    @user_deck = UserDeck.new({deck_id: deck_id})
+    @user_deck = UserDeck.new({deck_id: deck_id, to_learn_per_day: 0})
     # @user_deck = UserDeck.new({deck_id: user_deck_params}) # user_deck_params is just the deck_id as a string for some reason
     # @user_deck.id = @deck.id # this ensures that the user_deck is the same as the deck_id, in case multiple user_decks are created and destroyed, leading to misalignment between the two tables. UPDATE: but this breaks when multiple users try to add the same deck.
     @user_deck.user_id = current_user.id
@@ -156,7 +156,7 @@ class UserDecksController < ApplicationController
     @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     @user_flashcards = UserFlashcard.all
-    @user_deck_flashcards_to_learn = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false)
+    @user_deck_flashcards_to_learn = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND ignore = ?", @user_deck.id, nil, false)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
     if @user_deck_flashcards_to_learn.any?
@@ -237,11 +237,20 @@ class UserDecksController < ApplicationController
       user_deck_flashcards.update_all(ignore: true)
       # user_deck_flashcards.update_all(due_to_learn: nil)
       flash[:alert] = "Page ignored!"
+    elsif params[:commit] == 'Ignore up to last selected card'
+      last_selected_user_deck_flashcard_id = user_deck_flashcards_to_ignore_ids[-1]
+      last_selected_user_deck_flashcard = UserFlashcard.find(last_selected_user_deck_flashcard_id)
+      deck_flashcards_up_to_last_selected_user_deck_flashcard = Flashcard.where('deck_id = ? AND scaled_frequency >= ?', last_selected_user_deck_flashcard.user_deck.deck_id, last_selected_user_deck_flashcard.flashcard.scaled_frequency)
+      user_deck_flashcards_up_to_last_selected_user_deck_flashcard = UserFlashcard.where(flashcard_id: deck_flashcards_up_to_last_selected_user_deck_flashcard.pluck('id'))
+      user_deck_flashcards_up_to_last_selected_user_deck_flashcard.update_all(ignore: true)
+      # user_deck_flashcards.update_all(due_to_learn: nil)
+      flash[:alert] = "Cards up to last selected card ignored!"
     end
     update_learning_schedule
     redirect_to user_deck_path(user_deck_id, section: section)
   end
 
+  # Not ignore_card actions are not finished:
   def learn_ignore_card
     user_deck_flashcard_id = params[:user_deck_flashcard_id]
     user_deck_flashcard = UserFlashcard.find(user_deck_flashcard_id)
