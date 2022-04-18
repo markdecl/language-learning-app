@@ -156,6 +156,12 @@ class UserDecksController < ApplicationController
     @deck = Deck.find(@user_deck.deck_id)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     @user_flashcards = UserFlashcard.all
+
+    to_learn_today_count = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND due_to_learn <= ? AND ignore = ?", @user_deck.id, nil, DateTime.now.utc.end_of_day, false).count
+    if to_learn_today_count.zero?
+      flash[:alert] = "Congrats! You've completed your daily learning goal for the #{@deck.language} deck."
+    end
+
     @user_deck_flashcards_to_learn = UserFlashcard.where("user_deck_id = ? AND learnt IS ? AND ignore = ?", @user_deck.id, nil, false)
     # @flashcards = Flashcard.all#.order(scaled_frequency: :desc)
     # @flashcards = Flashcard.where(id: @user_deck_flashcards.ids)
@@ -173,6 +179,7 @@ class UserDecksController < ApplicationController
   def review
     @user_deck = UserDeck.find(params[:id])
     @deck = Deck.find(@user_deck.deck_id)
+    @user_flashcards = UserFlashcard.all
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: params[:id])
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true)
     # @user_deck_flashcards = UserFlashcard.where(user_deck_id: @user_deck.id, learnt: true, next_review: < Time.now)
