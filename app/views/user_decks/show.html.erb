@@ -3,18 +3,19 @@
 
 <%# <h2>Ordered by user_deck_flashcard.due_to_learn:</h2> %>
 
+<%#
 <div class= "d-flex m-4 justify-content-evenly">
   <%# <div class="d-grid gap-2"> %>
-  <a class="btn btn-primary shadow collapsed ignore-cards-button" data-bs-toggle="collapse" href="#ignore_card_collapse" role="button" aria-expanded="false" aria-controls="ignore_card_collapse">
+  <%# <a class="btn btn-primary shadow collapsed ignore-cards-button" data-bs-toggle="collapse" href="#ignore_card_collapse" role="button" aria-expanded="false" aria-controls="ignore_card_collapse">
     <div id="ignore-cards">
       Ignore cards
     </div>
   </a>
   <%= link_to "Ignore cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
-  <%= link_to "Ignore individual cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
-  <%= link_to "Ignore first x cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
+  <%#= link_to "Ignore individual cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
+  <%#= link_to "Ignore first x cards", user_decks_path, class: "btn btn-primary shadow", method: :patch %>
   <%# </div> %>
-</div>
+<%# </div> %>
 
 <%= render "components/user_deck_show_pagination_buttons", user_deck: @user_deck, section: @section %>
 
@@ -127,19 +128,24 @@
             </tr>
           <% end %>
           <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ignore cards</button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
+              <%# <li><hr class="dropdown-divider"></li> %>
+              <li>
+                <%= form.submit "Ignore selected", ignore_option: 'ignore selected', class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= submit_tag "Ignore page", ignore_option: 'ignore page', class: "dropdown-item" %>
+              </li>
+              <li>
+                <%= submit_tag "Ignore up to last selected card", ignore_option: 'ignore up to last selected card', class: "dropdown-item" %>
+              </li>
             </ul>
           </div>
           <div class="row">
-            <%= form.submit "Ignore selected", ignore_option: 'ignore selected', class: "btn btn-primary w-25" %>
-            <%= submit_tag "Ignore page", ignore_option: 'ignore page', class: "btn btn-primary w-25" %>
-            <%= submit_tag "Ignore up to last selected card", ignore_option: 'ignore up to last selected card', class: "btn btn-primary w-25" %>
+            <%#= form.submit "Ignore selected", ignore_option: 'ignore selected', class: "btn btn-primary w-25" %>
+            <%#= submit_tag "Ignore page", ignore_option: 'ignore page', class: "btn btn-primary w-25" %>
+            <%#= submit_tag "Ignore up to last selected card", ignore_option: 'ignore up to last selected card', class: "btn btn-primary w-25" %>
           </div>
         <% end %>
     </tbody>

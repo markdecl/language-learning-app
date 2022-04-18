@@ -4,15 +4,13 @@
 <% to_review_today_count = user_flashcards.where("user_deck_id = ? AND next_review <= ? AND ignore = ?", user_deck.id, DateTime.now.utc.end_of_day, false).count %>
 <% total_review_today_count = reviewed_today_count + to_review_today_count %>
 
-<%= reviewed_today_count %> / <%= total_review_today_count %>
-
 <% if reviewed_today_count > 0 && total_review_today_count > 0 %>
   <% today_review_progress_percentage = reviewed_today_count.to_f / total_review_today_count.to_f * 100 %>
 <% else %>
   <% today_review_progress_percentage = 0 %>
 <% end %>
 
-<div class="progress">
+<div class="progress"  data-bs-toggle="popover" data-bs-trigger="focus" title="<%= reviewed_today_count %> / <%= total_review_today_count %>" data-bs-content="And here's some amazing content. It's very engaging. Right?">
   <% if today_review_progress_percentage == 100 %>
     <div class="progress-bar bg-success" role="progressbar" style="width: <%= "#{today_review_progress_percentage}%" %>" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
   <% else %>
