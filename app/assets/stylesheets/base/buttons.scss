@@ -1,9 +1,11 @@
-.see-answer-button #see-answer {
+.see-answer-button {
   display:inline;
 }
-.see-answer-button.collapsed #hide-answer {
-  display:none;
+
+.see-answer-button:not(.collapsed) {
+  display: none;
 }
-.see-answer-button:not(.collapsed) #see-answer {
+
+.see-answer-button.collapsed #hide-answer {
   display:none;
 }
