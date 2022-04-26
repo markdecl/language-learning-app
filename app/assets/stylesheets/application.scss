@@ -77,6 +77,26 @@ html, body {
   // height: 100%;
 }
 
+// #wrap {
+//   background: linear-gradient(-45deg, #ffff, #3454d1, #23a6d5, #23d5ab);
+//   background-size: 400% 400%;
+//   animation: gradient 15s ease infinite;
+// }
+
+// @keyframes gradient {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+
+//   50% {
+//     background-position: 100% 50%;
+//   }
+
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }
+
 #background-svg {
   position: fixed;
   bottom: 300px;
@@ -102,9 +122,9 @@ html, body {
 }
 
 #main {
-  // overflow:auto;
+  // overflow:aut0;
   padding-top: 90px; /* to accommodate navbar and padding below navbar */
-  padding-bottom: 50px; /* this needs to be bigger than footer height */
+  padding-bottom: 30px; /* this needs to be bigger than footer height */
   min-height: 100vh; /* temporary fix */
   // height: 500px; /* temporary fix */
   flex-direction: column;

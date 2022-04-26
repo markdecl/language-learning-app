@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
 
-  <div class="card shadow text-center my-auto">
+  <div class="card text-center my-auto">
     <div class="card-header">
       Frequency rank: <%= @top_flashcard.frequency_rank %>
     </div>
@@ -47,6 +47,7 @@
                 <% if @top_flashcard.test_direction == 'en-tl' %>
                   <p class="card-text"><%= sanitize @top_flashcard.term_with_accent %></p>
                   <p class="card-text"><%= sanitize @top_flashcard.conjugation_and_declension_info %></p>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Grammatical info</button>
                 <% end %>
               </div>
 

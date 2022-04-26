@@ -8,14 +8,23 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active fw-bold">
+          <li class="nav-item active">
             <%# <%= link_to "My Decks", user_decks_path%>
-            <a class="nav-link" href="/user_decks"> My Decks <span class="sr-only">(current)</span></a>
+            <a class="nav-link fw-bold" href="/user_decks">
+              <i class="fa-brands fa-leanpub"></i>
+              Learn
+              <span class="sr-only">
+                (current)
+              </span>
+            </a>
           </li>
         <% end %>
-        <li class="nav-item active fw-bold">
+        <li class="nav-item active">
           <%# <%= link_to "My Decks", user_decks_path%>
-          <a class="nav-link" href="/decks"> Browse Decks <span class="sr-only">(current)</span></a>
+          <a class="nav-link fw-bold" href="/decks">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Browse <span class="sr-only">(current)</span>
+          </a>
         </li>
         <%# <li class="nav-item active">
           <a class="nav-link" href="#"> Language <span class="sr-only">(current)</span></a>
@@ -76,10 +85,13 @@
           <li class="nav-item active">
             <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
           </li> %>
-          <li class="nav-item active  fw-bold">
+          <li class="nav-item active">
             <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
             <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
-            <a class="nav-link" href="/users/sign_out" data-method="delete">Log out</a>
+            <a class="nav-link fw-bold" href="/users/sign_out" data-method="delete">
+              <i class="fa fa-sign-out"></i>
+              Log out
+            </a>
             <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
           </li>
         </ul>
