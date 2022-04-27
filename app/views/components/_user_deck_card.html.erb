@@ -86,7 +86,7 @@
                 <% if deck_progress_percentage == 100 %>
                   <div class="progress-bar bg-success" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
                 <% else %>
-                  <div class="progress-bar bg-primary mb-3" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: <%= "#{deck_progress_percentage}%" %>" aria-valuenow= "<%= user_deck_flashcards_learnt_count + user_deck_flashcards_ignored_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
                 <% end %>
               </div>
               <%# <%= user_deck_flashcards_learnt_count / <%= user_deck_flashcards_count %>
