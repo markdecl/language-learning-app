@@ -4872,6 +4872,20 @@ fieldset:disabled .btn {
   background-clip: border-box;
   border: 2px solid #333;
   border-radius: 25px;
+
+  /* for .card:hover transition after hovering */
+  transition: 0.2s;
+  /* box-shadow: 0 0 #ccc; */
+}
+
+.card:hover {
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+  // rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  transition: 0.2s;
+  // transition-property: box-shadow;
+  box-shadow: 0 1rem #ccc;
+  top: -1rem;
+  // right: -1rem;
 }
 
 .card > hr {
