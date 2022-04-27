@@ -24,8 +24,6 @@ french =  { language: "French", name: "French" }
 end
 
 
-
-
 # puts "Cleaning database..."
 # UserDeck.destroy_all
 

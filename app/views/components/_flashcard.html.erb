@@ -105,7 +105,7 @@
     </a>
   </div>
   <div class="collapse" id="collapseExample" style="margin-top:auto;">
-    <div class= "d-flex shadow answer-buttons-row">
+    <div class= "d-flex answer-buttons-row">
       <% if learn_or_review == 'learn' %>
       <%# <div class="d-grid gap-2"> %>
         <%= link_to "Incorrect", update_learn_user_flashcard_path(@top_user_flashcard, answer_correct: false), class: "btn btn-danger btn-lg w-50", method: :patch %>

@@ -1,24 +1,28 @@
 // @import "nodemodule.css";
 
-@import "bootstrap/scss/bootstrap"; /* picks it up in node_modules! */
+// @import "bootstrap/scss/bootstrap"; /* picks it up in node_modules! */
+@import "bootswatch_sketchy";
+// @import "~bootswatch/dist/sketchy/variables";
+// @import "~bootstrap/scss/bootstrap";
+// @import "~bootswatch/dist/sketchy/bootswatch";
 
 // @import "bootstrap"; /* throws scss compilation error */
 
 @import "font-awesome";
 
 // Fonts and colors
-@import "base/typography";
+// @import "base/typography"; /* commented out for Bootswatch Sketchy theme */
 // Import fonts
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather:wght@300;400&family=Teko:wght@500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merriweather&family=Teko:wght@500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather:wght@300;400&family=Teko:wght@500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch&family=Merriweather&family=Teko:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch&family=Merriweather&family=Teko:wght@500&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Cabin&family=Cabin+Sketch:wght@400;700&family=Merriweather&family=Teko:wght@500&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap');
 
 // Pages
-@import "views/static_pages";
+// @import "views/static_pages";
 @import "views/user_decks/index";
 
 // Buttons
@@ -28,10 +32,10 @@
 @import "components/alert";
 
 // Effects
-@import "shared/stroke_effect";
+// @import "shared/stroke_effect";
 
 // Custom CSS to customise Bootstrap:
-@import "custom";
+// @import "custom";
 
 html, body {
   height: 100%;

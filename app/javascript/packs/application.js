@@ -10,7 +10,7 @@ require("channels")
 require('jquery')
 
 require("packs/closeAlert")
-require("packs/navbarScrollColourChange")
+// require("packs/navbarScrollColourChange")
 
 import "@fortawesome/fontawesome-free/css/all";
 
