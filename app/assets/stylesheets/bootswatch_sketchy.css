@@ -621,6 +621,7 @@ progress {
 .img-fluid {
   max-width: 100%;
   height: auto;
+  border-radius: 5px 5px 5px 5px/25px 25px 25px 5px;
 }
 
 .img-thumbnail {
@@ -4190,7 +4191,8 @@ fieldset:disabled .btn {
 }
 
 .nav-link:hover, .nav-link:focus {
-  color: #292929;
+  /* color: #292929; */
+  color: rgba(var(--bs-warning-rgb), 1);
 }
 
 .nav-link.disabled {
@@ -4306,7 +4308,7 @@ fieldset:disabled .btn {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   text-decoration: none;
   white-space: nowrap;
   color: #ffc107;
@@ -4325,6 +4327,7 @@ fieldset:disabled .btn {
 .navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
+  font-size: 1.25rem;
 }
 
 .navbar-nav .dropdown-menu {
@@ -4334,6 +4337,7 @@ fieldset:disabled .btn {
 .navbar-text {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .navbar-collapse {
@@ -4882,10 +4886,10 @@ fieldset:disabled .btn {
   // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
   // rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   transition: 0.2s;
-  // transition-property: box-shadow;
-  box-shadow: 0 1rem #ccc;
-  top: -1rem;
-  // right: -1rem;
+  /* transition-property: box-shadow; */
+  /* box-shadow: 0 1rem #ccc; */
+  /* top: -1rem; */
+  /* right: -1rem; */
 }
 
 .card > hr {
@@ -4952,7 +4956,7 @@ fieldset:disabled .btn {
 .card-footer {
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.03);
-  border-top: 2px solid #333;
+  /* border-top: 2px solid #333; */
 }
 
 .card-footer:last-child {
@@ -5500,7 +5504,7 @@ fieldset:disabled .btn {
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
-  border-radius: 25px;
+  /* border-radius: 25px; */
 }
 
 .list-group-numbered {
@@ -5515,7 +5519,7 @@ fieldset:disabled .btn {
 
 .list-group-item-action {
   width: 100%;
-  color: #333;
+  /* color: #333; */
   text-align: inherit;
 }
 
@@ -5538,7 +5542,7 @@ fieldset:disabled .btn {
   color: #212529;
   text-decoration: none;
   background-color: #fff;
-  border: 2px solid #333;
+  /* border: 2px solid #333; */
 }
 
 .list-group-item:first-child {
@@ -11658,16 +11662,16 @@ select.form-control {
 
 .list-group {
   background-color: #333;
-  border: 2px solid #333;
-  border-radius: 45px 15px 35px 5px/15px 5px 15px 65px;
+  /* border: 2px solid #333; */
+  /* border-radius: 45px 15px 35px 5px/15px 5px 15px 65px; */
   overflow: hidden;
 }
 
 .list-group-item {
   border-left: none;
   border-right: none;
-  border-top: 2px solid #333;
-  border-radius: 255px 5px 225px 5px/25px 225px 25px 255px;
+  /* border-top: 2px solid #333; */
+  /* border-radius: 255px 5px 225px 5px/25px 225px 25px 255px; */
 }
 
 .list-group-item:first-child {

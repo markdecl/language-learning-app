@@ -1,5 +1,5 @@
 <div class="card m-3 deck_card" style="">
-  <%= image_tag "#{deck.name.downcase}.jpg", class: "card-img img-fluid rounded deck_card_img", style: "height:200px;object-fit:cover;" %>
+  <%= image_tag "#{deck.name.downcase}.jpg", class: "img-fluid deck_card_img", style: "height:200px;object-fit:cover;" %>
   <div class="card-body">
     <h3 class="card-title"><%= deck.name %></h3>
     <% if deck_flashcards_count == 1 %>
