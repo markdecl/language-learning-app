@@ -1,17 +1,23 @@
-<%# <nav class="navbar myNavbar py-3 navbar-expand fixed-top navbar-dark "> <%# .py-3 class is to slightly increase navbar height %>
+<div class="collapse fixed-top bg-info text-white p-4 d-md-none" id="navbarToggleExternalContent">
 
- <%= render "layouts/sidebar" %>
 
-<nav class="navbar navbar-dark bg-info myNavbar py-3 navbar-expand fixed-top text-center stroke"> <%# .py-3 class is to slightly increase navbar height %>
-  <div class="container">
-    <a class="navbar-brand" href="/home">Verble</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <%#
+  <h5 class="text-white h4">Collapsed content</h5>
+  <span class="text-muted">Toggleable via the navbar brand.</span>
+  %>
+
+    <!-- Sidebar -->
+  <%# <nav id="sidebar"> %>
+  <nav class="navbar-dark">
+      <%#
+      <div class="sidebar-header">
+          <h3>Bootstrap Sidebar</h3>
+      </div>
+      %>
+
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active d-none d-md-block">
+          <li class="nav-item active">
             <%# <%= link_to "My Decks", user_decks_path%>
             <a class="nav-link fw-bold" href="/user_decks">
               <i class="fa-brands fa-leanpub"></i>
@@ -22,7 +28,7 @@
             </a>
           </li>
         <% end %>
-        <li class="nav-item active d-none d-md-block">
+        <li class="nav-item active">
           <%# <%= link_to "My Decks", user_decks_path%>
           <a class="nav-link fw-bold" href="/decks">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -55,9 +61,6 @@
       <% end %>
       <% if user_signed_in? %>
         <ul class="navbar-nav ms-auto">
-          <span class="navbar-text d-none d-md-block" style="padding-left:8px;padding-right:8px;"> <%# manually added CSS padding because navbar-text class doesn't have it by default and the padding should match that of navbar-link class %>
-            Hi <%= current_user.email %>!
-          </span>
           <%#
           <li class="nav-item dropdown d-none d-md-block"> <%# d-none d-md-block hides this div on screens smaller than md %>
           <%#
@@ -88,7 +91,7 @@
           <li class="nav-item active">
             <a class="nav-link" href="#"> Log out <span class="sr-only">(current)</span></a>
           </li> %>
-          <li class="nav-item active d-none d-md-block">
+          <li class="nav-item active">
             <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
             <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
             <a class="nav-link fw-bold" href="/users/sign_out" data-method="delete">
@@ -97,39 +100,18 @@
             </a>
             <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
           </li>
-          <%# <li class="nav-item active"> %>
-            <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
-            <%# <a class="nav-link" href= "/users/sign_out" > Log out <span class="sr-only">(current)</span></a> %>
-            <button class="d-md-none" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-              Toggle external content
-            </button>
-            <%# <button type="button" id="sidebarCollapse" class="btn btn-info"> %>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-align-left"></i>
-                <span>Toggle Sidebar</span>
-            </button>
-
-            <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none;' %>
-          </li>
         </ul>
-        <%# <li> %>
-          <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
-          <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none !important;' %>
-        <%# </li> %>
+          <%# <li> %>
+            <%# <a class="nav-link" href="/users/sign_up"> Log out <span class="sr-only">(current)</span></a> %>
+            <%#= link_to "Log out", destroy_user_session_path, :method => :delete, style: 'text-decoration:none !important;' %>
+          <%# </li> %>
 
       <% end %>
-      <%# <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form> %>
-
-    </div>
-
-  </div>
-
-</nav>
+        <%# <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> %>
+      </div>
+  </nav>
+</div>
