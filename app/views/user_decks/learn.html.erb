@@ -20,22 +20,25 @@
 
 <%# <% @user_deck_flashcards.each do |user_deck_flashcard| %>
 
-<% if @user_deck_flashcards.any? %>
+<% if @user_deck_flashcards_to_learn.any? %>
 <%# <% if [ @user_deck_flashcards.each { |flashcard| [:learnt] == false } ].any? %>
-  <% top_user_flashcard = @user_deck_flashcards.sort_by{ |flashcard| flashcard[:due_to_learn] }.first %>
-  <% top_flashcard = @flashcards.find(top_user_flashcard.flashcard_id) %>
-  <%= 'Question:' %>
-  <%= top_flashcard.question %>
-  <br>
-  <%= 'Answer:' %>
-  <%= top_flashcard.answer %>
-  <br>
-  <button>Incorrect</button>
+
+  <%# <h3 class="text-center m-3"><%= content_tag :span, @user_deck_flashcards_to_learn.count, class: 'badge bg-warning' %> <%# </h3> %>
+
+  <div class="my-3">
+    <%= render 'components/today_learn_progress_bar', user_deck: @user_deck, user_flashcards: @user_flashcards %>
+  </div>
+
+
+  <%= render "components/flashcard", top_flashcard: @top_flashcard, top_user_flashcard: @top_user_flashcard, learn_or_review: 'learn' %>
+
+  <%# <button>Incorrect</button>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
 
-  <button>Correct</button>
-  <%= link_to "Correct", update_learn_user_flashcard_path(top_user_flashcard), method: :patch %>
+  <%# <button>Correct</button>
+  <%#= link_to "Correct", update_learn_user_flashcard_path(@top_user_flashcard), method: :patch %>
   <%# Edit current user_flashcard with new due review and redirect back to this view %>
+
 <% else %>
   <h2>All caught up!</h2>
 <% end %>

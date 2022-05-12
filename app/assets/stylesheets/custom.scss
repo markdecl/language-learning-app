@@ -1,0 +1,130 @@
+
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// @import "node_modules/bootstrap/scss/bootstrap"; // file not found
+// @import "bootstrap/scss/bootstrap";
+
+$theme-colors: (
+  "primary": #ff4136,
+  "danger": #ff4136
+);
+
+// Bootstrap and its default variables
+// @import "node_modules/bootstrap/scss/bootstrap";
+// @import "bootstrap/scss/bootstrap";
+
+// Set color scheme
+// $green: #197278;
+$green: #115055;
+$teal: #004777;
+// $yellow: #F7B32B;
+// $yellow: #FFCB77;
+$yellow: #FFE900;
+// $red: #DE6B48;
+// $red: #ED254E;
+// $red: #FF5964;
+// $red: #E53D00;
+// $gray: #EBF2FA;
+// $gray: #FEF9EF;
+// $gray: #F1F7F8;
+$gray: #FCFFF7;
+
+
+html, body {
+  // background-color: $gray;
+  // font-family: 'Cabin', sans-serif !important;
+  // font-family: 'Merriweather', serif !important;
+  // font-family: 'Lexend', sans-serif !important;
+  font-family: 'Comic Sans', sans-serif !important;
+}
+
+#wrap {
+  // background-color: #FFE9F3;
+  // background-color: #FFFBFC;
+  // background-color: #BCE7FD;
+  // background-color: #DDFFF7;
+}
+
+.card {
+  // background-color: #41EAD4 !important;
+  // border-radius: 0 !important;
+}
+
+.btn-primary {
+  background-color: #3454D1 !important;
+  border-color: #3454D1 !important;
+}
+
+.btn-success {
+  color: black !important;
+  background-color: #56E39F !important;
+  border-color: #56E39F !important;
+}
+
+.btn-danger {
+  background-color: #E83F6F !important;
+}
+
+.bg-danger {
+  background-color: #E83F6F !important;
+}
+
+.bg-success {
+  background-color: #56E39F !important;
+}
+
+nav .navbar-nav li a, .navbar-brand {
+  // color: white !important;
+}
+
+.table-success {
+  background-color: #56E39F !important;
+}
+
+.navbar {
+  // position: sticky;
+  // top: 0;
+  // z-index: 100;
+  // height: 70px;
+  // box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+  // background: #0A122A;
+
+  // background: #3454D1;
+  background: rgba(52, 84, 209, 0);
+  // background: white;
+
+  // color: $gray;
+  // font-size: 30px;
+  transition: background-color 200ms linear;
+}
+
+.navbar-text {
+  color:rgba(52, 84, 209, 1)
+}
+
+.navbar.scrolled {
+  background: rgba(52, 84, 209, 1);
+  // background-color: #fff !important;
+  transition: background-color 200ms linear;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: #FFBF00 !important;
+}
+
+.nav-link {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+footer {
+  // background: #3454D1;
+  background: rgba(52, 84, 209, 1);
+  color: white;
+}
+
+#today-learn-progress-bar {
+  // transition-delay: 0.5s;
+}

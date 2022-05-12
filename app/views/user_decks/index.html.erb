@@ -2,94 +2,19 @@
 <%# <div class="container-fluid main-container">
   <div class="row"> %>
     <%# <div class="col"> %>
-<div class='container'>
+<%# <div class='container'> %>
 
+<% if @user_decks.any? %>
   <% @user_decks.each do | user_deck | %>
 
-    <% deck = @decks.find(user_deck.deck_id) %>
-    <% user_deck_flashcards_count = @user_flashcards.where(user_deck_id: user_deck.id).count %>
-    <% user_deck_flashcards_learnt_count = @user_flashcards.where("user_deck_id = ? AND learnt = ?", user_deck.id, true).count %>
-    <% user_deck_flashcards_to_review_count = @user_flashcards.where("user_deck_id = ? AND learnt = ? AND next_review < ?", user_deck.id, true, Time.now).count %>
+    <%= render "components/user_deck_card", user_deck: user_deck, user_flashcards: @user_flashcards %>
 
-    <div class="row deck-row">
-      <div class="col-sm-2 deck-img-col">
-        <%# add deck image here: %>
-        <%= image_tag "st_basils_cathedral.jpg", class: "user_deck_img" %>
-        <%# <img src="st_basils_cathedral.jpg" data-src="aws-image.jpg" class="lazyload" /> %>
-      </div>
-      <div class="col-lg-10 deck-info-col">
-        <div class="row deck-row-top-buffer">
-          <div class="col">
-            <%# <h2><%= user_deck.language</h2> %>
-            <h2><%= deck.name %></h2>
-            <h2><%= deck.language %></h2>
-          </div>
-          <div class="col-lg-1 justify-content-end" >
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-8">
-            <%# ***Progress bar*** %>
-            <%= user_deck_flashcards_learnt_count %>
-            /
-            <%= user_deck_flashcards_count %>
-
-            <div class="progress">
-              <% if user_deck_flashcards_learnt_count > 0 && user_deck_flashcards_count > 0 %>
-                <%= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100  %>
-                <div class="progress-bar" role="progressbar" style="width: <%= user_deck_flashcards_learnt_count / user_deck_flashcards_count * 100 %>%" aria-valuenow="<%= user_deck_flashcards_learnt_count %>" aria-valuemin="0" aria-valuemax="<%= user_deck_flashcards_count %>"></div>
-              <% end %>
-            </div>
-
-            <br>
-            ***Today's goal: 6/10 cards***
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
-            </div>
-            <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
-            <%# if user_deck_flashcards_learnt_count > 0 and user_deck_flashcards_count > 0 %>
-              <%#= (user_deck_flashcards_learnt_count / user_deck_flashcards_count) * 100 %>
-            <%# else %>
-              <%# 0% %>
-            <%# end %>
-          </div>
-          <div class="col-lg-4">
-            <div class="col deck-button-col">
-              <%# <%= link_to "Show", user_deck_path(user_deck.id) %>
-              <%= button_to "Show", user_deck_path(user_deck.id), method: :get, id: 'show-button', class: 'deck-button' %>
-
-            </div>
-            <div class="col deck-button-col">
-              <%# <%= link_to "Learn", user_deck_learn_path(user_deck.id) %>
-              <%= button_to "Learn", user_deck_learn_path(user_deck.id), method: :get , id: 'learn-button', class: 'deck-button' %>
-              <%# <button type="button" class="btn btn-warning">Learn</button> %>
-            </div>
-            <div class="col deck-button-col">
-              <%# <%= link_to "Review", user_deck_path(user_deck.id) %>
-              <%# <%= link_to "Review", user_deck_review_path(user_deck.id) %>
-              <% if user_deck_flashcards_to_review_count > 0 %>
-                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button reviews_due' %>
-              <% else %>
-                <%= button_to "Review (#{user_deck_flashcards_to_review_count})", user_deck_review_path(user_deck, answer_checked: false, answer_correct: false), method: :get, id: 'review-button', class: 'deck-button' %>
-              <% end %>
-
-              <%# helper method to return count of review pile %>
-              <%# <%= button_to "Review", user_deck_review_path(user_deck.id) %>
-              <%# <button type="button" class="btn btn-danger">Review</button> %>
-            </div>
-
-          <%= link_to "Delete", user_deck_path(user_deck), :method => :delete %>
-
-          </div>
-        </div>
-        </div>
-      <%# <%= link_to user_deck.language, user_deck_path(user_deck.id) %>
-    </div>
-    <br>
   <% end %>
+<% else %>
+  <h1 class="text-center my-auto">No decks added yet.</h1>
+<% end %>
 
-</div>
+<%# </div> %>
     <%# </div> %>
     <%# <div class="col">
       Second column

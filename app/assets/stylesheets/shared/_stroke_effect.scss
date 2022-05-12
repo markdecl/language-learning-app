@@ -1,0 +1,44 @@
+/* stroke */
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+
+nav.stroke ul li a,
+.user_deck_card.card-title h3 {
+  position: relative;
+}
+
+nav.stroke ul li a:after,
+.user_deck_card.card-title h3:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #3454D1 !important;
+  height: 1px;
+}
+
+nav.stroke.scrolled ul li a:after,
+.user_deck_card.card-title h3:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #ffff !important;
+  height: 1px;
+}
+
+nav.stroke ul li a:hover:after,
+.user_deck_card.card-title h3:hover:after {
+  width: 100%;
+}

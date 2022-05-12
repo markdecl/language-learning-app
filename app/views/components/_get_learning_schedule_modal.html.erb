@@ -1,0 +1,51 @@
+<%# Current learning schedule: <%= @user_deck.learning_schedule %>
+
+<!-- Modal -->
+<div class="modal fade" id="GetLearningScheduleModal<%= user_deck.id %>" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change learning schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="card-text">
+          Current learning schedule: <%= user_deck.to_learn_per_day %> per day
+        </p>
+        <p class="card-text">
+          <% unless user_deck.to_learn_per_day.nil? %>
+            <% if user_deck.to_learn_per_day > 0 %>
+              Time to complete deck: <%= user_deck_flashcards_to_learn_count / user_deck.to_learn_per_day %> days
+            <% end %>
+          <% end %>
+        </p>
+
+        <%#= form_with url: update_learning_schedule_path, method: :post do |form| %>
+        <%= form_for user_deck, url: { action: :update_to_learn_per_day }, method: :post do |form| %>
+
+          <%# Which of these hidden fields is working? %>
+          <%= hidden_field_tag 'id', user_deck.id %>
+          <%= form.hidden_field :id, value: user_deck.id %>
+
+          <%= form.label :to_learn_per_day, "New cards to learn per day:" %>
+          <%= form.number_field :to_learn_per_day, in: 1..100, step: 1 %>
+          <%= form.submit "Update", class: "btn btn-primary" %>
+          </div>
+          <%#
+          <div class="modal-footer">
+          </div>
+          %>
+        <% end %>
+
+        <%# Are you sure you want to delete this deck? This action cannot be undone. %>
+      <%# <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <%# <button type="button" class="btn btn-danger">Delete</button> %>
+
+        <%#= link_to user_deck_path(user_deck), :method => :delete, class: 'btn btn-danger', data: {toggle: :tab} do %>
+          <%# Delete
+        <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="card m-3 deck_card" style="">
+  <%= image_tag "#{deck.name.downcase}.jpg", class: "img-fluid deck_card_img", style: "height:200px;object-fit:cover;" %>
+  <div class="card-body">
+    <h3 class="card-title"><%= deck.name %></h3>
+    <% if deck_flashcards_count == 1 %>
+      <p class="card-text"><%= deck_flashcards_count %> card</p>
+    <% else %>
+      <p class="card-text"><%= deck_flashcards_count %> cards</p>
+    <% end %>
+    <%# <p class="card-text">Last updated 3 mins ago</p> %>
+    <%= link_to "View", deck_path(deck.id), method: :get, class: 'btn btn-primary' %>
+    <% if user_signed_in? %>
+      <% unless user_deck_ids.include? deck.id %>
+        <%= link_to "Add", user_decks_path(deck_id: deck.id), method: :post, class: 'btn btn-success' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

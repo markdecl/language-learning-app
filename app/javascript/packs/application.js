@@ -7,8 +7,21 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require('jquery')
 
-import "@fortawesome/fontawesome-free/css/all"
+require("packs/closeAlert")
+// require("packs/navbarScrollColourChange")
+
+import "@fortawesome/fontawesome-free/css/all";
+
+//= require jquery_ujs
+
+// import "bootstrap"
+// import 'bootstrap';
+
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
 
 
 // require("flip_flashcard")
@@ -20,3 +33,6 @@ import "@fortawesome/fontawesome-free/css/all"
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+
+// ------ User deck confirm delete modal ------

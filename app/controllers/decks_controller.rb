@@ -1,7 +1,11 @@
 class DecksController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show, :index]
 
   def index
     @decks = Deck.all
+    if user_signed_in?
+      @user_deck_ids = UserDeck.where(user_id: current_user.id).pluck("deck_id")
+    end
     @flashcards = Flashcard.all
   end
 

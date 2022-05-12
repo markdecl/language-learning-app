@@ -1,0 +1,11 @@
+.see-answer-button {
+  // display:inline;
+}
+
+.see-answer-button:not(.collapsed) {
+  display: none;
+}
+
+.see-answer-button.collapsed #hide-answer {
+  display:none;
+}

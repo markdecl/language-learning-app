@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_011054) do
+ActiveRecord::Schema.define(version: 2022_04_11_230509) do
 
   create_table "decks", force: :cascade do |t|
     t.string "language"
@@ -50,25 +50,43 @@ ActiveRecord::Schema.define(version: 2022_03_09_011054) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "language"
     t.integer "deck_id", null: false
+    t.integer "user_id", null: false
+    t.integer "to_learn_per_day"
+    t.index ["deck_id", "user_id"], name: "index_user_decks_on_deck_id_and_user_id", unique: true
     t.index ["deck_id"], name: "index_user_decks_on_deck_id"
+    t.index ["user_id"], name: "index_user_decks_on_user_id"
   end
 
   create_table "user_flashcards", force: :cascade do |t|
     t.datetime "next_review"
     t.datetime "due_to_learn"
-    t.boolean "learnt"
+    t.datetime "learnt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_deck_id"
     t.integer "flashcard_id"
     t.datetime "previous_review"
     t.boolean "lapsed"
+    t.boolean "ignore"
     t.index ["flashcard_id"], name: "index_user_flashcards_on_flashcard_id"
     t.index ["user_deck_id"], name: "index_user_flashcards_on_user_deck_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "flashcards", "decks"
   add_foreign_key "user_decks", "decks"
+  add_foreign_key "user_decks", "users"
   add_foreign_key "user_flashcards", "flashcards"
   add_foreign_key "user_flashcards", "user_decks"
 end

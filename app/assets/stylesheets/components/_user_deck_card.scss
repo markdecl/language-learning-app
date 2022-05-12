@@ -1,0 +1,39 @@
+@import "components/card";
+
+.user_deck_card {
+  position: relative; // so the delete icon can have position:absolute and go in the top right of the user deck card
+  transition: 0.2s;
+}
+
+// .user_deck_card:hover {
+//   // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+//   // rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+//   transition: 0.2s;
+//   // transition-property: box-shadow;
+//   box-shadow: 0 1rem #ccc;
+//   top: -1rem;
+//   // right: -1rem;
+// }
+
+.user_deck_card_img {
+  // border-radius: 50%;
+  height: 313px !important;
+  object-fit:cover;
+}
+
+#user_deck_card_dropdown {
+  display: inline-block;
+  float: right;
+  margin: 13px 5px 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.progress {
+  height: 1.5rem;
+}
+
+// .user_deck_card.card-title {
+//   text-decoration: none;
+// }
